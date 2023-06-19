@@ -1,0 +1,122 @@
+button{
+    width: 200px;
+}
+
+input{
+    width: 250px;
+}
+
+#goback{
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#services{
+    padding: 3px 3px 3px;
+    width: 250px;
+    height: 40px;
+    border: 2px solid #2b7499;
+    border-radius: 5px;
+    background-color: #21252B;
+    color: #CCCCCC;
+    text-align: center;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+    transition-duration: 0.2s;
+}
+
+#datas{
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#modify, #addd{
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#delete, #errora{
+    color: rgb(229, 83, 83);
+}
+
+#success, #successa, #successa{
+    color:lightseagreen;
+    padding-top: 5px;
+}
+
+#confirm{
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#text{
+    display: flex;
+    flex-direction: column;
+    margin-top: 100px;
+    align-items: center;
+}
+
+#buttons, .buttons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+#successb{
+    color:lightseagreen;
+    padding-top: 5px;
+}
+
+.buttons > button{
+    margin-inline: 20px;
+}
+
+.data{
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 5px 5px;
+    width: 200px;
+    height: fit-content;
+    border: 2px solid #2b7499;
+    border-radius: 5px;
+    background-color: #21252B;
+    color: #CCCCCC;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+    transition-duration: 0.2s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.data:hover{
+    background-color: #2b2d30;
+}
+
+.data:active{
+    background-color: #274858;
+}
+
+.stuff {
+    width: 700px;
+    table-layout: fixed;
+}

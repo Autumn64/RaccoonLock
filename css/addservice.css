@@ -1,0 +1,60 @@
+img{
+    width: 100px;
+}
+
+input{
+    width: 300px;
+}
+
+#goback{
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+}
+
+#container, #neww{
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#pictures{
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#applebtn{
+    width: 80px;
+}
+
+#otherbtn{
+    margin-top: 10px;
+    width: 60%;
+}
+
+#submit{
+    margin-top: 30px;
+    width: 250px;
+}
+
+#success{
+    color:lightseagreen;
+    padding-top: 5px;
+}
+
+
+.picbtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    margin: 10px 10px;
+}

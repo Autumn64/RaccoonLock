@@ -1,0 +1,30 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.img-splash{
+    width: 300px; 
+}
+.img-loading{
+    height: 50px;
+    width: 50px;
+}
+#container{
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#splash{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.loading{
+    text-align: center;
+    padding-top: 5px;
+}

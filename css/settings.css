@@ -1,0 +1,46 @@
+#goback{
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+}
+
+#about{
+    width: fit-content;
+    height: 35px;
+    padding: 5px;
+}
+
+#info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#verify{
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#errorv {
+    color: rgb(229, 83, 83);
+    padding-top: 5px;
+}
+
+#success{
+    color:lightseagreen;
+    padding-top: 5px;
+}
+
+input{
+    padding: 5px 5px 3px;
+    width: 250px;
+    height: 30px;
+    transition-duration: 0.2s;
+}
+
+button{
+    width: 200px;
+}

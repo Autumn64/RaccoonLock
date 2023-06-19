@@ -1,0 +1,27 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.img-splash{
+    width: 300px; 
+}
+.img-loading{
+    height: 50px;
+    width: 50px;
+}
+#container{
+    height: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    animation: fadein 2s;
+}
+#starting{
+    display: inline-flex;
+    text-align: center;
+    padding-top: 5px;
+}

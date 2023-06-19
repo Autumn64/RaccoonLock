@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/settings.css">
+    <title>RaccoonLock</title>
+  </head>
+  <body>
+    <div id="topbar">
+        <button id="goback"><-</button>
+        <button id="about">About</button>
+    </div><br><br>
+    <div id="info">
+        <h2>Settings</h2><br><br>
+        <table>
+            <tr>
+              <td>Name:</td>
+              <td><input id="name" type="text" placeholder="Name"></td>
+            </tr>
+            <tr>
+              <td>Mail:</td>
+              <td><input id="user" type="email" placeholder="E-mail"></td>
+            </tr>
+            <tr>
+              <td>Phone:</td>
+              <td><input id="phone" type="tel" placeholder="Phone"></td>
+            </tr>
+            <tr>
+                <td>Birthday:</td>
+                <td><input id="birthdate" type="date" placeholder="Birthday"></td>
+            </tr>
+          </table>
+          <div id="error" class="hidden"></div><br><br>
+          <button id="save">Save</button><br>
+          <button id="reset">Reset app</button>
+    </div>
+    <div id="verify" class="hidden">
+      <br><br><br><br>
+      <h2>Enter the code that <br>was sent to you by e-mail.</h2><br><br>
+      <input id="code" type="text" placeholder="Code" required>
+      <div id="errorv" class="hidden">
+      </div>
+      <div id="success" class="hidden">Data modified successfully!</div><br><br>
+      <button id="submitv">Verify</button><br>
+      <a id="gobackl" href="#">Whoops! I got my data wrong.</a>
+    </div>
+  </body>
+  <script src="js/settings.js"></script>
+</html>

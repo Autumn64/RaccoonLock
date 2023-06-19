@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/firstrun.css">
+    <title>RaccoonLock</title>
+  </head>
+  <body>
+    <div id="bienvenue" class="hidden">
+      <h1>Welcome.</h1>
+    </div>
+    <div id="login" class="hidden">
+      <br><br><br><br>
+      <h2>First, let's set an account up.</h2><br><br>
+      <input id="name" type="text" placeholder="Name" required><br>
+      <input id="email" type="email" placeholder="E-mail address" required><br>
+      <input id="phone" type="tel" placeholder="Phone number" required>
+      <div id="error" class="hidden">
+      </div><br><br>
+      <button id="submit">Start</button>
+    </div>
+    <div id="verify" class="hidden">
+      <br><br><br><br>
+      <h2>Now enter the code that<br>was sent to you by e-mail.</h2><br><br>
+      <input id="code" type="text" placeholder="Code" required>
+      <div id="errorv" class="hidden">
+      </div><br><br>
+      <button id="submitv">Verify</button><br>
+      <a id="goback" href="#">Whoops! I got my data wrong.</a>
+    </div>
+  </body>
+  <script src="js/firstrun.js"></script>
+</html>

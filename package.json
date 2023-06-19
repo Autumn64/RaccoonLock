@@ -1,0 +1,23 @@
+{
+  "name": "raccoonlock",
+  "version": "1.0.0",
+  "description": "General-purpose password manager",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "passwords",
+    "passmanager"
+  ],
+  "author": "Aurora Giselle Flores Gómez (Autumn64)",
+  "license": "BSD-3-Clause",
+  "devDependencies": {
+    "electron": "^25.1.1"
+  },
+  "dependencies": {
+    "custom-electron-titlebar": "^4.2.3",
+    "fs": "^0.0.1-security",
+    "nodemailer": "^6.9.3"
+  }
+}

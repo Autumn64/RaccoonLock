@@ -1,0 +1,67 @@
+#goback{
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#pass_size{
+    padding: 3px 3px 3px;
+    width: 150px;
+    height: 40px;
+    border: 2px solid #2b7499;
+    border-radius: 5px;
+    background-color: #21252B;
+    color: #CCCCCC;
+    text-align: center;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+    transition-duration: 0.2s;
+}
+
+#pass{
+    padding: 15px 5px 3px;
+    width: 250px;
+    height: 30px;
+    border: 2px solid #2b7499;
+    border-radius: 5px;
+    background-color: #21252B;
+    color: #CCCCCC;
+    text-align: center;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+    transition-duration: 0.2s;
+}
+
+#pass:hover{
+    background-color: #2b2d30;
+}
+
+#pass:active{
+    background-color: #274858;
+}
+
+#generate{
+    width: 200px;
+}
+
+#copied{
+    margin-top: 50px;
+    padding: 15px 5px 10px;
+    width: 300px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: #00833b;
+    color: #CCCCCC;
+    text-align: center;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+}

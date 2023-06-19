@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/addservice.css">
+    <title>RaccoonLock</title>
+    </head>
+    <body>
+        <div id="topbar">
+            <button id="goback"><-</button>
+        </div><br><br>
+        <div id="container" class="hidden">
+            <h1>Select a service</h1>
+            <div id="pictures">
+                <button id="Microsoft" class="picbtn">
+                    <img src="res/microsoft.png">
+                </button>
+                <button id="Google" class="picbtn">
+                    <img src="res/google.png">
+                </button>
+                <button id="Apple" class="picbtn">
+                    <img id="applebtn" src="res/apple.png">
+                </button>
+                <button id="Instagram" class="picbtn">
+                    <img src="res/instagram.png">
+                </button>
+                <button id="Twitter" class="picbtn">
+                    <img src="res/twitter.png">
+                </button>
+                <button id="Reddit" class="picbtn">
+                    <img src="res/reddit.png">
+                </button>
+                <button id="Microsoft Teams" class="picbtn">
+                    <img src="res/teams.png">
+                </button>
+                <button id="Spotify" class="picbtn">
+                    <img src="res/spotify.png">
+                </button>
+                <button id="Canva" class="picbtn">
+                    <img src="res/canva.png">
+                </button>
+                <button id="Netflix" class="picbtn">
+                    <img src="res/netflix.png">
+                </button>
+                <button id="Pinterest" class="picbtn">
+                    <img src="res/pinterest.png">
+                </button>
+                <button id="Snapchat" class="picbtn">
+                    <img src="res/snapchat.png">
+                </button>
+            </div>
+            <div id="otherbtn">
+                <button id="other">
+                    Add other
+                </button>
+            </div>
+        </div>
+        <div id="neww" class="hidden">
+            <br><br><br><br>
+            <h2>Add a new service</h2><br><br>
+            <input id="service" type="text" placeholder="Service or platform" required><br>
+            <input id="user" type="email" placeholder="User" required><br>
+            <input id="password" type="text" placeholder="Password" required>
+            <div id="error" class="hidden"></div>
+            <div id="success" class="hidden">Data added successfully!</div>
+            <button id="submit">Add</button>
+        </div>
+    </body>
+    <script src="js/addservice.js"></script>
+</html>

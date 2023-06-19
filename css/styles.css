@@ -1,0 +1,73 @@
+@font-face{font-family: Raleway-SemiBold; src: url('./Raleway-SemiBold.ttf')}
+body{
+    background-color: #282C34;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+    color: #d8d8d8;
+    animation: fadein 0.5s;
+}
+
+input{
+    padding: 5px 5px;
+    width: 80%;
+    height: 40px;
+    border: 2px solid #2b7499;
+    border-radius: 5px;
+    background-color: #21252B;
+    color: #CCCCCC;
+    text-align: center;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+}
+
+button{
+    padding: 2px;
+    width: 60%;
+    height: 40px;
+    border: 2px solid #3a464e;
+    border-radius: 5px;
+    background-color: #21252B;
+    transition-duration: 0.4s;
+    color: #CCCCCC;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+}
+
+button:hover{
+    background-color: #2b2d30;
+}
+
+button:active{
+    background-color: #274858;
+}
+
+a:link{
+    color: #2964c2;
+}
+
+#error {
+    color: rgb(229, 83, 83);
+    padding-top: 5px;
+}
+
+#topbar{
+    display: inline;
+    position: fixed;
+    width: 100%;
+    margin-top: 5px;
+    margin-left: 10px;
+}
+
+.hidden{
+    display: none;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
