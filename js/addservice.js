@@ -16,7 +16,7 @@ document.getElementById('submit').addEventListener('click', addData); //Submit b
 
 function readInfo(){
     var other = document.getElementById('other');
-    json = JSON.parse(fs.readFileSync('C:/UVMC/data.json', 'utf8'));
+    json = JSON.parse(fs.readFileSync('C:/RaccoonLock/data.json', 'utf8'));
     exec('encrypt.exe', (error, data) => {});
     container.classList.remove('hidden');
     container.style.display = 'flex';
@@ -63,7 +63,7 @@ function addData(){
     for(let key in json){
         if (service.toLowerCase() === key.toLowerCase()){
             error.classList.remove('hidden'); //Shows error message
-            error.innerHTML = "¡Ya existe un servicio con ese nombre!";
+            error.innerHTML = "There's already a service with that name!";
             return;
         }
     }
@@ -76,7 +76,7 @@ function addData(){
         newJSON[service].password.push(password);
         exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {
             setTimeout(() =>{
-                fs.writeFileSync("C:/UVMC/data.json", JSON.stringify(newJSON), (err) => {});
+                fs.writeFileSync("C:/RaccoonLock/data.json", JSON.stringify(newJSON), (err) => {});
                 exec('encrypt.exe', (err, data) =>{});
             }, 1000);
         });
@@ -86,6 +86,6 @@ function addData(){
         setTimeout(() => window.location.href = 'showpass.html', 5000); //Go to showpass
     }else{
         error.classList.remove('hidden'); //Shows error message
-        error.innerHTML = "Introduce los datos solicitados.";
+        error.innerHTML = "Enter the requested data.";
     }
 }

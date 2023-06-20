@@ -32,7 +32,7 @@ document.getElementById('save').addEventListener('click', () =>{ //Save button
     if(tmpuser.trim() === "" || tmppassword.trim() === ""){
         var err = document.getElementById('error');
         err.classList.remove('hidden');
-        err.innerHTML = "Introduce los datos solicitados.<br><br>";
+        err.innerHTML = "Enter the requested data.<br><br>";
         change = false;
     }
     if(change === true){
@@ -92,7 +92,7 @@ function showAll(){
 
 function getData(){
     var parameters = new URLSearchParams(document.location.search);
-    json = JSON.parse(fs.readFileSync('C:/UVMC/data.json', 'utf8'));
+    json = JSON.parse(fs.readFileSync('C:/RaccoonLock/data.json', 'utf8'));
     exec('encrypt.exe', (error, data) => {});
     for (var key in json){
         keys.push(key);
@@ -112,13 +112,13 @@ function showData(key){
     for(let i = 0; i < json[key].user.length; i++){
         let rowUser = table.insertRow();
         let cell1User = rowUser.insertCell();
-        cell1User.innerHTML = "Usuario: ";
+        cell1User.innerHTML = "User: ";
         let cell2User = rowUser.insertCell();
         cell2User.innerHTML = `<div class="data" id="${i}">${json[key].user[i]}</div>`;
 
         let rowPass = table.insertRow();
         let cell1Pass = rowPass.insertCell();
-        cell1Pass.innerHTML = "Contraseña: ";
+        cell1Pass.innerHTML = "Password: ";
         let cell2Pass = rowPass.insertCell();
         cell2Pass.innerHTML = `<div class="data" id="${i}">${json[key].password[i]}</div><br><br>`; //Password array works the same way
         // Add two empty rows after password row
@@ -139,7 +139,7 @@ function showData(key){
     }
     var add = document.createElement('button');
     add.id = 'add';
-    add.innerHTML = 'Agregar cuenta';
+    add.innerHTML = 'Add account';
     datas.appendChild(add);
     document.getElementById('add').addEventListener('click', () =>{ //Add button
         var addd = document.getElementById('addd');
@@ -173,7 +173,7 @@ function updateJSON(key, index, user, pass){
     var newJSON = JSON.stringify(json);
     exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {
         setTimeout(() =>{
-            fs.writeFileSync("C:/UVMC/data.json", newJSON, (err) => {});
+            fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
             exec('encrypt.exe', (err, data) =>{});
         }, 1000);
     });
@@ -193,8 +193,8 @@ function deleteData(){
     }
     var newJSON = JSON.stringify(json);
     exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {
-        setTimeout(() =>{ //Update JSON\
-            fs.writeFileSync("C:/UVMC/data.json", newJSON, (err) => {});
+        setTimeout(() =>{ //Update JSON
+            fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
             exec('encrypt.exe', (err, data) =>{});
         }, 1000);
     });
@@ -215,7 +215,7 @@ function addData(){
         var newJSON = JSON.stringify(json);
         exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {
             setTimeout(() =>{ //Update JSON
-                fs.writeFileSync("C:/UVMC/data.json", newJSON, (err) => {});
+                fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
                 exec('encrypt.exe', (err, data) =>{});
             }, 1000);
         });
@@ -227,6 +227,6 @@ function addData(){
         window.location.href = `modifyservice.html?id=${services.value.replace(' ', '%20')}`, 3000);
     }else{
         errora.classList.remove('hidden');
-        errora.innerHTML = "Introduce los datos solicitados.<br><br>";
+        errora.innerHTML = "Enter the requested data.<br><br>";
     }
 }

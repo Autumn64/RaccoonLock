@@ -15,7 +15,7 @@ document.getElementById('goback').addEventListener('click', () =>
     window.location.href = 'mainmenu.html');
 
 function getData(){
-    json = JSON.parse(fs.readFileSync('C:/UVMC/data.json', 'utf8'));
+    json = JSON.parse(fs.readFileSync('C:/RaccoonLock/data.json', 'utf8'));
     exec('encrypt.exe', (error, data) => {});
     container.classList.remove('hidden'); //Shows container
     container.style.display = 'flex';
@@ -24,7 +24,7 @@ function getData(){
         keys.push(key);
     }
     if (keys.length === 0){
-        container.innerHTML += "No hay datos para mostrar.";
+        container.innerHTML += "No data available.";
         theresData = false;
     }
     if (theresData === true){
@@ -52,13 +52,13 @@ function showData(key){ //Iterates for each service
     for (let i = 0; i < json[key].user.length; i++){ //For each item in the "user" array
         let rowUser = table.insertRow();
         let cell1User = rowUser.insertCell();
-        cell1User.innerHTML = "Usuario: ";
+        cell1User.innerHTML = "User: ";
         let cell2User = rowUser.insertCell();
         cell2User.innerHTML = `<div class="data">${json[key].user[i]}</div>`;
 
         let rowPass = table.insertRow();
         let cell1Pass = rowPass.insertCell();
-        cell1Pass.innerHTML = "Contraseña: ";
+        cell1Pass.innerHTML = "Password: ";
         let cell2Pass = rowPass.insertCell();
         cell2Pass.innerHTML = `<div class="data">${json[key].password[i]}</div>`; //Password array works the same way
         // Add two empty rows after password row
