@@ -8,15 +8,14 @@ const copied = document.getElementById('copied');
 var theresData = true;
 
 window.addEventListener('DOMContentLoaded', () =>{
-    exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {});
-    setTimeout(getData, 1000);
+    exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {setTimeout(getData, 1000);});
 });
 
 document.getElementById('goback').addEventListener('click', () =>
     window.location.href = 'mainmenu.html');
 
 function getData(){
-    json = JSON.parse(fs.readFileSync('C:/RaccoonLock/data.json', 'utf8'));
+    json = JSON.parse(fs.readFileSync('C:/UVMC/data.json', 'utf8'));
     exec('encrypt.exe', (error, data) => {});
     container.classList.remove('hidden'); //Shows container
     container.style.display = 'flex';
@@ -25,7 +24,7 @@ function getData(){
         keys.push(key);
     }
     if (keys.length === 0){
-        container.innerHTML += "No data available.";
+        container.innerHTML += "No hay datos para mostrar.";
         theresData = false;
     }
     if (theresData === true){
@@ -53,13 +52,13 @@ function showData(key){ //Iterates for each service
     for (let i = 0; i < json[key].user.length; i++){ //For each item in the "user" array
         let rowUser = table.insertRow();
         let cell1User = rowUser.insertCell();
-        cell1User.innerHTML = "User: ";
+        cell1User.innerHTML = "Usuario: ";
         let cell2User = rowUser.insertCell();
         cell2User.innerHTML = `<div class="data">${json[key].user[i]}</div>`;
 
         let rowPass = table.insertRow();
         let cell1Pass = rowPass.insertCell();
-        cell1Pass.innerHTML = "Password: ";
+        cell1Pass.innerHTML = "Contraseña: ";
         let cell2Pass = rowPass.insertCell();
         cell2Pass.innerHTML = `<div class="data">${json[key].password[i]}</div>`; //Password array works the same way
         // Add two empty rows after password row
