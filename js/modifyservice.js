@@ -40,6 +40,7 @@ document.getElementById('save').addEventListener('click', () =>{ //Save button
         setTimeout(() =>{
             document.getElementById('error').style.display = 'none';
             document.getElementById('success').classList.remove('hidden'); //Shows success message
+            document.getElementById('goback').style.display = 'none'; //Hide back button
         }, 300);
         setTimeout(() => 
         window.location.href = `modifyservice.html?id=${services.value.replace(' ', '%20')}`, 3000);
@@ -95,6 +96,7 @@ function getData(){
     json = JSON.parse(fs.readFileSync('C:/RaccoonLock/data.json', 'utf8'));
     exec('encrypt.exe', (error, data) => {});
     for (var key in json){
+        if(key === 'RaccoonLock') continue; //Ignores the app's password
         keys.push(key);
     }
     keys.forEach((key) =>{
@@ -171,12 +173,8 @@ function updateJSON(key, index, user, pass){
     json[key].user[index] = user;
     json[key].password[index] = pass;
     var newJSON = JSON.stringify(json);
-    exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {
-        setTimeout(() =>{
-            fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
-            exec('encrypt.exe', (err, data) =>{});
-        }, 1000);
-    });
+    fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
+    exec('encrypt.exe', (err, data) =>{});
 }
 
 function deleteData(){
@@ -192,13 +190,12 @@ function deleteData(){
         delete json[key];
     }
     var newJSON = JSON.stringify(json);
-    exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {
-        setTimeout(() =>{ //Update JSON
-            fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
-            exec('encrypt.exe', (err, data) =>{});
-        }, 1000);
-    });
-    setTimeout(() => successb.classList.remove('hidden'), 300)
+    fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
+    exec('encrypt.exe', (err, data) =>{});
+    setTimeout(() => {
+        successb.classList.remove('hidden');
+        document.getElementById('goback').style.display = 'none'; //Hide back button
+    }, 300)
     setTimeout(() =>
     window.location.href = 'modifyservice.html?id=none', 3000);
 }
@@ -213,15 +210,12 @@ function addData(){
         json[key].user.push(usera.trimStart());
         json[key].password.push(passworda.trimStart());
         var newJSON = JSON.stringify(json);
-        exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {
-            setTimeout(() =>{ //Update JSON
-                fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
-                exec('encrypt.exe', (err, data) =>{});
-            }, 1000);
-        });
+        fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
+        exec('encrypt.exe', (err, data) =>{});
         setTimeout(() =>{
             errora.style.display = 'none'; //Hides error message if there's one
             successa.classList.remove('hidden');
+            document.getElementById('goback').style.display = 'none'; //Hide back button
         }, 300);
         setTimeout(() =>
         window.location.href = `modifyservice.html?id=${services.value.replace(' ', '%20')}`, 3000);

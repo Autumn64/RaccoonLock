@@ -21,6 +21,7 @@ function getData(){
     container.style.display = 'flex';
     container.style.animation = 'fadein 0.5s';
     for(var key in json){
+        if (key === 'RaccoonLock') continue; //Ignores the app's password
         keys.push(key);
     }
     if (keys.length === 0){

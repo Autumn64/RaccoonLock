@@ -18,14 +18,20 @@ document.getElementById('showpass').addEventListener('click', () =>{
     window.location.href = 'showpass.html';
 });
 
+document.getElementById('logout').addEventListener('click', () =>{
+    window.location.href = 'logout.html';
+});
+
 document.getElementById('editpass').addEventListener('click', () =>{
     var buttons = document.getElementById('buttons');
     var modify = document.getElementById('modify');
     var goback = document.getElementById('goback');
     var settings = document.getElementById('settings');
+    var logout = document.getElementById('logout');
 
     buttons.style.animation = 'fadeout 0.5s forwards';
     settings.style.animation = 'fadeout 0.5s forwards';
+    logout.style.animation = 'fadeout 0.5s forwards';
     setTimeout(() => {
         buttons.style.display = 'none'; //Hides buttons
         modify.classList.remove('hidden'); //Modify div
@@ -50,6 +56,7 @@ document.getElementById('goback').addEventListener('click', () =>{
     var modify = document.getElementById('modify');
     var goback = document.getElementById('goback');
     var settings = document.getElementById('settings');
+    var logout = document.getElementById('logout');
 
     modify.style.animation = 'fadeout 0.5s forwards'; //Hides modify div
     goback.style.animation = 'fadeout 0.5s forwards';
@@ -60,6 +67,8 @@ document.getElementById('goback').addEventListener('click', () =>{
         buttons.style.animation = 'fadein 0.5s';
         settings.style.display = '';
         settings.style.animation = 'fadein 0.5s';
+        logout.style.display = '';
+        logout.style.animation = 'fadein 0.5s';
     }, 1000);
 });
 

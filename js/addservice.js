@@ -74,12 +74,9 @@ function addData(){
         newJSON = {[service]: {user: [], password: []}, ...json} //Creates new key at the beginning
         newJSON[service].user.push(user);
         newJSON[service].password.push(password);
-        exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {
-            setTimeout(() =>{
-                fs.writeFileSync("C:/RaccoonLock/data.json", JSON.stringify(newJSON), (err) => {});
-                exec('encrypt.exe', (err, data) =>{});
-            }, 1000);
-        });
+        document.getElementById('goback').style.display = 'none'; //Hide back button
+        fs.writeFileSync("C:/RaccoonLock/data.json", JSON.stringify(newJSON), (err) => {});
+        exec('encrypt.exe', (err, data) =>{});
         setTimeout(() =>{
             neww.style.animation = 'fadeout 0.5s forwards'; //Hide neww div
         }, 3000);
