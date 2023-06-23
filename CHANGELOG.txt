@@ -1,0 +1,5 @@
+CHANGELOG:
+
+- Added white theme.
+- Added Password Mode.
+- Fixed bugs.
