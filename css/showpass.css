@@ -28,32 +28,6 @@
     font-size: medium;
 }
 
-.data{
-    display: inline-block;
-    margin-top: 10px;
-    padding: 5px 5px 5px;
-    width: 200px;
-    height: fit-content;
-    border: 2px solid #2b7499;
-    border-radius: 5px;
-    background-color: #21252B;
-    color: #CCCCCC;
-    font-family: Raleway-SemiBold;
-    font-size: medium;
-    transition-duration: 0.2s;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.data:hover{
-    background-color: #2b2d30;
-}
-
-.data:active{
-    background-color: #274858;
-}
-
 .stuff {
     width: 700px;
     table-layout: fixed;

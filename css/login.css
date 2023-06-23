@@ -5,8 +5,21 @@ html, body {
     justify-content: center;
 }
 
-#verify{
+input{
+    width: 230px;
+}
+
+button{
+    width: 160px;
+}
+
+#verify, #passwordd{
     flex-direction: column;
     align-items: center;
     text-align: center;
-  }
+}
+
+#errora{
+    color: rgb(229, 83, 83);
+    padding-top: 5px;
+}

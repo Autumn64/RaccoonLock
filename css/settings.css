@@ -29,9 +29,12 @@
     padding-top: 5px;
 }
 
-#success{
-    color:lightseagreen;
-    padding-top: 5px;
+#code{
+    width: 200px;
+}
+
+#submitv{
+    width: 150px;
 }
 
 input{

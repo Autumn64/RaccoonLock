@@ -43,11 +43,6 @@ input{
     width: 250px;
 }
 
-#success{
-    color:lightseagreen;
-    padding-top: 5px;
-}
-
 
 .picbtn{
     display: flex;
