@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', () =>{
-    var verified = document.getElementById('verified');
-    var container = document.getElementById('container');
-    var start = document.getElementById('start');
+    let verified = document.getElementById('verified');
+    let container = document.getElementById('container');
+    let start = document.getElementById('start');
     verified.classList.remove('hidden');
     verified.style.animation = 'fadein 1s';
     setTimeout(() => verified.style.animation = 'fadeout 1s forwards', 2000);

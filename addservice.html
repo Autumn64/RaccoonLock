@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <link rel="stylesheet" href="C:/RaccoonLock/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/addservice.css">
+    <script src="./js/lang/langaddservice.js"></script>
     <title>RaccoonLock</title>
     </head>
     <body>
@@ -13,7 +14,7 @@
             <button id="goback"><-</button>
         </div><br><br>
         <div id="container" class="hidden">
-            <h1>Select a service</h1>
+            <h1 id="title"></h1>
             <div id="pictures">
                 <button id="Microsoft" class="picbtn">
                     <img src="res/microsoft.png">
@@ -24,7 +25,7 @@
                 <button id="Apple" class="picbtn">
                     <img id="applebtn" src="res/apple.png">
                 </button>
-                <button id="Instagram" class="picbtn">
+                <button id="Instagram / Threads" class="picbtn">
                     <img src="res/instagram.png">
                 </button>
                 <button id="TikTok" class="picbtn">
@@ -63,22 +64,38 @@
                 <button id="Snapchat" class="picbtn">
                     <img src="res/snapchat.png">
                 </button>
+                <button id="NAVER" class="picbtn">
+                    <img src="res/naver.png">
+                </button>
+                <button id="Kakao" class="picbtn">
+                    <img src="res/kakao.png">
+                </button>
+                <button id="Daum" class="picbtn">
+                    <img src="res/daum.png">
+                </button>
+                <button id="LINE" class="picbtn">
+                    <img src="res/line.png">
+                </button>
+                <button id="VLIVE" class="picbtn">
+                    <img src="res/vlive.png">
+                </button>
+                <button id="Weverse" class="picbtn">
+                    <img src="res/weverse.png">
+                </button>
             </div>
             <div id="otherbtn">
-                <button id="other">
-                    Add other
-                </button>
+                <button id="other"></button>
             </div>
         </div>
         <div id="neww" class="hidden">
             <br><br><br><br>
-            <h2>Add a new service</h2><br><br>
+            <h2 id="titlenew"></h2><br><br>
             <input id="service" type="text" placeholder="Service or platform" required><br>
             <input id="user" type="email" placeholder="User" required><br>
             <input id="password" type="text" placeholder="Password" required>
             <div id="error" class="hidden"></div>
-            <div id="success" class="hidden">Data added successfully!</div>
-            <button id="submit">Add</button>
+            <div id="success" class="hidden"></div>
+            <button id="submit"></button>
         </div>
     </body>
     <script src="js/addservice.js"></script>

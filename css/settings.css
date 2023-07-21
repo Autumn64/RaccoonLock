@@ -24,13 +24,18 @@
     text-align: center;
 }
 
+#language{
+    width: 265px;
+}
+
 #errorv {
     color: rgb(229, 83, 83);
     padding-top: 5px;
 }
 
 #code{
-    width: 200px;
+    width: 230px;
+    height: 35px;
 }
 
 #submitv{

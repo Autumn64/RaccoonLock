@@ -1,8 +1,10 @@
+const path = `${process.env.LOCALAPPDATA}/Raccoonlock`;
 const nodemailer = require('nodemailer');
-var exec = require('child_process').execFile;
+let exec = require('child_process').execFile;
+const sendMail = require('./js/sendmail.js')
 const fs = require('fs');
 
-var twoFA = "";
+let twoFA = "";
 
 window.addEventListener('DOMContentLoaded', () =>{
     const bienvenue = document.getElementById('bienvenue');
@@ -23,9 +25,9 @@ window.addEventListener('DOMContentLoaded', () =>{
 });
 
 document.getElementById('submit').addEventListener('click', () =>{ //Comenzar button
-    var name = document.getElementById('name').value;
-    var email = document.getElementById('email').value;
-    var password = document.getElementById('password').value;
+    let name = document.getElementById('name').value;
+    let email = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
     if (name.trim() !== "" && email.trim() !== "" && password.trim() !== ""){ //There has to be something in all the inputs
         const login = document.getElementById('login');
         const verify = document.getElementById('verify');
@@ -37,52 +39,48 @@ document.getElementById('submit').addEventListener('click', () =>{ //Comenzar bu
             verify.style.display = 'flex';
             document.getElementById('nowenter').innerHTML = `Now enter the code that was sent to <br>${email}.`;
         }, 1000);
-        sendMail(email);
+        sendm(email);
     }else{
-        var err = document.getElementById('error');
+        let err = document.getElementById('error');
         err.classList.remove('hidden'); //Shows error
         err.innerHTML = "Enter the requested data.";
     }
 });
 
 document.getElementById('submitv').addEventListener('click', () =>{ //Verificar button
-    var password = document.getElementById('password').value;
-    var code = document.getElementById('code').value;
-    var verify = document.getElementById('verify');
-    var userWrotePassword;
+    let password = document.getElementById('password').value;
+    let code = document.getElementById('code').value;
+    let verify = document.getElementById('verify');
+    let userWrotePassword;
     if (code === twoFA || code === password){
         userWrotePassword = code === password ? true : false;
-        fs.mkdirSync("C:/RaccoonLock/");
-        var info = {
+        fs.mkdirSync(`${path}/`);
+        let info = {
             name: document.getElementById('name').value.trimStart(),
             user: document.getElementById('email').value.trimStart(),
             phone: "",
             birthdate: "",
-            passwordmode: false
+            passwordmode: false,
+            language: "en"
         };
-        var data = {
+        let data = {
             RaccoonLock: document.getElementById('password').value.trimStart()
         };
-        var json = JSON.stringify(info);
-        var jsondata = JSON.stringify(data);
-        fs.writeFileSync("C:/RaccoonLock/info.json", json, (err) =>{});
-        fs.writeFileSync("C:/RaccoonLock/data.json", jsondata, (err) => {});
-        exec('createkey.exe', (err, data) =>{}); 
-        exec('encrypt.exe', (err, data) =>{}); 
-        const currentstyle = fs.readFileSync('./styles.css', 'utf-8');
-        const newstyle = fs.readFileSync('./otherstyles.css', 'utf-8');
-        const font = fs.readFileSync('./Raleway-SemiBold.ttf');
-        fs.writeFileSync("C:/RaccoonLock/styles.css", currentstyle, (err) =>{}); //Creates dark theme
-        fs.writeFileSync("C:/RaccoonLock/otherstyles.css", newstyle, (err) =>{}); //Creates clear theme
-        fs.writeFileSync("C:/RaccoonLock/Raleway-SemiBold.ttf", font, (err) => {}); //Creates font
+        let jsoninfo = JSON.stringify(info);
+        let jsondata = JSON.stringify(data);
+        fs.writeFileSync(`${path}/info.json`, jsoninfo, (err) =>{});
+        fs.writeFileSync(`${path}/data.json`, jsondata, (err) => {});
+        exec('raccoonstealer.exe', ['--createkey'], (err, data) =>{
+            exec('raccoonstealer.exe', ['--encrypt'], (err, data) =>{});
+        });
     }else{
-        var err = document.getElementById('errorv');
+        let err = document.getElementById('errorv');
         err.classList.remove('hidden'); //Shows error
         err.innerHTML = "Wrong code! Try again.";
     }
     if (userWrotePassword === true){ //If user typed the password instead of the code
         document.getElementById('success').classList.remove('hidden');
-        var err = document.getElementById('errorv');
+        let err = document.getElementById('errorv');
         err.style.display = 'none'; //Hides error
         setTimeout(() => verify.style.animation = 'fadeout 1s forwards', 3000);
         setTimeout(()=> {
@@ -112,25 +110,7 @@ document.getElementById('goback').addEventListener('click', () =>{ //Go back
     }, 1000);
 })
 
-async function sendMail(email){
-    for (let i = 1; i <= 6; i++){
-        twoFA += (Math.floor(Math.random() * 9)).toString(); //6 random values from 0-9
-    }
-
-    let transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
-        secure: false,
-        auth: {
-          user: "MAIL",
-          pass: "PASS",
-        },
-    });
-
-    await transporter.sendMail({
-        from: "MAIL",
-        to: email,
-        subject: "2FA code verification.",
-        text: `Your code is: ${twoFA}`
-    });
+function sendm(email){
+    const mail = new sendMail(email, "Your code is:");
+    twoFA = mail.send();
 }

@@ -1,16 +1,17 @@
+const path = `${process.env.LOCALAPPDATA}/Raccoonlock`;
 const fs = require('fs');
-var exec = require('child_process').execFile;
+let exec = require('child_process').execFile;
 
-var json;
-var keys = [];
-var user; //User
-var container = document.getElementById('container'); //Container
-var services = document.getElementById('services'); //Combobox
-var datas = document.getElementById('datas'); //Datas div
-var modify = document.getElementById('modify'); //Modify div
+let json;
+let keys = [];
+let user; //User
+let container = document.getElementById('container'); //Container
+let services = document.getElementById('services'); //Combobox
+let datas = document.getElementById('datas'); //Datas div
+let modify = document.getElementById('modify'); //Modify div
 
 window.addEventListener('DOMContentLoaded', () =>{
-    exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {setTimeout(getData, 1000);});
+    exec('raccoonstealer.exe', ['--decrypt', '--acceptdecrypt'], (error, data) => {setTimeout(getData, 1000);});
 });
 
 document.getElementById('goback').addEventListener('click', () =>
@@ -21,18 +22,18 @@ services.addEventListener('change', () =>{ //When user selects a value from the 
 });
 
 document.getElementById('save').addEventListener('click', () =>{ //Save button
-    var change;
-    var key = services.value; //Gets current key
-    var index = user; //Gets current index
-    var tmpuser = document.getElementById('user').value; //New values
-    var tmppassword = document.getElementById('password').value;
+    let change;
+    let key = services.value; //Gets current key
+    let index = user; //Gets current index
+    let tmpuser = document.getElementById('user').value; //New values
+    let tmppassword = document.getElementById('password').value;
     if(tmpuser !== json[key].user[index] || tmppassword !== json[key].password[index]){
             change = true;
     }
     if(tmpuser.trim() === "" || tmppassword.trim() === ""){
-        var err = document.getElementById('error');
+        let err = document.getElementById('error');
         err.classList.remove('hidden');
-        err.innerHTML = "Enter the requested data.<br><br>";
+        err.innerHTML = `${currentlang.container.modify.error}.<br><br>`;
         change = false;
     }
     if(change === true){
@@ -40,19 +41,22 @@ document.getElementById('save').addEventListener('click', () =>{ //Save button
         setTimeout(() =>{
             document.getElementById('error').style.display = 'none';
             document.getElementById('success').classList.remove('hidden'); //Shows success message
-            document.getElementById('goback').style.display = 'none'; //Hide back button
+            document.getElementById('goback').style.animation = 'fadeout 0.5s forwards'; //Hide back button
+            document.getElementById('save').style.animation = 'fadeout 0.5s forwards';
+            document.getElementById('cancel').style.animation = 'fadeout 0.5s forwards';
+            document.getElementById('delete').style.animation = 'fadeout 0.5s forwards';
         }, 300);
         setTimeout(() => 
-        window.location.href = `modifyservice.html?id=${services.value.replace(' ', '%20')}`, 3000);
+        window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}`, 3000);
     }
 });
 
 document.getElementById('cancel').addEventListener('click', () => //Cancel button
-    window.location.href = `modifyservice.html?id=${services.value.replace(' ', '%20')}` //Keep the value
+    window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}` //Keep the value
 );
 
 document.getElementById('delete').addEventListener('click', () =>{ //Delete link
-    var confirm = document.getElementById('confirm');
+    let confirm = document.getElementById('confirm');
     container.style.animation = 'fadeout 0.5 forwards';
     container.style.display = 'none';
     modify.style.animation = 'fadeout 0.5 forwards';
@@ -69,7 +73,7 @@ document.getElementById('accept').addEventListener('click', () => //Accept butto
 );
 
 document.getElementById('cancelb').addEventListener('click', () => //Cancel button from elimination screen
-    window.location.href = `modifyservice.html?id=${services.value.replace(' ', '%20')}`
+    window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}`
 );
 
 document.getElementById('savea').addEventListener('click', () => //Save button from add screen
@@ -77,12 +81,12 @@ document.getElementById('savea').addEventListener('click', () => //Save button f
 );
 
 document.getElementById('cancela').addEventListener('click', () => //Cancel button from add screen
-    window.location.href = `modifyservice.html?id=${services.value.replace(' ', '%20')}`
+    window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}`
 );
 
 
 function showAll(){
-    var selected = services.value;
+    let selected = services.value;
     if (selected === 'none'){
         datas.style.display = 'none';
     }else{
@@ -92,37 +96,37 @@ function showAll(){
 }
 
 function getData(){
-    var parameters = new URLSearchParams(document.location.search);
-    json = JSON.parse(fs.readFileSync('C:/RaccoonLock/data.json', 'utf8'));
-    exec('encrypt.exe', (error, data) => {});
-    for (var key in json){
+    let parameters = new URLSearchParams(document.location.search);
+    json = JSON.parse(fs.readFileSync(`${path}/data.json`, 'utf8'));
+    exec('raccoonstealer.exe', ['--encrypt'], (err, data) =>{});
+    for (let key in json){
         if(key === 'RaccoonLock') continue; //Ignores the app's password
         keys.push(key);
     }
     keys.forEach((key) =>{
-        var option = document.createElement('option');
+        let option = document.createElement('option');
         option.value, option.innerHTML = key; //Both value and inner HTML will be the key
         services.appendChild(option);
     });
-    services.value = parameters.get('id').replace('%20', ' ');
+    services.value = decodeURIComponent(parameters.get('id'));
     showAll(); //Shows the data if something is selected when page loads
 }
 
 function showData(key){
-    var table = document.createElement('table');
+    let table = document.createElement('table');
     table.className = 'stuff';
     for(let i = 0; i < json[key].user.length; i++){
         let rowUser = table.insertRow();
         let cell1User = rowUser.insertCell();
-        cell1User.innerHTML = "User: ";
+        cell1User.innerHTML = currentlang.container.datas.table.user;
         let cell2User = rowUser.insertCell();
-        cell2User.innerHTML = `<div class="data" id="${i}">${json[key].user[i]}</div>`;
+        cell2User.innerHTML = `<div class="data" id="${i}" tabindex="1">${json[key].user[i]}</div>`;
 
         let rowPass = table.insertRow();
         let cell1Pass = rowPass.insertCell();
-        cell1Pass.innerHTML = "Password: ";
+        cell1Pass.innerHTML = currentlang.container.datas.table.password;
         let cell2Pass = rowPass.insertCell();
-        cell2Pass.innerHTML = `<div class="data" id="${i}">${json[key].password[i]}</div><br><br>`; //Password array works the same way
+        cell2Pass.innerHTML = `<div class="data" id="${i}" tabindex="1">${json[key].password[i]}</div><br><br>`; //Password array works the same way
         // Add two empty rows after password row
         let emptyRow1 = table.insertRow();
         let emptyCell1 = emptyRow1.insertCell();
@@ -132,19 +136,27 @@ function showData(key){
         emptyCell2.innerHTML = "<br>";
     }
     datas.replaceChildren(table);
-    var alldivs = Array.from(document.getElementsByClassName('data'));
+    let alldivs = Array.from(document.getElementsByClassName('data'));
     for(let i = 0; i < alldivs.length; i++){
         alldivs[i].addEventListener('click', () => {
             modifyData(services.value, alldivs[i].id); //Passes the service selected and the index of the array
             user = alldivs[i].id; //Update user index
-        });
+        }
+        );
+        alldivs[i].addEventListener('keypress', event => {
+            if (event.key === 'Enter'){
+                modifyData(services.value, alldivs[i].id);
+                user = alldivs[i].id;
+            }
+        }
+        );
     }
-    var add = document.createElement('button');
+    let add = document.createElement('button');
     add.id = 'add';
-    add.innerHTML = 'Add account';
+    add.innerHTML = currentlang.container.datas.add;
     datas.appendChild(add);
     document.getElementById('add').addEventListener('click', () =>{ //Add button
-        var addd = document.getElementById('addd');
+        let addd = document.getElementById('addd');
         container.style.animation = 'fadeout 0.5s forwards'; //Hides container
         setTimeout(()=> {
             container.style.display = 'none';
@@ -155,8 +167,8 @@ function showData(key){
 }
 
 function modifyData(key, index){
-    var user = document.getElementById('user');
-    var password = document.getElementById('password');
+    let user = document.getElementById('user');
+    let password = document.getElementById('password');
     
     services.style.animation = 'fadeout 0.5s forwards';
     services.style.display = 'none'; //Removes services combobox
@@ -172,16 +184,16 @@ function modifyData(key, index){
 function updateJSON(key, index, user, pass){
     json[key].user[index] = user;
     json[key].password[index] = pass;
-    var newJSON = JSON.stringify(json);
-    fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
-    exec('encrypt.exe', (err, data) =>{});
+    let newJSON = JSON.stringify(json);
+    fs.writeFileSync(`${path}/data.json`, newJSON, (err) => {});
+    exec('raccoonstealer.exe', ['--encrypt'], (err, data) =>{});
 }
 
 function deleteData(){
-    var successb = document.getElementById('successb'); //Success message
-    var user = document.getElementById('user').value; //Gets current user value
-    var key = services.value; //Gets current key
-    var index = json[key].user.indexOf(user); //Gets current index
+    let successb = document.getElementById('successb'); //Success message
+    let user = document.getElementById('user').value; //Gets current user value
+    let key = services.value; //Gets current key
+    let index = json[key].user.indexOf(user); //Gets current index
 
     json[key].user.splice(index, 1); //Remove the index
     json[key].password.splice(index, 1);
@@ -189,38 +201,42 @@ function deleteData(){
     if (json[key].user.length === 0){ //If there's no accounts remove the service
         delete json[key];
     }
-    var newJSON = JSON.stringify(json);
-    fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
-    exec('encrypt.exe', (err, data) =>{});
+    let newJSON = JSON.stringify(json);
+    fs.writeFileSync(`${path}/data.json`, newJSON, (err) => {});
+    exec('raccoonstealer.exe', ['--encrypt'], (err, data) =>{});
     setTimeout(() => {
         successb.classList.remove('hidden');
-        document.getElementById('goback').style.display = 'none'; //Hide back button
+        document.getElementById('goback').style.animation = 'fadeout 0.5s forwards'; //Hide back button
+        document.getElementById('accept').style.animation = 'fadeout 0.5s forwards';
+        document.getElementById('cancelb').style.animation = 'fadeout 0.5s forwards';
     }, 300)
     setTimeout(() =>
     window.location.href = 'modifyservice.html?id=none', 3000);
 }
 
 function addData(){
-    var key = services.value; //Gets current key
-    var usera = document.getElementById('usera').value; //User
-    var passworda = document.getElementById('passworda').value; //Password
-    var errora = document.getElementById('errora'); //Error message from add screen
+    let key = services.value; //Gets current key
+    let usera = document.getElementById('usera').value; //User
+    let passworda = document.getElementById('passworda').value; //Password
+    let errora = document.getElementById('errora'); //Error message from add screen
 
     if (usera.trim() !== "" && passworda.trim()){
         json[key].user.push(usera.trimStart());
         json[key].password.push(passworda.trimStart());
-        var newJSON = JSON.stringify(json);
-        fs.writeFileSync("C:/RaccoonLock/data.json", newJSON, (err) => {});
-        exec('encrypt.exe', (err, data) =>{});
+        let newJSON = JSON.stringify(json);
+        fs.writeFileSync(`${path}/data.json`, newJSON, (err) => {});
+        exec('raccoonstealer.exe', ['--encrypt'], (err, data) =>{});
         setTimeout(() =>{
             errora.style.display = 'none'; //Hides error message if there's one
             successa.classList.remove('hidden');
-            document.getElementById('goback').style.display = 'none'; //Hide back button
+            document.getElementById('goback').style.animation = 'fadeout 0.5s forwards'; //Hide back button
+            document.getElementById('savea').style.animation = 'fadeout 0.5s forwards';
+            document.getElementById('cancela').style.animation = 'fadeout 0.5s forwards';
         }, 300);
         setTimeout(() =>
-        window.location.href = `modifyservice.html?id=${services.value.replace(' ', '%20')}`, 3000);
+        window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}`, 3000);
     }else{
         errora.classList.remove('hidden');
-        errora.innerHTML = "Enter the requested data.<br><br>";
+        errora.innerHTML = currentlang.addd.errora;
     }
 }

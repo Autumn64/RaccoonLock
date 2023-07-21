@@ -4,41 +4,53 @@
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <link rel="stylesheet" href="C:/RaccoonLock/styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/settings.css">
+    <script src="./js/lang/langsettings.js"></script>
     <title>RaccoonLock</title>
   </head>
   <body>
     <div id="topbar">
         <button id="goback" class="hidden"><-</button>
-        <button id="about" class="hidden">About</button>
+        <button id="about" class="hidden"></button>
     </div><br><br>
     <div id="info">
-        <h2>Settings</h2><br><br>
+        <h2 id="title"></h2><br><br>
         <table>
             <tr>
-              <td>Name:</td>
-              <td><input id="name" type="text" placeholder="Name"></td>
+              <td id="tdname"></td>
+              <td><input id="name" type="text"></td>
             </tr>
             <tr>
-              <td>Mail:</td>
-              <td><input id="user" type="email" placeholder="E-mail"></td>
+              <td id="tdmail"></td>
+              <td><input id="user" type="email"></td>
             </tr>
             <tr>
-              <td>Phone:</td>
-              <td><input id="phone" type="tel" placeholder="Phone"></td>
+              <td id="tdphone"></td>
+              <td><input id="phone" type="tel"></td>
             </tr>
             <tr>
-                <td>Birthday:</td>
-                <td><input id="birthdate" type="date" placeholder="Birthday"></td>
+                <td id="tdbirthday"></td>
+                <td><input id="birthdate" type="date"></td>
             </tr>
             <tr>
-              <td>Password:</td>
-              <td><input id="password" type="password" placeholder="Password"></td>
+              <td id="tdpassword"></td>
+              <td><input id="password" type="password"></td>
+            </tr>
+            <tr>
+              <td id="tdlanguage"></td>
+              <td><select name="language" id="language">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+                <option value="eo">Esperanto</option>
+                <option value="pt">Português</option>
+                <option value="kr">한국어</option>
+            </select></td>
             </tr>
             <tr><td><br></td><td><br></td></tr>
             <tr>
-              <td>Password mode:</td>
+              <td id="tdpasswordmode"></td>
               <td>
                 <label class="switch">
                   <input type="checkbox" id="switch">
@@ -49,20 +61,18 @@
           </table>
           <div id="error" class="hidden"></div>
           <div id="successa" class="hidden"></div><br><br>
-          <button id="toggletheme">Toggle theme</button><br>
-          <button id="save">Save</button><br>
-          <button id="reset">Reset app</button>
+          <button id="save"></button><br>
+          <button id="reset"></button>
     </div>
     <div id="verify" class="hidden">
       <br><br><br><br>
       <h2 id="nowenter"></h2>
-      <h4>(If you don't have an internet connection or you can't receive the code, <br>type your password instead).</h4><br><br>
-      <input id="code" type="password" placeholder="Code" required>
+      <input id="code" type="text" required>
       <div id="errorv" class="hidden">
       </div>
-      <div id="success" class="hidden">Data modified successfully!</div><br><br>
-      <button id="submitv">Verify</button><br>
-      <a id="gobackl" href="#">Whoops! I got my data wrong.</a>
+      <div id="success" class="hidden"></div><br><br>
+      <button id="submitv"></button><br>
+      <a id="gobackl" href="#"></a>
     </div>
   </body>
   <script src="js/settings.js"></script>

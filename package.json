@@ -1,6 +1,6 @@
 {
   "name": "raccoonlock",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "General-purpose password manager",
   "main": "main.js",
   "scripts": {

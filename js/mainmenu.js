@@ -1,8 +1,9 @@
-const json = require('C:/RaccoonLock/info.json');
+const path = `${process.env.LOCALAPPDATA}/Raccoonlock`;
+const json = require(`${path}/info.json`);
 
 window.addEventListener('DOMContentLoaded', () =>{
-    var time = checkTime();
-    var name = json.name.trimStart().split(' ')[0];
+    let time = checkTime();
+    let name = json.name.trimStart().split(' ')[0];
     document.getElementById('logo').innerHTML += `<h2>${time}, ${name}.</h2>`
 });
 
@@ -23,11 +24,11 @@ document.getElementById('logout').addEventListener('click', () =>{
 });
 
 document.getElementById('editpass').addEventListener('click', () =>{
-    var buttons = document.getElementById('buttons');
-    var modify = document.getElementById('modify');
-    var goback = document.getElementById('goback');
-    var settings = document.getElementById('settings');
-    var logout = document.getElementById('logout');
+    let buttons = document.getElementById('buttons');
+    let modify = document.getElementById('modify');
+    let goback = document.getElementById('goback');
+    let settings = document.getElementById('settings');
+    let logout = document.getElementById('logout');
 
     buttons.style.animation = 'fadeout 0.5s forwards';
     settings.style.animation = 'fadeout 0.5s forwards';
@@ -52,11 +53,11 @@ document.getElementById('modifyservice').addEventListener('click', () =>{
 });
 
 document.getElementById('goback').addEventListener('click', () =>{
-    var buttons = document.getElementById('buttons');
-    var modify = document.getElementById('modify');
-    var goback = document.getElementById('goback');
-    var settings = document.getElementById('settings');
-    var logout = document.getElementById('logout');
+    let buttons = document.getElementById('buttons');
+    let modify = document.getElementById('modify');
+    let goback = document.getElementById('goback');
+    let settings = document.getElementById('settings');
+    let logout = document.getElementById('logout');
 
     modify.style.animation = 'fadeout 0.5s forwards'; //Hides modify div
     goback.style.animation = 'fadeout 0.5s forwards';
@@ -73,12 +74,12 @@ document.getElementById('goback').addEventListener('click', () =>{
 });
 
 function checkTime(){
-    var currentTime = new Date().getHours();
+    let currentTime = new Date().getHours();
     if (Number(currentTime) >= 6 && Number(currentTime) <= 11){
-        return "Good morning";
+        return currentlang.morning;
     }else if (Number(currentTime) >= 12 && Number(currentTime) <= 18){
-        return "Good afternoon";
+        return currentlang.afternoon;
     }else{
-        return "Good evening";
+        return currentlang.evening;
     }
 }

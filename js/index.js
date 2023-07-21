@@ -1,9 +1,10 @@
+const path = `${process.env.LOCALAPPDATA}/Raccoonlock`;
 const fs = require('fs');
 
 window.addEventListener('DOMContentLoaded', () => {
-    var div = document.getElementById('starting');
-    var container = document.getElementById('container');
-    if(!fs.existsSync("C:/RaccoonLock/")){
+    let div = document.getElementById('starting');
+    let container = document.getElementById('container');
+    if(!fs.existsSync(`${path}/`)){
         setTimeout(() => div.innerHTML += "<br>Preparing to start for the first time...", 5000);
         setTimeout(() => window.location.href = 'firstrun.html', 15000);
     }

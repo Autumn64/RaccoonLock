@@ -1,5 +1,23 @@
 CHANGELOG:
 
-- Added white theme.
-- Added Password Mode.
-- Fixed bugs.
+- Fixed the bugs related to the user interface and the way data is modified.
+- Fixed bugs that made the "Modify an existing service" section show some passwords incorrectly when the selected service had special characters in its name.
+- Fixed the bug that made the "Copied to clipboard" message be shown incorrectly.
+
+
+- Added new languages: Spanish, French, Esperanto, Portuguese and Korean.
+- Added new services.
+- Added a search bar at the "Show all passwords" section.
+- Added a new auto updater that will constantly check for new updates.
+- Added the ability to navigate through the whole app using the keyboard in order to improve accessibility.
+
+- Enhanced Password Mode capabilities.
+- Improved loading times and app's responsivity in general.
+- Optimized e-mail operations.
+- Removed white theme due to instability and security concerns.
+- Unified createkey, encrypt and decrypt modules into a sole unified program called "RaccoonStealer" in order to improve security and integration between the app's services.
+- Changed RaccoonLock's data folder location to <user>\AppData\Local\ in order to improve security and make such information less visible to the end user and/or possible intruders.
+
+WARNING: If you are currently using RaccoonLock v2.0.0, please download "Raccoon_v2tov3.exe" from RaccoonLock's GitHub repository and run it before updating to version v3.0.0 (antivirus softwares might show a malware warning; it's a false positive. If you have any questions related to how this utility works, please refer to the source code provided in RaccoonLock's GitHub repository).
+
+If you're using RaccoonLock v1.0.0, please manually upgrade to v2.0.0 before running "Raccoon_v2tov3.exe". You might have to manually readd all of your passwords due to the difference in how v1.0.0 and v2.0.0 read the user's data.

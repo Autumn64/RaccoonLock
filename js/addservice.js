@@ -1,12 +1,13 @@
+const path = `${process.env.LOCALAPPDATA}/Raccoonlock`;
 const fs = require('fs');
-var exec = require('child_process').execFile;
+let exec = require('child_process').execFile;
 
-var json;
-var container = document.getElementById('container');
-var neww = document.getElementById('neww');
+let json;
+let container = document.getElementById('container');
+let neww = document.getElementById('neww');
 
 window.addEventListener('DOMContentLoaded', () =>{
-    exec('decrypt.exe', ['--acceptdecrypt'], (error, data) => {setTimeout(readInfo, 1000);});
+    exec('raccoonstealer.exe', ['--decrypt', '--acceptdecrypt'], (error, data) => {setTimeout(readInfo, 1000);});
 });
 
 document.getElementById('goback').addEventListener('click', () => //Go back button
@@ -15,13 +16,13 @@ document.getElementById('goback').addEventListener('click', () => //Go back butt
 document.getElementById('submit').addEventListener('click', addData); //Submit button
 
 function readInfo(){
-    var other = document.getElementById('other');
-    json = JSON.parse(fs.readFileSync('C:/RaccoonLock/data.json', 'utf8'));
-    exec('encrypt.exe', (error, data) => {});
+    let other = document.getElementById('other');
+    json = JSON.parse(fs.readFileSync(`${path}/data.json`, 'utf8'));
+    exec('raccoonstealer.exe', ['--encrypt'], (err, data) =>{});
     container.classList.remove('hidden');
     container.style.display = 'flex';
     container.style.animation = 'fadein 0.5s';
-    var buttons = Array.from(document.getElementsByClassName('picbtn')); //Gets all buttons
+    let buttons = Array.from(document.getElementsByClassName('picbtn')); //Gets all buttons
     for (let i = 0; i < buttons.length ; i++){
         buttons[i].addEventListener('click', () => checkIfExists(buttons[i].id));
     }
@@ -29,9 +30,10 @@ function readInfo(){
 }
 
 function checkIfExists(id){
-    for(var key in json){
+    for(let key in json){
         if (id.toLowerCase() === key.toLowerCase()){ //If it exists send to modify service page
-            window.location.href = `modifyservice.html?id=${key.replace(' ', '%20')}`;
+            let location = `modifyservice.html?id=${encodeURIComponent(key)}`
+            window.location.href = location;
         }else{
             createNew(id); //Pass id
         }
@@ -42,7 +44,7 @@ function checkIfExists(id){
 }
 
 function createNew(id){
-    var service = document.getElementById('service'); //Service input
+    let service = document.getElementById('service'); //Service input
     container.style.animation = 'fadeout 0.5s forwards';
     setTimeout(() => container.style.display = 'none', 500);
     setTimeout(() =>{
@@ -54,35 +56,36 @@ function createNew(id){
 }
 
 function addData(){
-    var service = document.getElementById('service').value; //Service input
-    var user = document.getElementById('user').value; //User input
-    var password =document.getElementById('password').value; //Password input
-    var error = document.getElementById('error') //Error message
-    var success = document.getElementById('success') //Success message
+    let service = document.getElementById('service').value; //Service input
+    let user = document.getElementById('user').value; //User input
+    let password =document.getElementById('password').value; //Password input
+    let error = document.getElementById('error') //Error message
+    let success = document.getElementById('success') //Success message
 
     for(let key in json){
         if (service.toLowerCase() === key.toLowerCase()){
             error.classList.remove('hidden'); //Shows error message
-            error.innerHTML = "There's already a service with that name!";
+            error.innerHTML = currentlang.neww.error[0];
             return;
         }
     }
 
     if (service.trim() !== '' && user.trim() !== '' && password.trim() !== ''){
+        document.getElementById("submit").style.animation = "fadeout 0.5s forwards";
         error.style.display = 'none'; //Hides error message
         success.classList.remove('hidden'); //Shows success message
         newJSON = {[service]: {user: [], password: []}, ...json} //Creates new key at the beginning
         newJSON[service].user.push(user);
         newJSON[service].password.push(password);
         document.getElementById('goback').style.display = 'none'; //Hide back button
-        fs.writeFileSync("C:/RaccoonLock/data.json", JSON.stringify(newJSON), (err) => {});
-        exec('encrypt.exe', (err, data) =>{});
+        fs.writeFileSync(`${path}/data.json`, JSON.stringify(newJSON), (err) => {});
+        exec('raccoonstealer.exe', ['--encrypt'], (err, data) =>{});
         setTimeout(() =>{
             neww.style.animation = 'fadeout 0.5s forwards'; //Hide neww div
         }, 3000);
         setTimeout(() => window.location.href = 'showpass.html', 5000); //Go to showpass
     }else{
         error.classList.remove('hidden'); //Shows error message
-        error.innerHTML = "Enter the requested data.";
+        error.innerHTML = currentlang.neww.error[1];
     }
 }
