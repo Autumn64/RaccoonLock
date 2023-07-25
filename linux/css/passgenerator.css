@@ -1,0 +1,31 @@
+#goback{
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+}
+
+#container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+#generate{
+    width: 200px;
+}
+
+#copied{
+    margin-top: 50px;
+    padding: 15px 5px 10px;
+    width: 300px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: #00833b;
+    color: #CCCCCC;
+    text-align: center;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+}

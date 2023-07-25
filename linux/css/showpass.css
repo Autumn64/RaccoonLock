@@ -1,0 +1,42 @@
+#goback{
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+}
+
+#container{
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+#copied{
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 100px;
+    margin-top: 50px;
+    padding: 15px 5px 10px;
+    width: 300px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: #00833b;
+    color: #CCCCCC;
+    text-align: center;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+}
+
+.stuff {
+    width: 700px;
+    table-layout: fixed;
+    margin-bottom: 20px;
+}
+
+input{
+    padding: 5px 5px 3px;
+    width: 230px;
+    height: 30px;
+    transition-duration: 0.2s;
+}

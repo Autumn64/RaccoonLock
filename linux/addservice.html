@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/addservice.css">
+    <script src="./js/lang/langaddservice.js"></script>
+    <title>RaccoonLock</title>
+    </head>
+    <body>
+        <div id="topbar">
+            <button id="goback"><-</button>
+        </div><br><br>
+        <div id="container" class="hidden">
+            <h1 id="title"></h1>
+            <div id="pictures">
+                <button id="Microsoft" class="picbtn">
+                    <img src="res/microsoft.png">
+                </button>
+                <button id="Google" class="picbtn">
+                    <img src="res/google.png">
+                </button>
+                <button id="Apple" class="picbtn">
+                    <img id="applebtn" src="res/apple.png">
+                </button>
+                <button id="Instagram / Threads" class="picbtn">
+                    <img src="res/instagram.png">
+                </button>
+                <button id="TikTok" class="picbtn">
+                    <img src="res/tiktok.png">
+                </button>
+                <button id="Discord" class="picbtn">
+                    <img src="res/discord.png">
+                </button>
+                <button id="Twitter" class="picbtn">
+                    <img src="res/twitter.png">
+                </button>
+                <button id="Reddit" class="picbtn">
+                    <img src="res/reddit.png">
+                </button>
+                <button id="Pinterest" class="picbtn">
+                    <img src="res/pinterest.png">
+                </button>
+                <button id="Amazon" class="picbtn">
+                    <img src="res/amazon.png">
+                </button>
+                <button id="Microsoft Teams" class="picbtn">
+                    <img src="res/teams.png">
+                </button>
+                <button id="Spotify" class="picbtn">
+                    <img src="res/spotify.png">
+                </button>
+                <button id="Canva" class="picbtn">
+                    <img src="res/canva.png">
+                </button>
+                <button id="Netflix" class="picbtn">
+                    <img src="res/netflix.png">
+                </button>
+                <button id="Disney+ Star+" class="picbtn">
+                    <img src="res/disneystarp.png">
+                </button>
+                <button id="Snapchat" class="picbtn">
+                    <img src="res/snapchat.png">
+                </button>
+                <button id="NAVER" class="picbtn">
+                    <img src="res/naver.png">
+                </button>
+                <button id="Kakao" class="picbtn">
+                    <img src="res/kakao.png">
+                </button>
+                <button id="Daum" class="picbtn">
+                    <img src="res/daum.png">
+                </button>
+                <button id="LINE" class="picbtn">
+                    <img src="res/line.png">
+                </button>
+                <button id="VLIVE" class="picbtn">
+                    <img src="res/vlive.png">
+                </button>
+                <button id="Weverse" class="picbtn">
+                    <img src="res/weverse.png">
+                </button>
+            </div>
+            <div id="otherbtn">
+                <button id="other"></button>
+            </div>
+        </div>
+        <div id="neww" class="hidden">
+            <br><br><br><br>
+            <h2 id="titlenew"></h2><br><br>
+            <input id="service" type="text" placeholder="Service or platform" required><br>
+            <input id="user" type="email" placeholder="User" required><br>
+            <input id="password" type="text" placeholder="Password" required>
+            <div id="error" class="hidden"></div>
+            <div id="success" class="hidden"></div>
+            <button id="submit"></button>
+        </div>
+    </body>
+    <script src="js/addservice.js"></script>
+</html>

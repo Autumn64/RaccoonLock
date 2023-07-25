@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="./js/lang/langlogin.js"></script>
+    <title>RaccoonLock</title>
+  </head>
+  <body>
+    <div id="passwordd" class="hidden">
+      <br><br><br><br>
+      <h2 id="bienvenue"></h2><br><br>
+      <input id="password" type="password" required>
+      <div id="errora" class="hidden">
+      </div><br><br>
+      <button id="submit"></button><br>
+    </div>
+    <div id="verify" class="hidden">
+      <br><br><br><br>
+      <h2 id="message"></h2><br><br>
+      <input id="code" type="text" required>
+      <div id="error" class="hidden">
+      </div><br><br>
+      <button id="submitv"></button><br>
+    </div>
+  </body>
+  <script src="js/login.js"></script>
+</html>

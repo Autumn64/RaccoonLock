@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/mainmenu.css">
+    <script src="./js/lang/langmainmenu.js"></script>
+    <title>RaccoonLock</title>
+    </head>
+    <body>
+        <div id="topbar">
+            <button id="goback" class="hidden"><-</button>
+            <button id="settings">&#9776;</button>
+            <button id="logout"></button>
+        </div>
+        <div id="logo">
+            <img id="imglogo" src="res/logo.png" alt="Logo" class="img-splash">
+        </div> <br><br>
+        <div id="buttons">
+            <button id="passgen"></button> 
+            <button id="showpass"></button>
+            <button id="editpass"></button>
+        </div>
+        <div id="modify" class="hidden">
+            <button id="addservice" class="modifybttns"></button>
+            <button id="modifyservice" class="modifybttns"></button>
+        </div>
+    </body>
+    <script src="js/mainmenu.js"></script>
+</html>

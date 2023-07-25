@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/verified.css">
+    <title>RaccoonLock</title>
+  </head>
+  <body>
+    <div id="verified" class="hidden">
+      <h1>You were verified successfully.</h1>
+    </div>
+    <div id="container" class="hidden">
+      <div id="splash">
+          <img src="res/logo.png" alt="RacoonLock Logo" class="img-splash"><br><br>
+          <img src="res/spinner2.gif" alt="Loading" class="img-loading">
+      </div>
+      <br>
+      <div class="loading"></div>
+    </div>
+    <div id="start" class="hidden">
+      <h1>Let's begin!</h1>
+    </div>
+  </body>
+  <script src="js/verified.js"></script>
+</html>

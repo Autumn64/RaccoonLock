@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/passgenerator.css">
+    <script src="./js/lang/langpassgenerator.js"></script>
+    <title>RaccoonLock</title>
+    </head>
+    <body>
+        <div id="topbar">
+            <button id="goback"><-</button>
+        </div><br><br>
+        <div id="container">
+            <h2 id="title"></h2><br><br>
+            <select name="size" id="pass_size">
+                <option value="8" selected="selected"></option>
+                <option value="10"></option>
+                <option value="12"></option>
+                <option value="15"></option>
+            </select><br><br>
+            <div id="pass" tabindex="1">&nbsp;</div><br><br>
+            <button id="generate"></button>
+            <div id="copied" class="hidden"></div>
+        </div>
+    </body>
+    <script src="js/passgenerator.js"></script>
+</html>
