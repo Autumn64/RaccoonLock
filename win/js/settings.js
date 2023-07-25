@@ -1,7 +1,6 @@
 const path = `${process.env.LOCALAPPDATA}/Raccoonlock`;
 const json = require(`${path}/info.json`);
 const fs = require('fs');
-const nodemailer = require('nodemailer');
 const sendMail = require('./js/sendmail.js')
 let exec = require('child_process').execFile;
 
@@ -15,8 +14,11 @@ window.addEventListener('DOMContentLoaded', () =>{
     document.getElementById('phone').value = json.phone;
     document.getElementById('birthdate').value = json.birthdate;
     let passmode = document.getElementById('switch');
-    exec('raccoonstealer.exe', ['--decrypt', '--acceptdecrypt'], (error, data) => {
-        getPass();
+    exec('raccoonstealer.exe', ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
+        passjson = JSON.parse(stdout);
+        document.getElementById('password').value = passjson.RaccoonLock;
+        document.getElementById('goback').classList.remove('hidden'); //Shows go back and about buttons
+        document.getElementById('about').classList.remove('hidden');
     });
     json.passwordmode === false ? passmode.checked = false : passmode.checked = true;
 });
@@ -109,7 +111,6 @@ document.getElementById('submitv').addEventListener('click', () =>{
 document.getElementById('switch').addEventListener('click', () =>{ //Password mode switch
     let passmode = document.getElementById('switch');
     let successa = document.getElementById('successa');
-    passmode.checked === false ? json.passwordmode = false : json.passwordmode = true;
     if (passmode.checked === false){
         json.passwordmode = false;
         successa.innerHTML = currentlang.info.sucessa[1];
@@ -144,14 +145,6 @@ document.getElementById('gobackl').addEventListener('click', () =>{
         info.style.display = 'flex';
     }, 1000);
 });
-
-function getPass(){
-    passjson = JSON.parse(fs.readFileSync(`${path}/data.json`, 'utf8'));
-    exec('raccoonstealer.exe', ['--encrypt'], (err, data) =>{});
-    document.getElementById('password').value = passjson.RaccoonLock;
-    document.getElementById('goback').classList.remove('hidden'); //Shows go back and about buttons
-    document.getElementById('about').classList.remove('hidden');
-}
 
 function sendm(email){
     const mail = new sendMail(email, currentlang.mailtext);

@@ -9,7 +9,17 @@ const copied = document.getElementById('copied');
 let theresData = true;
 
 window.addEventListener('DOMContentLoaded', () =>{
-    exec('raccoonstealer.exe', ['--decrypt', '--acceptdecrypt'], (error, data) => {setTimeout(getData, 500);});
+    exec('raccoonstealer.exe', ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
+        json = JSON.parse(stdout);
+        container.classList.remove('hidden'); //Shows container
+        container.style.display = 'flex';
+        container.style.animation = 'fadein 0.5s';
+        for(let key in json){
+            if (key === 'RaccoonLock') continue; //Ignores the app's password
+            keys.push(key);
+        }
+        setData();
+    });
 });
 
 document.getElementById('goback').addEventListener('click', () =>
@@ -27,7 +37,7 @@ document.getElementById('search').addEventListener('input', function (){
 
 const clearAllTimeouts = () =>{
     let highestTimeoutId = setTimeout(() =>{});
-    for (let i = 0 ; i < highestTimeoutId ; i++) {
+    for (let i = 0; i < highestTimeoutId; i++) {
         clearTimeout(i); 
     }
 }
@@ -48,7 +58,6 @@ function searchData(search){
     }
 }
 
-
 function setData(){
     if (keys.length === 0){
         container.innerHTML += `${currentlang.container.nodata}.`;
@@ -58,20 +67,6 @@ function setData(){
         keys.forEach(showData);
         addClick();
     }
-}
-
-function getData(){
-    json = JSON.parse(fs.readFileSync(`${path}/data.json`, 'utf8'));
-    exec('raccoonstealer.exe', ['--encrypt'], (err, data) =>{});
-    container.classList.remove('hidden'); //Shows container
-    container.style.display = 'flex';
-    container.style.animation = 'fadein 0.5s';
-    for(let key in json){
-        if (key === 'RaccoonLock') continue; //Ignores the app's password
-        keys.push(key);
-    }
-    setData();
-    addClick();
 }
 
 function showData(key){ //Iterates for each service

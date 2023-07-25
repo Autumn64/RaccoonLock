@@ -1,5 +1,4 @@
 const path = `${process.env.LOCALAPPDATA}/Raccoonlock`;
-const nodemailer = require('nodemailer');
 let exec = require('child_process').execFile;
 const sendMail = require('./js/sendmail.js')
 const fs = require('fs');

@@ -11,7 +11,21 @@ let datas = document.getElementById('datas'); //Datas div
 let modify = document.getElementById('modify'); //Modify div
 
 window.addEventListener('DOMContentLoaded', () =>{
-    exec('raccoonstealer.exe', ['--decrypt', '--acceptdecrypt'], (error, data) => {setTimeout(getData, 1000);});
+    exec('raccoonstealer.exe', ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
+        let parameters = new URLSearchParams(document.location.search);
+        json = JSON.parse(stdout);
+        for (let key in json){
+            if(key === 'RaccoonLock') continue; //Ignores the app's password
+            keys.push(key);
+        }
+        keys.forEach((key) =>{
+            let option = document.createElement('option');
+            option.value, option.innerHTML = key; //Both value and inner HTML will be the key
+            services.appendChild(option);
+        });
+        services.value = decodeURIComponent(parameters.get('id'));
+        showAll(); //Shows the data if something is selected when page loads
+    });
 });
 
 document.getElementById('goback').addEventListener('click', () =>
@@ -21,35 +35,7 @@ services.addEventListener('change', () =>{ //When user selects a value from the 
     showAll();
 });
 
-document.getElementById('save').addEventListener('click', () =>{ //Save button
-    let change;
-    let key = services.value; //Gets current key
-    let index = user; //Gets current index
-    let tmpuser = document.getElementById('user').value; //New values
-    let tmppassword = document.getElementById('password').value;
-    if(tmpuser !== json[key].user[index] || tmppassword !== json[key].password[index]){
-            change = true;
-    }
-    if(tmpuser.trim() === "" || tmppassword.trim() === ""){
-        let err = document.getElementById('error');
-        err.classList.remove('hidden');
-        err.innerHTML = `${currentlang.container.modify.error}.<br><br>`;
-        change = false;
-    }
-    if(change === true){
-        updateJSON(key, index, tmpuser, tmppassword);
-        setTimeout(() =>{
-            document.getElementById('error').style.display = 'none';
-            document.getElementById('success').classList.remove('hidden'); //Shows success message
-            document.getElementById('goback').style.animation = 'fadeout 0.5s forwards'; //Hide back button
-            document.getElementById('save').style.animation = 'fadeout 0.5s forwards';
-            document.getElementById('cancel').style.animation = 'fadeout 0.5s forwards';
-            document.getElementById('delete').style.animation = 'fadeout 0.5s forwards';
-        }, 300);
-        setTimeout(() => 
-        window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}`, 3000);
-    }
-});
+document.getElementById('save').addEventListener('click', save);
 
 document.getElementById('cancel').addEventListener('click', () => //Cancel button
     window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}` //Keep the value
@@ -57,10 +43,10 @@ document.getElementById('cancel').addEventListener('click', () => //Cancel butto
 
 document.getElementById('delete').addEventListener('click', () =>{ //Delete link
     let confirm = document.getElementById('confirm');
-    container.style.animation = 'fadeout 0.5 forwards';
-    container.style.display = 'none';
-    modify.style.animation = 'fadeout 0.5 forwards';
-    modify.style.display = 'none';
+    container.style.animation = 'fadeout 0.5s forwards';
+    setTimeout(() => {
+        container.style.display = 'none';
+    }, 600);
     setTimeout(() =>{
         confirm.classList.remove('hidden');
         confirm.style.display = 'flex';
@@ -93,23 +79,6 @@ function showAll(){
         datas.style.display = 'flex';
         showData(selected);
     }
-}
-
-function getData(){
-    let parameters = new URLSearchParams(document.location.search);
-    json = JSON.parse(fs.readFileSync(`${path}/data.json`, 'utf8'));
-    exec('raccoonstealer.exe', ['--encrypt'], (err, data) =>{});
-    for (let key in json){
-        if(key === 'RaccoonLock') continue; //Ignores the app's password
-        keys.push(key);
-    }
-    keys.forEach((key) =>{
-        let option = document.createElement('option');
-        option.value, option.innerHTML = key; //Both value and inner HTML will be the key
-        services.appendChild(option);
-    });
-    services.value = decodeURIComponent(parameters.get('id'));
-    showAll(); //Shows the data if something is selected when page loads
 }
 
 function showData(key){
@@ -167,6 +136,7 @@ function showData(key){
 }
 
 function modifyData(key, index){
+    let service = document.getElementById('service');
     let user = document.getElementById('user');
     let password = document.getElementById('password');
     
@@ -177,11 +147,58 @@ function modifyData(key, index){
     modify.classList.remove('hidden');
     modify.style.display = 'flex'; //Shows modify div
     modify.style.animation = 'fadein 0.5s';
+    service.value = key;
     user.value = json[key].user[index];
     password.value = json[key].password[index];
 }
 
-function updateJSON(key, index, user, pass){
+function save(){ //Save button
+    let change;
+    let key = services.value; //Gets current key
+    let index = user; //Gets current index
+    let tmpservice = document.getElementById('service').value; //New values
+    let tmpuser = document.getElementById('user').value; 
+    let tmppassword = document.getElementById('password').value;
+    if(tmpservice.toLowerCase() !== key.toLowerCase() || tmpuser !== json[key].user[index] || tmppassword !== json[key].password[index]){
+        change = true;
+    }
+    if(tmpservice.trim() === "" || tmpuser.trim() === "" || tmppassword.trim() === ""){
+        let err = document.getElementById('error');
+        err.classList.remove('hidden');
+        err.innerHTML = `${currentlang.container.modify.error}.<br><br>`;
+        change = false;
+    }
+    if(change === true){
+        updateJSON({
+            key: key, 
+            index: index, 
+            service: tmpservice, 
+            user: tmpuser, 
+            pass: tmppassword
+        });
+        setTimeout(() =>{
+            document.getElementById('error').style.display = 'none';
+            document.getElementById('success').classList.remove('hidden'); //Shows success message
+            document.getElementById('goback').style.animation = 'fadeout 0.5s forwards'; //Hide back button
+            document.getElementById('save').style.animation = 'fadeout 0.5s forwards';
+            document.getElementById('cancel').style.animation = 'fadeout 0.5s forwards';
+            document.getElementById('delete').style.animation = 'fadeout 0.5s forwards';
+        }, 300);
+        hideDiv('title');
+        hideDiv('modify');
+        setTimeout(() => 
+        window.location.href = `modifyservice.html?id=${encodeURIComponent(tmpservice)}`, 3000);
+    }
+}
+
+function updateJSON({ key, index, service, user, pass }){
+    if (key.toLowerCase() !== service.toLowerCase()){
+        Object.defineProperty(json, service,
+            Object.getOwnPropertyDescriptor(json, key));
+        delete json[key];
+        key = service;
+        json = {[key]: {user: json[key].user, password: json[key].password}, ...json};
+    }
     json[key].user[index] = user;
     json[key].password[index] = pass;
     let newJSON = JSON.stringify(json);
@@ -209,7 +226,8 @@ function deleteData(){
         document.getElementById('goback').style.animation = 'fadeout 0.5s forwards'; //Hide back button
         document.getElementById('accept').style.animation = 'fadeout 0.5s forwards';
         document.getElementById('cancelb').style.animation = 'fadeout 0.5s forwards';
-    }, 300)
+    }, 300);
+    hideDiv('confirm');
     setTimeout(() =>
     window.location.href = 'modifyservice.html?id=none', 3000);
 }
@@ -220,7 +238,7 @@ function addData(){
     let passworda = document.getElementById('passworda').value; //Password
     let errora = document.getElementById('errora'); //Error message from add screen
 
-    if (usera.trim() !== "" && passworda.trim()){
+    if (usera.trim() !== "" && passworda.trim() !== ""){
         json[key].user.push(usera.trimStart());
         json[key].password.push(passworda.trimStart());
         let newJSON = JSON.stringify(json);
@@ -233,10 +251,17 @@ function addData(){
             document.getElementById('savea').style.animation = 'fadeout 0.5s forwards';
             document.getElementById('cancela').style.animation = 'fadeout 0.5s forwards';
         }, 300);
+        hideDiv('addd');
         setTimeout(() =>
         window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}`, 3000);
     }else{
         errora.classList.remove('hidden');
         errora.innerHTML = currentlang.addd.errora;
     }
+}
+
+const hideDiv = (div) =>{
+    setTimeout(() =>{
+        document.getElementById(div).style.animation = 'fadeout 0.5s forwards'; //Hide all
+    }, 2500);
 }

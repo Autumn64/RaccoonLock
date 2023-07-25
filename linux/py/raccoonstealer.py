@@ -2,7 +2,6 @@ from cryptography.fernet import Fernet
 import sys
 import os
 
-
 path: str = f"{os.path.expanduser('~')}/.raccoonlock"
 
 def checkArgs() -> None:

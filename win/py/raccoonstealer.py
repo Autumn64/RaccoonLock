@@ -23,8 +23,8 @@ def createKey() -> None:
     key: bytes = Fernet.generate_key()
     with open(f'{path}/key.key', 'wb') as f:
         f.write(key)
-    os.system(f"attrib +h {path}/key.key")
-    os.system(f"attrib +h {path}")
+    os.system(f'attrib +h "{path}/key.key"')
+    os.system(f'attrib +h "{path}"')
 
 def encrypt() -> None:
     with open(f'{path}/key.key', 'rb') as filekey:
@@ -43,8 +43,8 @@ def decrypt() -> None:
     with open(f'{path}/data.json', 'rb') as f:
         encrypted = f.read()
     decrypted = fernet.decrypt(encrypted)
-    with open(f'{path}/data.json', 'wb') as f:
-        f.write(decrypted)
+    print(decrypted.decode())
+    sys.stdout.flush()
 
 if __name__ == "__main__":
     checkArgs()

@@ -75,6 +75,21 @@
             },
             "mailtext": "Seu código é:"
         },
+        "nb":{
+            "passwordd":{
+                "bienvenue": "Velkommen tilbake! <br>Vennligst skriv inn passordet ditt.",
+                "password": "Passord",
+                "errora": "Feil passord! Prøv på nytt.",
+                "submit": "Logg inn"
+            },
+            "verify":{
+                "message": "Skriv inn koden sendt til<br>",
+                "code": "Kode",
+                "error": "Feil kode! Prøv på nytt.",
+                "submitv": "Bekreft"
+            },
+            "mailtext": "Koden din er:"
+        },
         "kr":{
             "passwordd":{
                 "bienvenue": "안녕하세요! <br>암호를 입력하세요.",
@@ -176,6 +191,23 @@
             "morning": "Bom dia",
             "afternoon": "Boa tarde",
             "evening": "Boa noite"
+        },
+        "nb":{
+            "topbar":{
+                "logout": "Logg av"
+            },
+            "buttons":{
+                "passgen": "Passord generator",
+                "showpass": "Se passordene",
+                "editpass": "Endre passordene"
+            },
+            "modify":{
+                "addservice": "Legg til en ny tjeneste",
+                "modifyservice": "Endre en eksisterende tjeneste"
+            },
+            "morning": "God morgen",
+            "afternoon": "God dag",
+            "evening": "God kveld"
         },
         "kr":{
             "topbar":{
@@ -381,6 +413,43 @@
             },
             "mailtext": "O seu código é:"
         },
+        "nb":{
+            "topbar":{
+                "about": "Om denne appen"
+            },
+            "info":{
+                "title": "Innstillinger",
+                "table":{
+                    "tdname": "Navn:",
+                    "tdmail": "E-post:",
+                    "tdphone": "Telefon:",
+                    "tdbirthday": "Fødselsdag:",
+                    "tdpassword": "Passord:",
+                    "tdlanguage": "Språk: ",
+                    "tdpasswordmode": "Passordmodus:",
+
+                    "name": "Navn",
+                    "user": "E-post",
+                    "phone": "Telefon",
+                    "birthdate": "Fødselsdag",
+                    "password": "Passord"
+                },
+                "error": "Skriv inn minst et navn, en e-post og et passord.",
+                "sucessa": ["Passordmodus aktivert.<br>Advarsel: Passordmodusen er usikker! Bruk den bare hvis du ikke kan få 2FA-koder.", "Passordmodus deaktivert."],
+                "save": "Lagre",
+                "reset": "Nullstill appen"
+            },
+            "verify":{
+                "nowenter": "Skriv inn koden sendt til<br>",
+                "newenter": "Skriv inn passordet ditt",
+                "code": ["Kode", "Passord"],
+                "errorv": ["Feil kode! Prøv på nytt.", "Feil passord! Prøv på nytt."],
+                "sucess": "Dataene ble endret med suksess!",
+                "submitv": "Bekreft",
+                "gobackl": "Jøss! Jeg har feil i dataene mine."
+            },
+            "mailtext": "Koden din er:"
+        },
         "kr":{
             "topbar":{
                 "about": "정보"
@@ -440,6 +509,10 @@
             "signedout": "Você saiu.",
             "ok": "Valeu"
         },
+        "nb":{
+            "signedout": "Du har logget ut.",
+            "ok": "Greit"
+        },
         "kr":{
             "signedout": "로그아웃했습니다.",
             "ok": "알겠습니다"
@@ -485,6 +558,14 @@
                 "cancel": "Cancelar"
             },
             "text2": "<h2>Dados apagados. O aplicativo será reiniciado.</h2>"
+        },
+        "nb":{
+            "text": "<h2>Er du sikker på at du vil gjøre det?</h2><h3>Nullstilling av appen vil slette alle dine dataene og passordene permanent.</h3>",
+            "buttons": {
+                "accept": "Aksepter",
+                "cancel": "Avbryt"
+            },
+            "text2": "<h2>Alle dataene ble slettet. Appen startes på nytt.</h2>"
         },
         "kr":{
             "text": "<h2>그렇게 하시겠습니까?</h2><h3>앱을 재설정하면 모든 데이터 및 암호가 삭제되겠습니다.</h3>",
@@ -561,6 +642,19 @@
                 "copied": "Copiado para o clipboard."
             }
         },
+        "nb": {
+            "container":{
+                "title": "Passord generator",
+                "select": {
+                    "eight": "8 tegn",
+                    "ten": "10 tegn",
+                    "twelve": "12 tegn",
+                    "fifteen": "15 tegn"
+                },
+                "generate": "Generer",
+                "copied": "Kopiert til utklippstavlen."
+            }
+        },
         "kr": {
             "container":{
                 "title": "암호 생성기",
@@ -633,6 +727,18 @@
                 "table":{
                     "user": "Conta: ",
                     "password": "Senha: "
+                }
+            }
+        },
+        "nb": {
+            "container":{
+                "title": "Passordene dine",
+                "search": "Søk",
+                "copied": "Kopiert til utklippstavlen.",
+                "nodata": "Ingen data tilgjengelig",
+                "table":{
+                    "user": "E-post: ",
+                    "password": "Passord: "
                 }
             }
         },
@@ -735,6 +841,23 @@
                 "submit": "Adicionar"
             }
         },
+        "nb": {
+            "container": {
+                "title": "Velg en tjeneste",
+                "otherbtn": {
+                    "other": "Legg til andre"
+                }
+            },
+            "neww": {
+                "titlenew": "Legg til en ny tjeneste",
+                "service": "Tjeneste / plattform",
+                "user": "E-post",
+                "password": "Passord",
+                "error": ["En tjeneste med det navnet finnes allerede!", "Skriv inn de forespurte dataene."],
+                "success": "Dataene ble lagt til med suksess!",
+                "submit": "Legg til"
+            }
+        },
         "kr": {
             "container": {
                 "title": "서비스를 선택하세요",
@@ -768,6 +891,7 @@
                     "add": "Add account"
                 },
                 "modify": {
+                    "service": "Service",
                     "user": "User",
                     "password": "Password",
                     "error": "Enter the requested data",
@@ -813,6 +937,7 @@
                     "add": "Agregar cuenta"
                 },
                 "modify": {
+                    "service": "Servicio",
                     "user": "Usuario",
                     "password": "Contraseña",
                     "error": "Introduce los datos solicitados",
@@ -858,6 +983,7 @@
                     "add": "Ajouter compte"
                 },
                 "modify": {
+                    "service": "Service",
                     "user": "E-mail",
                     "password": "Mot de passe",
                     "error": "Entrez les données demandées",
@@ -903,6 +1029,7 @@
                     "add": "Aldonu konton"
                 },
                 "modify": {
+                    "service": "Servo",
                     "user": "Retpoŝto",
                     "password": "Pasvorto",
                     "error": "Enigu la petitajn datumojn",
@@ -948,6 +1075,7 @@
                     "add": "Adicionar conta"
                 },
                 "modify": {
+                    "service": "Serviço",
                     "user": "E-mail",
                     "password": "Senha",
                     "error": "Digite os dados solicitados",
@@ -979,6 +1107,52 @@
                 }
             }
         },
+        "nb": {
+            "container": {
+                "title": "Velg dataene du vil endre",
+                "select": {
+                    "none": "Velg en tjeneste"
+                },
+                "datas": {
+                    "table": {
+                        "user": "E-post: ",
+                        "password": "Passord: "
+                    },
+                    "add": "Legg til konto"
+                },
+                "modify": {
+                    "service": "Tjeneste",
+                    "user": "E-post",
+                    "password": "Passord",
+                    "error": "Skriv inn de forespurte dataene",
+                    "success": "Dataene ble endret med suksess!",
+                    "buttons": {
+                        "save": "Lagre",
+                        "cancel": "Avbryt"
+                    },
+                    "delete": "Slett konto"
+                }
+            },
+            "confirm":{
+                "text": "<h2>Er du sikker på at du vil slette denne konto?</h2> <h3>Denne handlingen vil være permanent.</h3>",
+                "successb": "<br>Kontoen ble slettet med suksess!",
+                "buttons":{
+                    "accept": "Aksepter",
+                    "cancelb": "Avbryt"
+                }
+            },
+            "addd": {
+                "titleadd": "Legg til en ny konto",
+                "usera": "E-posto",
+                "passworda": "Passord",
+                "errora": "Skriv inn de forespurte dataene",
+                "successa": "Kontoen ble lagt til med suksess!<br><br>",
+                "buttons": {
+                    "savea": "Lagre",
+                    "cancela": "Avbryt"
+                }
+            }
+        },
         "kr": {
             "container": {
                 "title": "수정하고 싶은 데이터를 선택하세요",
@@ -993,6 +1167,7 @@
                     "add": "계정 추가"
                 },
                 "modify": {
+                    "service": "서비스",
                     "user": "이메일",
                     "password": "암호",
                     "error": "요청된 데이터를 입력하세요",
@@ -1059,6 +1234,13 @@
                 "madeby": "Feito com amor por:",
                 "author": "Aurora Giselle Flores Gómez (Autumn64).",
                 "license": "Com licença BSD de 3 Cláusulas."
+            }
+        },
+        "nb": {
+            "about": {
+                "madeby": "Laget med kjærlighet av:",
+                "author": "Aurora Giselle Flores Gómez (Autumn64).",
+                "license": "Lisensiert under den BSD 3-Klausul lisensen."
             }
         },
         "kr": {
