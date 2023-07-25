@@ -11,7 +11,21 @@ let datas = document.getElementById('datas'); //Datas div
 let modify = document.getElementById('modify'); //Modify div
 
 window.addEventListener('DOMContentLoaded', () =>{
-    exec('./raccoonstealer', ['--decrypt', '--acceptdecrypt'], (error, data) => getData());
+    exec('./raccoonstealer', ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
+        let parameters = new URLSearchParams(document.location.search);
+        json = JSON.parse(stdout);
+        for (let key in json){
+            if(key === 'RaccoonLock') continue; //Ignores the app's password
+            keys.push(key);
+        }
+        keys.forEach((key) =>{
+            let option = document.createElement('option');
+            option.value, option.innerHTML = key; //Both value and inner HTML will be the key
+            services.appendChild(option);
+        });
+        services.value = decodeURIComponent(parameters.get('id'));
+        showAll(); //Shows the data if something is selected when page loads
+    });
 });
 
 document.getElementById('goback').addEventListener('click', () =>
@@ -65,23 +79,6 @@ function showAll(){
         datas.style.display = 'flex';
         showData(selected);
     }
-}
-
-function getData(){
-    let parameters = new URLSearchParams(document.location.search);
-    json = JSON.parse(fs.readFileSync(`${path}/data.json`, 'utf8'));
-    exec('./raccoonstealer', ['--encrypt'], (err, data) =>{});
-    for (let key in json){
-        if(key === 'RaccoonLock') continue; //Ignores the app's password
-        keys.push(key);
-    }
-    keys.forEach((key) =>{
-        let option = document.createElement('option');
-        option.value, option.innerHTML = key; //Both value and inner HTML will be the key
-        services.appendChild(option);
-    });
-    services.value = decodeURIComponent(parameters.get('id'));
-    showAll(); //Shows the data if something is selected when page loads
 }
 
 function showData(key){

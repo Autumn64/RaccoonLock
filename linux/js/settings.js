@@ -14,8 +14,11 @@ window.addEventListener('DOMContentLoaded', () =>{
     document.getElementById('phone').value = json.phone;
     document.getElementById('birthdate').value = json.birthdate;
     let passmode = document.getElementById('switch');
-    exec('./raccoonstealer', ['--decrypt', '--acceptdecrypt'], (error, data) => {
-        getPass();
+    exec('./raccoonstealer', ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
+        passjson = JSON.parse(stdout);
+        document.getElementById('password').value = passjson.RaccoonLock;
+        document.getElementById('goback').classList.remove('hidden'); //Shows go back and about buttons
+        document.getElementById('about').classList.remove('hidden');
     });
     json.passwordmode === false ? passmode.checked = false : passmode.checked = true;
 });
@@ -142,14 +145,6 @@ document.getElementById('gobackl').addEventListener('click', () =>{
         info.style.display = 'flex';
     }, 1000);
 });
-
-function getPass(){
-    passjson = JSON.parse(fs.readFileSync(`${path}/data.json`, 'utf8'));
-    exec('./raccoonstealer', ['--encrypt'], (err, data) =>{});
-    document.getElementById('password').value = passjson.RaccoonLock;
-    document.getElementById('goback').classList.remove('hidden'); //Shows go back and about buttons
-    document.getElementById('about').classList.remove('hidden');
-}
 
 function sendm(email){
     const mail = new sendMail(email, currentlang.mailtext);

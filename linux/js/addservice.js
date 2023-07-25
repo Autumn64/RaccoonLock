@@ -7,27 +7,24 @@ let container = document.getElementById('container');
 let neww = document.getElementById('neww');
 
 window.addEventListener('DOMContentLoaded', () =>{
-    exec('./raccoonstealer', ['--decrypt', '--acceptdecrypt'], (error, data) => readInfo());
+    exec('./raccoonstealer', ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
+        let other = document.getElementById('other');
+        json = JSON.parse(stdout);
+        container.classList.remove('hidden');
+        container.style.display = 'flex';
+        container.style.animation = 'fadein 0.5s';
+        let buttons = Array.from(document.getElementsByClassName('picbtn')); //Gets all buttons
+        for (let i = 0; i < buttons.length ; i++){
+            buttons[i].addEventListener('click', () => checkIfExists(buttons[i].id));
+        }
+        other.addEventListener('click', () => createNew('')); //'Add other' button
+    });
 });
 
 document.getElementById('goback').addEventListener('click', () => //Go back button
     window.location.href = 'mainmenu.html');
 
 document.getElementById('submit').addEventListener('click', addData); //Submit button
-
-function readInfo(){
-    let other = document.getElementById('other');
-    json = JSON.parse(fs.readFileSync(`${path}/data.json`, 'utf8'));
-    exec('./raccoonstealer', ['--encrypt'], (err, data) =>{});
-    container.classList.remove('hidden');
-    container.style.display = 'flex';
-    container.style.animation = 'fadein 0.5s';
-    let buttons = Array.from(document.getElementsByClassName('picbtn')); //Gets all buttons
-    for (let i = 0; i < buttons.length ; i++){
-        buttons[i].addEventListener('click', () => checkIfExists(buttons[i].id));
-    }
-    other.addEventListener('click', () => createNew('')); //'Add other' button
-}
 
 function checkIfExists(id){
     for(let key in json){

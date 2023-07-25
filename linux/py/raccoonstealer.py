@@ -41,9 +41,9 @@ def decrypt() -> None:
     fernet = Fernet(key)
     with open(f'{path}/data.json', 'rb') as f:
         encrypted = f.read()
-    decrypted = fernet.decrypt(encrypted)
-    with open(f'{path}/data.json', 'wb') as f:
-        f.write(decrypted)
+    decrypted: bytes = fernet.decrypt(encrypted)
+    print(decrypted.decode())
+    sys.stdout.flush()
 
 if __name__ == "__main__":
     checkArgs()
