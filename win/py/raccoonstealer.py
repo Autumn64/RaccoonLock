@@ -15,9 +15,9 @@ def checkArgs() -> None:
                 if sys.argv[2] == "--acceptdecrypt":
                     decrypt()
             case _:
-                return
+                message()
     except:
-        sys.exit(1)
+        message("Not enough parameters.")
 
 def createKey() -> None:
     key: bytes = Fernet.generate_key()
@@ -45,6 +45,9 @@ def decrypt() -> None:
     decrypted = fernet.decrypt(encrypted)
     print(decrypted.decode())
     sys.stdout.flush()
+
+def message(text: str = "") -> None:
+    print("RaccoonStealer v3.1.0 (c) Autumn64 2023.", "Licensed by BSD-3-Clause license.", text, sep="\n")
 
 if __name__ == "__main__":
     checkArgs()

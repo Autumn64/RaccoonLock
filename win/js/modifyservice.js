@@ -159,15 +159,23 @@ function save(){ //Save button
     let tmpservice = document.getElementById('service').value; //New values
     let tmpuser = document.getElementById('user').value; 
     let tmppassword = document.getElementById('password').value;
+    let err = document.getElementById('error');
+
     if(tmpservice.toLowerCase() !== key.toLowerCase() || tmpuser !== json[key].user[index] || tmppassword !== json[key].password[index]){
         change = true;
     }
     if(tmpservice.trim() === "" || tmpuser.trim() === "" || tmppassword.trim() === ""){
-        let err = document.getElementById('error');
         err.classList.remove('hidden');
-        err.innerHTML = `${currentlang.container.modify.error}.<br><br>`;
+        err.innerHTML = `${currentlang.container.modify.error[1]}<br><br>`;
         change = false;
     }
+    keys.forEach((item) => {
+        if (tmpservice.toLowerCase() === item.toLowerCase() && tmpservice.toLowerCase() !== key.toLowerCase()){
+            err.classList.remove('hidden');
+            err.innerHTML = `${currentlang.container.modify.error[0]}<br><br>`;
+            change = false;
+        }
+    });
     if(change === true){
         updateJSON({
             key: key, 

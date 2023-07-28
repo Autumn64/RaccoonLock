@@ -894,7 +894,7 @@
                     "service": "Service",
                     "user": "User",
                     "password": "Password",
-                    "error": "Enter the requested data",
+                    "error": ["There's already a service with that name!", "Enter the requested data."],
                     "success": "Data modified successfully!",
                     "buttons": {
                         "save": "Save",
@@ -940,7 +940,7 @@
                     "service": "Servicio",
                     "user": "Usuario",
                     "password": "Contraseña",
-                    "error": "Introduce los datos solicitados",
+                    "error": ["¡Ya existe un servicio con ese nombre!", "Introduce los datos solicitados."],
                     "success": "¡Datos modificados satisfactoriamente!",
                     "buttons": {
                         "save": "Guardar",
@@ -986,7 +986,7 @@
                     "service": "Service",
                     "user": "E-mail",
                     "password": "Mot de passe",
-                    "error": "Entrez les données demandées",
+                    "error": ["Un service avec ce nom existe déjà!", "Entrez les données demandées."],
                     "success": "Données modifiées avec succès!",
                     "buttons": {
                         "save": "Sauvegarder",
@@ -1032,7 +1032,7 @@
                     "service": "Servo",
                     "user": "Retpoŝto",
                     "password": "Pasvorto",
-                    "error": "Enigu la petitajn datumojn",
+                    "error": ["Jam ekzistas servo kun tiu nomo!", "Enigu la petitajn datumojn."],
                     "success": "Datumoj modifitaj sukcese!",
                     "buttons": {
                         "save": "Konservu",
@@ -1078,7 +1078,7 @@
                     "service": "Serviço",
                     "user": "E-mail",
                     "password": "Senha",
-                    "error": "Digite os dados solicitados",
+                    "error": ["Já existe um serviço com esse nome!", "Digite os dados solicitados."],
                     "success": "Dados modificados com sucesso!",
                     "buttons": {
                         "save": "Guardar",
@@ -1124,7 +1124,7 @@
                     "service": "Tjeneste",
                     "user": "E-post",
                     "password": "Passord",
-                    "error": "Skriv inn de forespurte dataene",
+                    "error": ["En tjeneste med det navnet finnes allerede!", "Skriv inn de forespurte dataene."],
                     "success": "Dataene ble endret med suksess!",
                     "buttons": {
                         "save": "Lagre",
@@ -1170,7 +1170,7 @@
                     "service": "서비스",
                     "user": "이메일",
                     "password": "암호",
-                    "error": "요청된 데이터를 입력하세요",
+                    "error": ["그런 서비스가 이미 있습니다!", "요청된 데이터를 입력하세요."],
                     "success": "데이터가 성공적으로 수정되었습니다!",
                     "buttons": {
                         "save": "저장",
