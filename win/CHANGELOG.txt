@@ -1,4 +1,4 @@
-RaccoonLock v3.1.0 (c) Aurora Giselle Flores Gomez (Autumn64) 2023
+RaccoonLock v3.1.0 (c) Aurora Giselle Flores Gomez (Autumn64) 2023 
 CHANGELOG:
 
 - Added the possibility to modify the name of an already existing service.
