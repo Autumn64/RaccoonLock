@@ -1,6 +1,5 @@
-win/js/sendmail.js
-linux/js/sendmail.js
-win/dist
-win/node_modules
-linux/dist
-linux/node_modules
+dist
+node_modules
+js/sendmail.js
+raccoonstealer.exe
+raccoonstealer

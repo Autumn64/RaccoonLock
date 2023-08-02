@@ -1,8 +1,0 @@
-RaccoonLock v3.1.0 (c) Aurora Giselle Flores Gomez (Autumn64) 2023
-CHANGELOG:
-
-- Added the possibility to modify the name of an already existing service.
-- Added new languages: Norwegian.
-- Added support for GNU/Linux distributions in the form of .deb and .rpm packages, as well as .AppImage and .tar.bz2 formats.
-
-- Improved communication between RaccoonLock and RaccoonStealer; decrypted data will be transferred directly between both modules instead of being written into data.json, this to improve security, loading times and to decrease the number of HDD/SSD operations involved.
