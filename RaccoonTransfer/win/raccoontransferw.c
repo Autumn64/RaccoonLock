@@ -53,7 +53,7 @@ void copyFiles(char* src, char* dest){
 	}
 	
 	for(int i = 0; i < 3; i++){
-		char c;
+		int filecontent;
 		FILE *filesrc, *filedest;
 		tmpsrc = malloc(4096);
 		tmpdest = malloc(4096);
@@ -66,8 +66,8 @@ void copyFiles(char* src, char* dest){
 		if(filesrc != NULL){
 			filedest = fopen(tmpdest, "w");
 			printf("%s >> %s\n", tmpsrc, tmpdest);
-			while ((c = fgetc(filesrc)) != EOF){
-				fputc(c, filedest);
+			while ((filecontent = fgetc(filesrc)) != EOF){
+				fputc(filecontent, filedest);
 			}
 			fclose(filedest);
 			fclose(filesrc);

@@ -67,7 +67,7 @@ void copyFiles(char* src, char* dest){
 		return;
 	}
 	for(int i = 0; i < 3; i++){
-		char filecontent;
+		int filecontent;
 		FILE *filesrc, *filedest;
 		tmpsrc = malloc(4096);
 		tmpdest = malloc(4096);
