@@ -71,7 +71,6 @@ void copyFiles(char* src, char* dest){
 			}
 			fclose(filedest);
 			fclose(filesrc);
-			count++;
 			Sleep(250);
 		}else{
 			printf("%s doesn't exist!\n", tmpsrc);
@@ -182,7 +181,7 @@ void menu(){
 		system("cls");
 		Sleep(1000);
 		printf("****** RaccoonTransfer v1.0 ******\n");
-		printf(" 1. Make backup\n 2. Restore backup\n 3. Exit\n\n\n\n\nAurora Giselle Flores Gomez (Autumn64), 2023.\nLicensed by BSD-3-Clause License.");
+		printf(" 1. Make backup\n 2. Restore backup\n 3. Exit\n\n\n\n\nAurora Giselle Flores Gómez (Autumn64), 2023.\nLicensed by BSD-3-Clause License.");
 		printf("\033[5A");
 		printf("\n Choose an option (1-3): ");
 		option = getc(stdin);
