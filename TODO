@@ -1,0 +1,42 @@
+Transformar los archivos data.json, info.json y key.key en un solo archivo con extensión .rlc (de RaccoonLock Container), que escriba los datos de cada archivo en modo texto o binario.
+
+Agregar la parte del info.json para que la pueda leer ignorando lo demás:
+
+-------------------------------------------------------------------------------------------
+int filecontent;
+bool infoFound = false;
+FILE *archivo = fopen("data.rlc", "r");
+if (archivo == NULL) error("Couldn't read data.rlc");
+
+for (int i = 0; i < KEY_SIZE; i++){
+	fscanf(archivo, "%2X", &filecontent);
+}
+fscanf(archivo, "%X", &filecontent);
+
+for (int i = 0; i < IV_SIZE; i++){
+	fscanf(archivo, "%2X", &filecontent);
+}
+fscanf(archivo, "%X", &filecontent);
+
+while ((fscanf(archivo, "%X", &filecontent)) != EOF){
+	if (filecontent == 0x100){
+		infoFound = true;
+		break;
+	}
+}
+
+if (infoFound == false) error("EOF reached unexpectedly");
+
+while ((fscanf(archivo, "%X", &filecontent)) != EOF){
+	if (filecontent == 0x100) break;
+	fputc(filecontent, stdout);
+}
+fflush(stdout);
+fclose(archivo);
+-------------------------------------------------------------------------------------------
+
+Reescribir RaccoonStealer a C.
+
+Modificar RaccoonTransfer para que se adapte a los nuevos archivos .rlc.
+
+Revisar lo del ícono del programa en Linux.
