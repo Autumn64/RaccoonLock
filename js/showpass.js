@@ -1,24 +1,43 @@
-const raccoonstealer = paths.getStealer();
-let exec = require('child_process').execFile;
-
 let json;
 let keys = [];
+
+const verify = document.getElementById('verify');
 const container = document.getElementById('container');
 const copied = document.getElementById('copied');
 let theresData = true;
 
-window.addEventListener('DOMContentLoaded', () =>{
-    exec(raccoonstealer, ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
-        json = JSON.parse(stdout);
-        container.classList.remove('hidden'); //Shows container
-        container.style.display = 'flex';
-        container.style.animation = 'fadein 0.5s';
+function main(){
+    exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
+	let jsonstring = paths.getCorrectJSON(stdout);
+        json = JSON.parse(jsonstring);
+        verify.classList.remove('hidden');
+        verify.style.display = 'flex';
+        verify.style.animation = 'fadein 0.5s';
         for(let key in json){
             if (key === 'RaccoonLock') continue; //Ignores the app's password
             keys.push(key);
         }
-        setData();
     });
+}
+
+document.getElementById('vsubmit').addEventListener('click', () =>{
+	let pass = document.getElementById('vpass').value;
+	let errorv = document.getElementById('errorv');
+
+	if (pass !== json.RaccoonLock){
+		errorv.classList.remove('hidden');
+		errorv.innerHTML = "Wrong password!";
+		return;
+	}
+
+	verify.style.animation = "fadeout 0.5s forwards";
+	setTimeout(() =>{
+		verify.style.display = 'none';
+		container.classList.remove('hidden');
+		container.style.display = 'flex';
+		container.style.animation = 'fadein 0.5s';
+		setData();
+	}, 600);
 });
 
 document.getElementById('goback').addEventListener('click', () =>
@@ -78,13 +97,13 @@ function showData(key){ //Iterates for each service
         let cell1User = rowUser.insertCell();
         cell1User.innerHTML = currentlang.container.table.user;
         let cell2User = rowUser.insertCell();
-        cell2User.innerHTML = `<div class="data" tabindex="1">${json[key].user[i]}</div>`;
+        cell2User.innerHTML = `<input type="email" value="${json[key].user[i]}" class="data" tabindex="1" readonly>`;
 
         let rowPass = table.insertRow();
         let cell1Pass = rowPass.insertCell();
         cell1Pass.innerHTML = currentlang.container.table.password;
         let cell2Pass = rowPass.insertCell();
-        cell2Pass.innerHTML = `<div class="data" tabindex="1">${json[key].password[i]}</div>`; //Password array works the same way
+        cell2Pass.innerHTML = `<input type="password" value="${json[key].password[i]}" class="data" tabindex="1" readonly>`; //Password array works the same way
         // Add two empty rows after password row
         let emptyRow1 = table.insertRow();
         let emptyCell1 = emptyRow1.insertCell();
@@ -97,10 +116,19 @@ function showData(key){ //Iterates for each service
 }
 
 function addClick(){
-    let alldivs = Array.from(document.getElementsByClassName('data'));
-    for(let i = 0; i < alldivs.length; i++){
-        alldivs[i].addEventListener('click', () => copy(alldivs[i].innerHTML));
-        alldivs[i].addEventListener('keypress', event => {if(event.key === 'Enter') copy(alldivs[i].innerHTML);});
+    let allinps = Array.from(document.getElementsByClassName('data'));
+    let verify = document.getElementById("verify");
+    for(let i = 0; i < allinps.length; i++){
+        allinps[i].addEventListener('click', () => {
+		allinps[i].type = "text";
+		copy(allinps[i].value)
+	});
+        allinps[i].addEventListener('keypress', event => {
+		if(event.key === 'Enter'){
+			allinps[i].type = "text";
+			copy(allinps[i].value);
+		}
+	});
     }
 }
 

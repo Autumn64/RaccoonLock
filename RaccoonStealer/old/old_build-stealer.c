@@ -25,7 +25,7 @@ void install(){
 }
 
 int main(){
-    printf("RaccoonStealer Builder v1.0\nAurora Giselle Flores Gomez (Autumn64), 2023\n\n");
+    printf("RaccoonStealer Builder v1.0\nAutumn64, 2023\n\n");
     char option = prompt();
     if (option == 'y'){
         install();

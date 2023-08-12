@@ -1,4 +1,4 @@
-class getPaths{
+class interfaces{
 	constructor(platform){
 		this.platform = platform;
 	}
@@ -21,6 +21,22 @@ class getPaths{
 			return './raccoonstealer';
 		}
 	}
+
+	getCorrectJSON(string){
+		let last = string.lastIndexOf('}');
+		if (last !== -1) {
+			const jsonOnly = string.substring(0, last + 1);
+			return jsonOnly;
+		}else{
+			return "Invalid JSON string";
+		}
+	}
+
+	makeCorrectJSON(string){
+		let newString = string.replaceAll(`"`, `\"`);
+		newString = string.replaceAll(`$`, `\$`);
+		return newString;
+	}
 }
 
-module.exports = getPaths;
+module.exports = interfaces;

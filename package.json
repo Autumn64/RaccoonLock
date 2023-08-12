@@ -10,7 +10,7 @@
     "passwords",
     "passmanager"
   ],
-  "author": "Aurora Giselle Flores Gómez (Autumn64)",
+  "author": "Autumn64",
   "license": "BSD-3-Clause",
   "devDependencies": {
     "electron-builder": "^24.6.3",

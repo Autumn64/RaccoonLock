@@ -1,22 +1,28 @@
-const path = paths.getPath();
-const info = require(`${path}/info.json`);
 const sendMail = require('./js/sendmail.js');
-let exec = require('child_process').execFile;
-const raccoonstealer = paths.getStealer();
 
 let twoFA = "";
 let passjson = "";
-const email = info.user;
+let email;
 let passwordd = document.getElementById('passwordd');
 
-window.addEventListener('DOMContentLoaded', () =>{
-    exec(raccoonstealer, ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
-        let data = JSON.parse(stdout);
-        passjson = data.RaccoonLock;
-        passwordd.classList.remove('hidden');
-        passwordd.style.animation = 'fadein 0.5s';
-    });
-});
+function main(){
+	exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
+		if (error){
+                        console.error(error);
+                        return;
+                }
+                if (stderr){
+                        console.error(stderr);
+                        return;
+                }
+            let jsonstring = paths.getCorrectJSON(stdout);
+        	let data = JSON.parse(jsonstring);
+       		passjson = data.RaccoonLock;
+        	passwordd.classList.remove('hidden');
+        	passwordd.style.animation = 'fadein 0.5s';
+    	});
+	email = userinfo.user;
+}
 
 document.getElementById('submitv').addEventListener('click', () =>{
     let code = document.getElementById('code').value;
@@ -38,7 +44,7 @@ document.getElementById('submit').addEventListener('click', () =>{
         passwordd.style.animation = 'fadeout 1s forwards';
         setTimeout(() => {
             passwordd.style.display = 'none';
-            info.passwordmode === false ? sendm() : window.location.href = 'mainmenu.html';
+            userinfo.passwordmode === false ? sendm() : window.location.href = 'mainmenu.html';
         }, 3000);
     }else{
         let errora = document.getElementById('errora');
@@ -51,7 +57,7 @@ function sendm(){
     let verify = document.getElementById('verify');
     verify.classList.remove('hidden');
     verify.style.animation = 'fadein 0.5s';
-    if(info.language === 'kr') {
+    if(userinfo.language === 'kr') {
         document.getElementById('message').innerHTML = `${email}${currentlang.verify.message}.`;
     }else{
         document.getElementById('message').innerHTML = `${currentlang.verify.message} ${email}.`;
