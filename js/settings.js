@@ -1,28 +1,24 @@
-const path = paths.getPath();
-const json = require(`${path}/info.json`);
-const fs = require('fs');
-const sendMail = require('./js/sendmail.js')
-let exec = require('child_process').execFile;
-const raccoonstealer = paths.getStealer();
+const sendMail = require('./js/sendmail.js');
 
 let twoFA = "";
 let passjson;
 let askPassword = false;
 
-window.addEventListener('DOMContentLoaded', () =>{
-    document.getElementById('name').value = json.name; //Get all the inputs
-    document.getElementById('user').value = json.user;
-    document.getElementById('phone').value = json.phone;
-    document.getElementById('birthdate').value = json.birthdate;
+function main(){
+    document.getElementById('name').value = userinfo.name; //Get all the inputs
+    document.getElementById('user').value = userinfo.user;
+    document.getElementById('phone').value = userinfo.phone;
+    document.getElementById('birthdate').value = userinfo.birthdate;
     let passmode = document.getElementById('switch');
-    exec(raccoonstealer, ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
-        passjson = JSON.parse(stdout);
+    exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
+        let jsonstring = paths.getCorrectJSON(stdout);
+        passjson = JSON.parse(jsonstring);
         document.getElementById('password').value = passjson.RaccoonLock;
         document.getElementById('goback').classList.remove('hidden'); //Shows go back and about buttons
         document.getElementById('about').classList.remove('hidden');
     });
-    json.passwordmode === false ? passmode.checked = false : passmode.checked = true;
-});
+    userinfo.passwordmode === false ? passmode.checked = false : passmode.checked = true;
+}
 
 document.getElementById('save').addEventListener('click', () =>{
     let change;
@@ -36,8 +32,8 @@ document.getElementById('save').addEventListener('click', () =>{
     let passwordmode = document.getElementById('switch').checked;
     let tmplang = document.getElementById('language').value;
 
-    if(tmpname !== json.name || tmpuser !== json.user || tmpphone !== json.phone
-        || tmpbirthdate !== json.birthdate || tmppassword !== passjson.RaccoonLock || tmplang !== json.language){ //Super long condition but it's to check all values
+    if(tmpname !== userinfo.name || tmpuser !== userinfo.user || tmpphone !== userinfo.phone
+        || tmpbirthdate !== userinfo.birthdate || tmppassword !== passjson.RaccoonLock || tmplang !== userinfo.language){ //Super long condition but it's to check all values
             change = true;
     }
     if(tmpname.trim() === "" || tmpuser.trim() === "" || tmppassword.trim() === ""){
@@ -57,7 +53,7 @@ document.getElementById('save').addEventListener('click', () =>{
             document.getElementById('code').placeholder = currentlang.verify.code[0];
             document.getElementById('errorv').style.display = 'none';
             document.getElementById('errorv').innerHTML = currentlang.verify.errorv[0];
-            if(json.language === 'kr') {
+            if(userinfo.language === 'kr') {
                 document.getElementById('nowenter').innerHTML = `${tmpuser}${currentlang.verify.nowenter}.`;
             }else{
                 document.getElementById('nowenter').innerHTML = `${currentlang.verify.nowenter} ${tmpuser}.`;
@@ -113,14 +109,22 @@ document.getElementById('switch').addEventListener('click', () =>{ //Password mo
     let passmode = document.getElementById('switch');
     let successa = document.getElementById('successa');
     if (passmode.checked === false){
-        json.passwordmode = false;
+        userinfo.passwordmode = false;
         successa.innerHTML = currentlang.info.sucessa[1];
     }else{
-        json.passwordmode = true;
+        userinfo.passwordmode = true;
         successa.innerHTML = currentlang.info.sucessa[0];
     }
-    let newJSON = JSON.stringify(json);
-    fs.writeFileSync(`${path}/info.json`, newJSON, (err) =>{});
+    let newPassJSON = paths.makeCorrectJSON(JSON.stringify(passjson));
+    let newJSON = paths.makeCorrectJSON(JSON.stringify(userinfo));
+    exec(raccoonstealer, ['-a', `${path}/data.rlc`, newPassJSON, newJSON], (error, stdout, stderr) =>{
+	    if (error){
+		    console.error(error);
+	    }
+	    if (stderr){
+		    console.error(stderr);
+	    }
+    });
     successa.classList.remove('hidden');
 });
 
@@ -153,16 +157,18 @@ function sendm(email){
 }
 
 function updateJSON(){
-    json.name = document.getElementById('name').value.trimStart(); //Update new values
-    json.user = document.getElementById('user').value.trimStart();
-    json.phone = document.getElementById('phone').value.trimStart();
-    json.birthdate = document.getElementById('birthdate').value.trimStart();
-    json.language = document.getElementById('language').value;
+    userinfo.name = document.getElementById('name').value.trimStart(); //Update new values
+    userinfo.user = document.getElementById('user').value.trimStart();
+    userinfo.phone = document.getElementById('phone').value.trimStart();
+    userinfo.birthdate = document.getElementById('birthdate').value.trimStart();
+    userinfo.language = document.getElementById('language').value;
     passjson.RaccoonLock = document.getElementById('password').value.trimStart();
 
-    let newJSON = JSON.stringify(json);
-    let newPassJSON = JSON.stringify(passjson)
-    fs.writeFileSync(`${path}/info.json`, newJSON, (err) =>{});
-    fs.writeFileSync(`${path}/data.json`, newPassJSON, (err) => {});
-    exec(raccoonstealer, ['--encrypt'], (err, data) =>{});
+    let newJSON = JSON.stringify(userinfo).replaceAll('"', `\"`);
+    let newPassJSON = JSON.stringify(passjson).replaceAll('"', `\"`);
+    exec(raccoonstealer, ["-a", `${path}/data.rlc`, newPassJSON, newJSON], (error, stdout, stderr) =>{
+	    if (error) console.error(error);
+	    if (stderr) console.error(stderr);
+	    return;
+    });
 }

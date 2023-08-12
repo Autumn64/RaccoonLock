@@ -10,8 +10,8 @@ function createWindow(){
             enableRemoteModule: false,
         }
     });
-    //win.webContents.openDevTools();
-    win.removeMenu();
+    win.webContents.openDevTools();
+    //win.removeMenu();
     win.loadFile('index.html');
 }
 

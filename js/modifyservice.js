@@ -1,8 +1,3 @@
-const path = paths.getPath();
-const fs = require('fs');
-let exec = require('child_process').execFile;
-const raccoonstealer = paths.getStealer();
-
 let json;
 let keys = [];
 let user; //User
@@ -11,10 +6,11 @@ let services = document.getElementById('services'); //Combobox
 let datas = document.getElementById('datas'); //Datas div
 let modify = document.getElementById('modify'); //Modify div
 
-window.addEventListener('DOMContentLoaded', () =>{
-    exec(raccoonstealer, ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
+function main(){
+    exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
         let parameters = new URLSearchParams(document.location.search);
-        json = JSON.parse(stdout);
+	let jsonstring = paths.getCorrectJSON(stdout);
+        json = JSON.parse(jsonstring);
         for (let key in json){
             if(key === 'RaccoonLock') continue; //Ignores the app's password
             keys.push(key);
@@ -27,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () =>{
         services.value = decodeURIComponent(parameters.get('id'));
         showAll(); //Shows the data if something is selected when page loads
     });
-});
+}
 
 document.getElementById('goback').addEventListener('click', () =>
     window.location.href = 'mainmenu.html');
@@ -210,9 +206,12 @@ function updateJSON({ key, index, service, user, pass }){
     }
     json[key].user[index] = user;
     json[key].password[index] = pass;
-    let newJSON = JSON.stringify(json);
-    fs.writeFileSync(`${path}/data.json`, newJSON, (err) => {});
-    exec(raccoonstealer, ['--encrypt'], (err, data) =>{});
+    let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
+    let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
+    exec(raccoonstealer, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
+	    if (error) console.error(error);
+	    if (stderr) console.error(stderr);
+    });
 }
 
 function deleteData(){
@@ -227,9 +226,13 @@ function deleteData(){
     if (json[key].user.length === 0){ //If there's no accounts remove the service
         delete json[key];
     }
-    let newJSON = JSON.stringify(json);
-    fs.writeFileSync(`${path}/data.json`, newJSON, (err) => {});
-    exec(raccoonstealer, ['--encrypt'], (err, data) =>{});
+    
+    let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
+    let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
+    exec(raccoonstealer, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
+	    if (error) console.error(error);
+	    if (stderr) console.error(stderr);
+    });
     setTimeout(() => {
         successb.classList.remove('hidden');
         document.getElementById('goback').style.animation = 'fadeout 0.5s forwards'; //Hide back button
@@ -250,9 +253,13 @@ function addData(){
     if (usera.trim() !== "" && passworda.trim() !== ""){
         json[key].user.push(usera.trimStart());
         json[key].password.push(passworda.trimStart());
-        let newJSON = JSON.stringify(json);
-        fs.writeFileSync(`${path}/data.json`, newJSON, (err) => {});
-        exec(raccoonstealer, ['--encrypt'], (err, data) =>{});
+	    
+    	let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
+    	let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
+    	exec(raccoonstealer, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
+	    	if (error) console.error(error);
+	    	if (stderr) console.error(stderr);
+    });
         setTimeout(() =>{
             errora.style.display = 'none'; //Hides error message if there's one
             successa.classList.remove('hidden');

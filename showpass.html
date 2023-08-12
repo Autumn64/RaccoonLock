@@ -6,7 +6,6 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/showpass.css">
-    <script src="./js/lang/langshowpass.js"></script>
     <title>RaccoonLock</title>
     </head>
     <body>
@@ -19,6 +18,16 @@
             <div id="tablediv"></div>
         </div>
         <div id="copied" class="hidden"></div>
+
+    	<div id="verify" class="hidden">
+		<br><br><br><br>
+      		<h2 id="nowenter">Enter your password</h2>
+            <br><br>
+      		<input id="vpass" type="password" placeholder="Password" required><br>
+		<div id="errorv" class="hidden"></div><br>
+      		<button id="vsubmit">Verify</button><br><br>
+    		</div>
     </body>
     <script src="js/showpass.js"></script>
+    <script src="./js/lang/langshowpass.js"></script>
 </html>

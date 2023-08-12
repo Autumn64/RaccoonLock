@@ -1,11 +1,8 @@
-const path = paths.getPath();
-const json = require(`${path}/info.json`);
-
-window.addEventListener('DOMContentLoaded', () =>{
+function main(){
     let time = checkTime();
-    let name = json.name.trimStart().split(' ')[0];
+    let name = userinfo.name.trimStart().split(' ')[0];
     document.getElementById('logo').innerHTML += `<h2>${time}, ${name}.</h2>`
-});
+}
 
 document.getElementById('settings').addEventListener('click', () =>{
     window.location.href = 'settings.html';

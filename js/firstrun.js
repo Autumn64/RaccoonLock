@@ -1,7 +1,7 @@
-const getPaths = require("./js/lang/getpaths.js");
-const paths = new getPaths(process.platform);
+const interfaces = require("./js/lang/interfaces.js");
+const paths = new interfaces(process.platform);
 const path = paths.getPath();
-let exec = require('child_process').execFile;
+const exec = require('child_process').execFile;
 const sendMail = require('./js/sendmail.js')
 const fs = require('fs');
 const raccoonstealer = paths.getStealer();
@@ -56,25 +56,35 @@ document.getElementById('submitv').addEventListener('click', () =>{ //Verificar 
     let userWrotePassword;
     if (code === twoFA || code === password){
         userWrotePassword = code === password ? true : false;
-        fs.mkdirSync(`${path}/`);
-        let info = {
-            name: document.getElementById('name').value.trimStart(),
-            user: document.getElementById('email').value.trimStart(),
-            phone: "",
-            birthdate: "",
-            passwordmode: false,
-            language: "en"
-        };
-        let data = {
-            RaccoonLock: document.getElementById('password').value.trimStart()
-        };
-        let jsoninfo = JSON.stringify(info);
-        let jsondata = JSON.stringify(data);
-        fs.writeFileSync(`${path}/info.json`, jsoninfo, (err) =>{});
-        fs.writeFileSync(`${path}/data.json`, jsondata, (err) => {});
-        exec(raccoonstealer, ['--createkey'], (err, data) =>{
-            exec(raccoonstealer, ['--encrypt'], (err, data) =>{});
-        });
+        if (!fs.existsSync(`${path}/`)) fs.mkdirSync(`${path}/`);
+            let info = {
+                name: document.getElementById('name').value.trimStart(),
+                user: document.getElementById('email').value.trimStart(),
+                phone: "",
+                birthdate: "",
+                passwordmode: false,
+                language: "en"
+            };
+            let data = {
+                RaccoonLock: document.getElementById('password').value.trimStart()
+            };
+            let jsoninfo = paths.makeCorrectJSON(JSON.stringify(info));
+            let jsondata = paths.makeCorrectJSON(JSON.stringify(data));
+            exec(raccoonstealer, ["-c", "-y", `${path}/data.rlc`], (error, stdout, stderr) =>{
+                if (error){
+                    console.error(error);
+                }
+                if (stderr){
+                    console.error(stderr);
+                }
+                exec(raccoonstealer, ["-a", `${path}/data.rlc`, jsondata, jsoninfo], (error, stdout, stderr) =>{
+                    if (error) console.error (error);
+                    if (stderr) console.error (stderr);
+                    return;
+                });
+                return;
+            });
+        
     }else{
         let err = document.getElementById('errorv');
         err.classList.remove('hidden'); //Shows error

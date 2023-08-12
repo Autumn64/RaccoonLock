@@ -1,6 +1,4 @@
 /*RaccoonStealer v4.0.0 prototype 1.
-Right now it just encrypts and decrypts the information that is given along with the "-e" argument. It does not read nor produce any information related to info.json files yet. I might take some time to update this file with these currently lacking functionalities due to personal reasons.
-
 To compile and test this file, please make sure you have the OpenSSL libraries installed in your system, use gcc (I didn't test it with other compilers) and use flags -lssl -lcrypto or any other flags you might need to add the  header files to the preprocessor. It has been tested and it works on Fedora 38, Ubuntu 22.04 and Debian 12, I don't know if it works on Windows although it should since I am not using any non-standard library except for OpenSSL.
 
 The file with extension .rlc this program generates is readable using notepad or any text editor, but the idea is to make it more or less unreadable to the human eye (which is why I write every character as a HEX value), so this along with the AES-256 CBC encryption algorithm and the fact this supposes data.json, info.json and key.key files will be merged into a single unified file would mean a big improvement in RaccoonLock's security and stability. I'm also rewriting RaccoonStealer in C because I want it to be portable, and the current Python-written RaccoonStealer isn't really portable as it needs to be recompiled for each system it runs on.
@@ -12,6 +10,7 @@ The file with extension .rlc this program generates is readable using notepad or
 #include <openssl/err.h>
 #include <openssl/evp.h>
 #include <openssl/rand.h>
+#include "nstdoi.h"
 
 #define KEY_SIZE 32
 #define IV_SIZE 16
@@ -20,88 +19,90 @@ unsigned char key[KEY_SIZE];
 unsigned char iv[IV_SIZE];
 unsigned char *data;
 
-void error(char *message){
-	fprintf(stderr, "Error: %s!", message);
-	exit(1);
-}
 
-void getKeyIV(){
-	int filecontent;
-	FILE *filesrc = fopen("data.rlc", "r");
-	if (filesrc == NULL){
-		error("Couldn't read data.rlc");
-	}
-
-	for (int i = 0; i < KEY_SIZE; i++){
-		if ((fscanf(filesrc, "%2X", &filecontent)) == EOF) break;
-		key[i] = (unsigned char)filecontent;
-	}
-	if ((fscanf(filesrc, "%X", &filecontent)) == EOF) error("EOF reached unexpectedly");
-
-	for (int i = 0; i < IV_SIZE; i++){
-		if ((fscanf(filesrc, "%2X", &filecontent)) == EOF) break;
-		iv[i] = (unsigned char)filecontent;
-	}
+void splash(char *message){
+	printf("RaccoonStealer v4.0.0 (c) Autumn64 2023.\nLicensed under BSD-3-Clause license.\n%s\n", message);
 	return;
 }
 
-int getData(){
-	int filecontent;
-	int count = 1;
-	int currentChar = 0;
-	int charNumber = currentChar + 50;
-	FILE *filesrc = fopen("data.rlc", "r");
-	data = malloc(charNumber);
-	if (filesrc == NULL){
-		error("Couldn't read data.rlc");
-	}
-
-	while (fscanf(filesrc, "%X", &filecontent) != EOF){
-		if (filecontent == 0x100){
-			count++;
-			continue;
-		}
-		if (count == 3){
-			data[currentChar] = (unsigned char)filecontent;
-			currentChar++;
-			if (currentChar == charNumber){
-				charNumber = currentChar + 50;
-				data = realloc(data, charNumber);
-			}
-		}	
-	}
-	currentChar--;
-	data = realloc(data, currentChar);
-	fclose(filesrc);
-	return currentChar;
+void error(char *message, unsigned char *extra){
+	splash("");
+	fprintf(stderr, "Error: %s%s!\n", message, extra);
+	exit(1);
 }
 
-void createKeyIV(){
+void getKeyIV(unsigned char *route){
+	int filecontent;
+	FILE *filesrc = fopen(route, "r");
+	if (filesrc == NULL){
+		error("Couldn't read ", route);
+	}
+
+	for (int i = 0; i < KEY_SIZE; i++){
+		if ((fscanf(filesrc, "%2X", &filecontent)) == EOF) error("EOF reached unexpectedly", "");
+		key[i] = (unsigned char)filecontent;
+	}
+
+	for (int i = 0; i < IV_SIZE; i++){
+		if ((fscanf(filesrc, "%2X", &filecontent)) == EOF) error("EOF reached unexpectedly", "");
+		iv[i] = (unsigned char)filecontent;
+	}
+
+	fclose(filesrc);
+	return;
+}
+
+int getData(unsigned char *route){
+	int filecontent;
+	int DATA_SIZE;
+	FILE *filesrc = fopen(route, "r");
+	
+	if (filesrc == NULL){
+		error("Couldn't read ", route);
+	}
+
+	for (int i = 0; i < 48; i++){
+		if ((fscanf(filesrc, "%X", &filecontent)) == EOF) error("EOF reached unexpectedly", "");
+	}
+
+	if ((fscanf(filesrc, "%X", &DATA_SIZE)) == EOF) error("EOF reached unexpectedly", "");
+
+	data = malloc(DATA_SIZE);
+	if (data == NULL) error("Couldn't allocate memory for the data", "");
+
+	for (int i = 0; i < DATA_SIZE; i++){
+		if ((fscanf(filesrc, "%X", &filecontent)) == EOF) error("EOF reached unexpectedly", "");
+		data[i] = (unsigned char)filecontent;
+	}
+
+	fclose(filesrc);
+	return DATA_SIZE;
+}
+
+void createKeyIV(unsigned char *route){
 	unsigned char newkey[KEY_SIZE];
 	unsigned char newiv[IV_SIZE];
 	FILE *filedest;
 
-	if (RAND_bytes(newkey, sizeof(newkey)) != 1){
-		error("Couldn't create random encryption key");
+	if (RAND_bytes(newkey, KEY_SIZE) != 1){
+		error("Couldn't create random encryption key", "");
 	}
-	if (RAND_bytes(newiv, sizeof(newiv)) != 1){
-		error("Couldn't create random initialization vector");
+	if (RAND_bytes(newiv, IV_SIZE) != 1){
+		error("Couldn't create random initialization vector", "");
 	}
 
-	filedest = fopen("data.rlc", "w");
+	filedest = fopen(route, "w");
 	if (filedest == NULL){
-		error("Couldn't create data.rlc");
+		error("Couldn't create ", route);
 	}
-	for (int i = 0; i < sizeof(newkey); i++){
+	for (int i = 0; i < KEY_SIZE; i++){
 		fprintf(filedest, "%02X ", newkey[i]);
 	}
-	fprintf(filedest, "100 ");
-	for (int i = 0; i < sizeof(newiv); i++){
+	for (int i = 0; i < IV_SIZE; i++){
 		fprintf(filedest, "%02X ", newiv[i]);
 	}
-	fprintf(filedest, "100 ");
 	fclose(filedest);
-	printf("Key generated successfully\n");
+	splash("\nKey generated successfully!");
 	return;
 }
 
@@ -111,15 +112,15 @@ int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key, uns
 	int ciphertext_len;
 
 	ctx = EVP_CIPHER_CTX_new();
-	if (!ctx) error("Couldn't create EVP context");
+	if (!ctx) error("Couldn't create EVP context", "");
 
-	if (EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv) != 1) error("Couldn't initialize the encryption operation");
+	if (EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv) != 1) error("Couldn't initialize the encryption operation", "");
 
-	if (EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len) != 1) error("Couldn't encrypt data");
+	if (EVP_EncryptUpdate(ctx, ciphertext, &len, plaintext, plaintext_len) != 1) error("Couldn't encrypt data", "");
 
 	ciphertext_len = len;
 
-	if (EVP_EncryptFinal_ex(ctx, ciphertext + len, &len) != 1) error("Couldn't finalize the encryption operation");
+	if (EVP_EncryptFinal_ex(ctx, ciphertext + len, &len) != 1) error("Couldn't finalize the encryption operation", "");
 
 	ciphertext_len += len;
 	EVP_CIPHER_CTX_free(ctx);
@@ -127,31 +128,36 @@ int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key, uns
 	return ciphertext_len;
 }
 
-void enc(char *text){
-	getKeyIV();
-	unsigned char *plaintext = (unsigned char*)text;
-	int plaintext_len = strlen(text);
-	unsigned char ciphertext[plaintext_len + EVP_CIPHER_block_size(EVP_aes_256_cbc())];
-	int ciphertext_len;
+void addData(unsigned char *route, unsigned char *textToEncrypt, unsigned char *infoText){
+	int infoText_len = strlen(infoText);
+	getKeyIV(route);
+	int textToEncrypt_len = strlen(textToEncrypt);
+	unsigned char cipherText[textToEncrypt_len + EVP_CIPHER_block_size(EVP_aes_256_cbc())];
+	int cipherText_len;
 	FILE *filedest;
 	
-	ciphertext_len = encrypt(plaintext, plaintext_len, key, iv, ciphertext);
+	cipherText_len = encrypt(textToEncrypt, textToEncrypt_len, key, iv, cipherText);
 	
-	filedest = fopen("data.rlc", "w");
-	for (int i = 0; i < sizeof(key); i++){
+	filedest = fopen(route, "w");
+	if (filedest == NULL){
+		error("Couldn't create ", route);
+	}
+	for (int i = 0; i < KEY_SIZE; i++){
 		fprintf(filedest, "%02X ", key[i]);
 	}
-	fprintf(filedest, "100 ");
-	for (int i = 0; i < sizeof(iv); i++){
+	for (int i = 0; i < IV_SIZE; i++){
 		fprintf(filedest, "%02X ", iv[i]);
 	}
-	fprintf(filedest, "100 ");
-	for (int i = 0; i <= ciphertext_len; i++){
-		fprintf(filedest, "%02X ", ciphertext[i]);
+	fprintf(filedest, "%X ", cipherText_len);
+	for (int i = 0; i < cipherText_len; i++){
+		fprintf(filedest, "%02X ", cipherText[i]);
+	}
+	for (int i = 0; i < infoText_len; i++){
+		fprintf(filedest, "%02X ", infoText[i]);
 	}
 	fprintf(filedest, "100 ");
 	fclose(filedest);
-	printf("Encrypted successfully\n");
+	splash("\nData added successfully!");
 	return;
 }
 
@@ -160,17 +166,16 @@ int decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key, u
 	int len;
 	int plaintext_len;
 	ctx = EVP_CIPHER_CTX_new();
-	if (!ctx) error("Couldn't create EVP context");
+	if (!ctx) error("Couldn't create EVP context", "");
 
-	if (EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv) != 1) error("Couldn't initialize the decryption operation");
+	if (EVP_DecryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, key, iv) != 1) error("Couldn't initialize the decryption operation", "");
 
-	if (EVP_DecryptUpdate(ctx, plaintext, &len, ciphertext, ciphertext_len) != 1) error("Couldn't decrypt data");
+	if (EVP_DecryptUpdate(ctx, plaintext, &len, ciphertext, ciphertext_len) != 1) error("Couldn't decrypt data", "");
 
 	plaintext_len = len;
 
 	if (EVP_DecryptFinal_ex(ctx, plaintext + len, &len) != 1){
-		ERR_print_errors_fp(stderr);
-		error("Couldn't finalize the decryption operation");
+		error("Couldn't finalize the decryption operation", "");
 	} 
 	plaintext_len += len;
 	EVP_CIPHER_CTX_free(ctx);
@@ -178,32 +183,64 @@ int decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key, u
 	return plaintext_len;
 }
 
-void dec(){
-	int data_len, decryptedtext_len;
-	getKeyIV();
-	data_len = getData();
-	unsigned char decryptedtext[data_len];
-	decryptedtext_len = decrypt(data, data_len, key, iv, decryptedtext);
-	decryptedtext[decryptedtext_len] = '\0';
-	printf("Decrypted text: ");
-	for (int i = 0; i < decryptedtext_len; i++){
-		if (decryptedtext[i] == '\0') break;
-		fputc(decryptedtext[i], stdout);
+void readDecrypted(unsigned char* route){
+	int data_len, decryptedText_len;
+	getKeyIV(route);
+	data_len = getData(route);
+	unsigned char decryptedText[data_len];
+	decryptedText_len = decrypt(data, data_len, key, iv, decryptedText);
+	decryptedText[decryptedText_len] = '\0';
+	for (int i = 0; i < decryptedText_len; i++){
+		if (decryptedText[i] == '\0') break;
+		fputc(decryptedText[i], stdout);
 	}
-	printf("\n");
+	fflush(stdout);
+	free(data);
+	return;
+}
+
+void readInfo(unsigned char* route){
+	int DATA_SIZE;
+	int filecontent;
+	FILE *filesrc;
+	
+	filesrc = fopen(route, "r");
+	if (filesrc == NULL){\
+		error("Couldn't read ", route);
+	}
+	for (int i = 0; i < 48; i++){
+		if ((fscanf(filesrc, "%X", &filecontent)) == EOF) error("EOF reached unexpectedly", "");
+	}
+
+	if ((fscanf(filesrc, "%X", &DATA_SIZE)) == EOF) error("EOF reached unexpectedly", "");
+
+	for (int i = 0; i < DATA_SIZE; i++){
+		if ((fscanf(filesrc, "%X", &filecontent)) == EOF) error("EOF reached unexpectedly", "");
+	}
+	while (1){
+		if ((fscanf(filesrc, "%X", &filecontent)) == EOF) error ("EOF reached unexpectedly", "");
+		if (filecontent == 0x100) break;
+		fputc(filecontent, stdout);
+	}
+	fflush(stdout);
+	fclose(filesrc);
 	return;
 }
 
 int main(int argc, char *argv[]){
-	if (argc > 1 && strcmp(argv[1], "-c") == 0){
-		createKeyIV();
-	}else if (argc > 1 && strcmp(argv[1], "-d") == 0){
-		dec();
-	}else if (argc > 2 && strcmp(argv[1], "-e") == 0){
-		enc(argv[2]);
+	if (argc == 4 && strcmp(argv[1], "-d") == 0 && strcmp(argv[2], "-y") == 0){
+		readDecrypted(argv[3]);
+	}else if (argc == 3 && strcmp(argv[1], "-i") == 0){
+		readInfo(argv[2]);
+	}else if (argc == 3 && strcmp(argv[1], "-c") == 0){
+		splash("\nCreating a new key will overwrite (and delete) all of your previous data,\ndon't run this command unless you know what you're doing.");
+	}else if (argc == 4 && strcmp(argv[1], "-c") == 0 && strcmp(argv[2], "-y") == 0){
+		createKeyIV(argv[3]);
+	}else if (argc == 5 && strcmp(argv[1], "-a") == 0){
+		addData(argv[2], argv[3], argv[4]);
+	}else{
+		splash("\nUnknown parameters.");
 	}
-	else{
-		printf("Unknown parameters.\n");
-	}
+
 	return 0;
 }

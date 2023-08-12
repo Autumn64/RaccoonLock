@@ -1,4 +1,3 @@
-const path = paths.getPath();
 const fs = require('fs');
 
 document.getElementById('accept').addEventListener('click', () =>{

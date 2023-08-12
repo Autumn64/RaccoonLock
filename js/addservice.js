@@ -1,16 +1,12 @@
-const path = paths.getPath();
-const fs = require('fs');
-let exec = require('child_process').execFile;
-const raccoonstealer = paths.getStealer();
-
 let json;
 let container = document.getElementById('container');
 let neww = document.getElementById('neww');
 
-window.addEventListener('DOMContentLoaded', () =>{
-    exec(raccoonstealer, ['--decrypt', '--acceptdecrypt'], (error, stdout, stderr) => {
+function main(){
+    exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
         let other = document.getElementById('other');
-        json = JSON.parse(stdout);
+	let jsonstring = paths.getCorrectJSON(stdout);
+        json = JSON.parse(jsonstring);
         container.classList.remove('hidden');
         container.style.display = 'flex';
         container.style.animation = 'fadein 0.5s';
@@ -20,7 +16,7 @@ window.addEventListener('DOMContentLoaded', () =>{
         }
         other.addEventListener('click', () => createNew('')); //'Add other' button
     });
-});
+}
 
 document.getElementById('goback').addEventListener('click', () => //Go back button
     window.location.href = 'mainmenu.html');
@@ -72,12 +68,18 @@ function addData(){
         document.getElementById("submit").style.animation = "fadeout 0.5s forwards";
         error.style.display = 'none'; //Hides error message
         success.classList.remove('hidden'); //Shows success message
-        newJSON = {[service]: {user: [], password: []}, ...json} //Creates new key at the beginning
-        newJSON[service].user.push(user);
-        newJSON[service].password.push(password);
+        let new_JSON = {[service]: {user: [], password: []}, ...json} //Creates new key at the beginning
+        new_JSON[service].user.push(user);
+        new_JSON[service].password.push(password);
+	    let newJSON = paths.makeCorrectJSON(JSON.stringify(new_JSON));
+	    let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
         document.getElementById('goback').style.display = 'none'; //Hide back button
-        fs.writeFileSync(`${path}/data.json`, JSON.stringify(newJSON), (err) => {});
-        exec(raccoonstealer, ['--encrypt'], (err, data) =>{});
+	
+	exec(raccoonstealer, ["-a", `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
+	    if (error) console.error(error);
+	    if (stderr) console.error(stderr);
+	    return;
+    	});
         setTimeout(() =>{
             neww.style.animation = 'fadeout 0.5s forwards'; //Hide neww div
         }, 3000);
