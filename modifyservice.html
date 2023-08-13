@@ -12,7 +12,7 @@
         <div id="topbar">
             <button id="goback"><-</button>
         </div><br><br>
-        <div id="container">
+        <div id="container" class="hidden">
             <h2 id="title"></h2><br><br>
             <select name="services" id="services">
                 <option value="none" selected></option>
@@ -50,6 +50,15 @@
                 <button id="cancela"></button><br>
             </div>
         </div>
+
+    	<div id="verify" class="hidden">
+		<br><br><br><br>
+      		<h2 id="nowenter">Enter your password</h2>
+            <br><br>
+      		<input id="vpass" type="password" placeholder="Password" required><br>
+		<div id="errorv" class="hidden"></div><br>
+      		<button id="vsubmit">Verify</button><br><br>
+    	</div>
     </body>
     <script src="js/modifyservice.js"></script>
     <script src="./js/lang/langmodifyservice.js"></script>

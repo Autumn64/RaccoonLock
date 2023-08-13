@@ -1,8 +1,9 @@
-//Made by Aurora Giselle Flores Gomez (Autumn64)
+//Made by Monica Nayely Flores Gomez (Autumn64)
 #ifndef NSTDOI_H_INCLUDED
 #define NSTDOI_H_INCLUDED
 
 #include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
 
 char* unnchar(char * str){
@@ -14,6 +15,15 @@ char* unnchar(char * str){
 
 void cleanstd(){
 	while(getchar() != '\n' && getchar() != EOF);
+	return;
+}
+
+void clearscr(){
+#ifdef _WIN32
+	system("cls");
+#elif __linux__
+	system("clear");
+#endif
 	return;
 }
 

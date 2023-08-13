@@ -5,6 +5,7 @@ let container = document.getElementById('container'); //Container
 let services = document.getElementById('services'); //Combobox
 let datas = document.getElementById('datas'); //Datas div
 let modify = document.getElementById('modify'); //Modify div
+let verify = document.getElementById('verify');
 
 function main(){
     exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
@@ -23,7 +24,30 @@ function main(){
         services.value = decodeURIComponent(parameters.get('id'));
         showAll(); //Shows the data if something is selected when page loads
     });
+	verify.classList.remove('hidden');
+	verify.style.display = 'flex';
+	verify.style.animation = 'fadein 0.5s';
 }
+
+
+document.getElementById('vsubmit').addEventListener('click', () =>{
+	let pass = document.getElementById('vpass').value;
+	let errorv = document.getElementById('errorv');
+
+	if (pass !== json.RaccoonLock){
+		errorv.classList.remove('hidden');
+		errorv.innerHTML = "Wrong password!";
+		return;
+	}
+
+	verify.style.animation = "fadeout 0.5s forwards";
+	setTimeout(() =>{
+		verify.style.display = 'none';
+		container.classList.remove('hidden');
+		container.style.display = 'flex';
+		container.style.animation = 'fadein 0.5s';
+	}, 600);
+});
 
 document.getElementById('goback').addEventListener('click', () =>
     window.location.href = 'mainmenu.html');
@@ -241,7 +265,7 @@ function deleteData(){
     }, 300);
     hideDiv('confirm');
     setTimeout(() =>
-    window.location.href = 'modifyservice.html?id=none', 3000);
+    window.location.href = 'showpass.html', 3000);
 }
 
 function addData(){

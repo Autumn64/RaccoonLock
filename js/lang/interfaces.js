@@ -25,7 +25,9 @@ class interfaces{
 	getCorrectJSON(string){
 		let last = string.lastIndexOf('}');
 		if (last !== -1) {
-			const jsonOnly = string.substring(0, last + 1);
+			let jsonOnly = string.substring(0, last + 1);
+			jsonOnly = jsonOnly.replaceAll(`\\"`, `"`);
+			jsonOnly = jsonOnly.replaceAll(`\\$`, `$`);
 			return jsonOnly;
 		}else{
 			return "Invalid JSON string";
@@ -34,7 +36,7 @@ class interfaces{
 
 	makeCorrectJSON(string){
 		let newString = string.replaceAll(`"`, `\"`);
-		newString = string.replaceAll(`$`, `\$`);
+		newString = newString.replaceAll(`$`, `\$`);
 		return newString;
 	}
 }
