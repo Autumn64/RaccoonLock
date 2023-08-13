@@ -52,6 +52,7 @@ unsigned char *currentPath(){
 	return buffer; //Don't forget to free this at the end!
 #elif __linux__
 	if ((getcwd(buffer, BUFSIZ)) == NULL) return NULL;
+	buffer = realloc(buffer, strlen(buffer));
 	return buffer;
 #endif
 }
