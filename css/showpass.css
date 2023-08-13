@@ -34,6 +34,14 @@
     text-align: center;
 }
 
+#verify > button{
+    width: 160px;
+}
+
+#verify > input{
+    width: 230px;
+}
+
 .stuff {
     width: 700px;
     table-layout: fixed;
@@ -43,10 +51,5 @@
 input{
     padding: 5px 5px 3px;
     width: 230px;
-    height: 30px;
     transition-duration: 0.2s;
-}
-
-button{
-	width: 130px;
 }

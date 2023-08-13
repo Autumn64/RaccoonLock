@@ -1,15 +1,16 @@
 let json;
 let container = document.getElementById('container');
 let neww = document.getElementById('neww');
+let verify = document.getElementById('verify');
 
 function main(){
     exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
         let other = document.getElementById('other');
 	let jsonstring = paths.getCorrectJSON(stdout);
         json = JSON.parse(jsonstring);
-        container.classList.remove('hidden');
-        container.style.display = 'flex';
-        container.style.animation = 'fadein 0.5s';
+        verify.classList.remove('hidden');
+        verify.style.display = 'flex';
+        verify.style.animation = 'fadein 0.5s';
         let buttons = Array.from(document.getElementsByClassName('picbtn')); //Gets all buttons
         for (let i = 0; i < buttons.length ; i++){
             buttons[i].addEventListener('click', () => checkIfExists(buttons[i].id));
@@ -17,6 +18,26 @@ function main(){
         other.addEventListener('click', () => createNew('')); //'Add other' button
     });
 }
+
+document.getElementById('vsubmit').addEventListener('click', () =>{
+	let pass = document.getElementById('vpass').value;
+	let errorv = document.getElementById('errorv');
+
+	if (pass !== json.RaccoonLock){
+		errorv.classList.remove('hidden');
+		errorv.innerHTML = "Wrong password!";
+		return;
+	}
+
+	verify.style.animation = "fadeout 0.5s forwards";
+	setTimeout(() =>{
+		verify.style.display = 'none';
+		container.classList.remove('hidden');
+		container.style.display = 'flex';
+		container.style.animation = 'fadein 0.5s';
+	}, 600);
+});
+
 
 document.getElementById('goback').addEventListener('click', () => //Go back button
     window.location.href = 'mainmenu.html');

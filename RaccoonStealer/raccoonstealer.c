@@ -1,7 +1,6 @@
-/*RaccoonStealer v4.0.0 prototype 1.
-To compile and test this file, please make sure you have the OpenSSL libraries installed in your system, use gcc (I didn't test it with other compilers) and use flags -lssl -lcrypto or any other flags you might need to add the  header files to the preprocessor. It has been tested and it works on Fedora 38, Ubuntu 22.04 and Debian 12, I don't know if it works on Windows although it should since I am not using any non-standard library except for OpenSSL.
-
-The file with extension .rlc this program generates is readable using notepad or any text editor, but the idea is to make it more or less unreadable to the human eye (which is why I write every character as a HEX value), so this along with the AES-256 CBC encryption algorithm and the fact this supposes data.json, info.json and key.key files will be merged into a single unified file would mean a big improvement in RaccoonLock's security and stability. I'm also rewriting RaccoonStealer in C because I want it to be portable, and the current Python-written RaccoonStealer isn't really portable as it needs to be recompiled for each system it runs on.
+/*
+  Please compile using GCC (I didn't test it in other compilers), make sure you have OpenSSL libraries installed and use flags -lssl -lcrypto 
+  (same code works on Windows and GNU/Linux)
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -14,6 +13,7 @@ The file with extension .rlc this program generates is readable using notepad or
 
 #define KEY_SIZE 32
 #define IV_SIZE 16
+#define forever for(;;)
 
 unsigned char key[KEY_SIZE];
 unsigned char iv[IV_SIZE];
@@ -191,7 +191,6 @@ void readDecrypted(unsigned char* route){
 	decryptedText_len = decrypt(data, data_len, key, iv, decryptedText);
 	decryptedText[decryptedText_len] = '\0';
 	for (int i = 0; i < decryptedText_len; i++){
-		if (decryptedText[i] == '\0') break;
 		fputc(decryptedText[i], stdout);
 	}
 	fflush(stdout);
@@ -217,9 +216,9 @@ void readInfo(unsigned char* route){
 	for (int i = 0; i < DATA_SIZE; i++){
 		if ((fscanf(filesrc, "%X", &filecontent)) == EOF) error("EOF reached unexpectedly", "");
 	}
-	while (1){
+	forever {
 		if ((fscanf(filesrc, "%X", &filecontent)) == EOF) error ("EOF reached unexpectedly", "");
-		if (filecontent == 0x100) break;
+		if (filecontent == 0x100) break; //"Close your eyes, count to 1: That's how long forever feels."
 		fputc(filecontent, stdout);
 	}
 	fflush(stdout);
@@ -230,8 +229,10 @@ void readInfo(unsigned char* route){
 int main(int argc, char *argv[]){
 	if (argc == 4 && strcmp(argv[1], "-d") == 0 && strcmp(argv[2], "-y") == 0){
 		readDecrypted(argv[3]);
+		clearscr();
 	}else if (argc == 3 && strcmp(argv[1], "-i") == 0){
 		readInfo(argv[2]);
+		clearscr();
 	}else if (argc == 3 && strcmp(argv[1], "-c") == 0){
 		splash("\nCreating a new key will overwrite (and delete) all of your previous data,\ndon't run this command unless you know what you're doing.");
 	}else if (argc == 4 && strcmp(argv[1], "-c") == 0 && strcmp(argv[2], "-y") == 0){
