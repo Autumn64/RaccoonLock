@@ -11,16 +11,21 @@ let currentlang;
 window.addEventListener('DOMContentLoaded', () =>{ 
         exec(raccoonstealer, ["-i", `${path}/data.rlc`], (error, stdout, stderr) =>{ 
                 if (error){
-                        console.error(error);
-                        return;
-                }
+			window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+			return;
+		}
                 if (stderr){
-                        console.error(stderr);
+			window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
+			return;
+		}
+
+                try{
+                        let jsonstring = paths.getCorrectJSON(stdout);
+		        userinfo = JSON.parse(jsonstring);
+                }catch(e){
+                        window.location.href = `error.html?err=${encodeURIComponent(e)}`;
                         return;
                 }
-
-                let jsonstring = paths.getCorrectJSON(stdout);
-		userinfo = JSON.parse(jsonstring);
                 currentlang = langs.about[userinfo.language];
                 setLang();
         });

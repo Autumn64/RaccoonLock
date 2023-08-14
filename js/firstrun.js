@@ -57,33 +57,29 @@ document.getElementById('submitv').addEventListener('click', () =>{ //Verificar 
     if (code === twoFA || code === password){
         userWrotePassword = code === password ? true : false;
         if (!fs.existsSync(`${path}/`)) fs.mkdirSync(`${path}/`);
-            let info = {
-                name: document.getElementById('name').value.trimStart(),
-                user: document.getElementById('email').value.trimStart(),
-                phone: "",
-                birthdate: "",
-                passwordmode: false,
-                language: "en"
-            };
-            let data = {
-                RaccoonLock: document.getElementById('password').value.trimStart()
-            };
-            let jsoninfo = paths.makeCorrectJSON(JSON.stringify(info));
-            let jsondata = paths.makeCorrectJSON(JSON.stringify(data));
-            exec(raccoonstealer, ["-c", "-y", `${path}/data.rlc`], (error, stdout, stderr) =>{
-                if (error){
-                    console.error(error);
-                }
-                if (stderr){
-                    console.error(stderr);
-                }
-                exec(raccoonstealer, ["-a", `${path}/data.rlc`, jsondata, jsoninfo], (error, stdout, stderr) =>{
-                    if (error) console.error (error);
-                    if (stderr) console.error (stderr);
-                    return;
-                });
+        let info = {
+            name: document.getElementById('name').value.trimStart(),
+            user: document.getElementById('email').value.trimStart(),
+            phone: "",
+            birthdate: "",
+            passwordmode: false,
+            language: "en"
+        };
+        let data = {
+            RaccoonLock: document.getElementById('password').value.trimStart()
+        };
+        let jsoninfo = paths.makeCorrectJSON(JSON.stringify(info));
+        let jsondata = paths.makeCorrectJSON(JSON.stringify(data));
+        exec(raccoonstealer, ["-c", "-y", `${path}/data.rlc`], (error, stdout, stderr) =>{
+            if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+            if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
+            exec(raccoonstealer, ["-a", `${path}/data.rlc`, jsondata, jsoninfo], (error, stdout, stderr) =>{
+                if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+                if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
                 return;
             });
+            return;
+        });
         
     }else{
         let err = document.getElementById('errorv');

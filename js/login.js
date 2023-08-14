@@ -7,20 +7,14 @@ let passwordd = document.getElementById('passwordd');
 
 function main(){
 	exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
-		if (error){
-                        console.error(error);
-                        return;
-                }
-                if (stderr){
-                        console.error(stderr);
-                        return;
-                }
-            let jsonstring = paths.getCorrectJSON(stdout);
-        	let data = JSON.parse(jsonstring);
-       		passjson = data.RaccoonLock;
-        	passwordd.classList.remove('hidden');
-        	passwordd.style.animation = 'fadein 0.5s';
-    	});
+		if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+        if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
+        let jsonstring = paths.getCorrectJSON(stdout);
+        let data = JSON.parse(jsonstring);
+       	passjson = data.RaccoonLock;
+        passwordd.classList.remove('hidden');
+        passwordd.style.animation = 'fadein 0.5s';
+    });
 	email = userinfo.user;
 }
 
