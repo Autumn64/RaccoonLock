@@ -9,9 +9,15 @@ let verify = document.getElementById('verify');
 
 function main(){
     exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
+        if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+        if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
         let parameters = new URLSearchParams(document.location.search);
-	let jsonstring = paths.getCorrectJSON(stdout);
-        json = JSON.parse(jsonstring);
+        try{
+	        let jsonstring = paths.getCorrectJSON(stdout);
+            json = JSON.parse(jsonstring);
+        }catch(e){
+            window.location.href = `error.html?err=${encodeURIComponent(e)}`;
+        }
         for (let key in json){
             if(key === 'RaccoonLock') continue; //Ignores the app's password
             keys.push(key);
@@ -233,8 +239,8 @@ function updateJSON({ key, index, service, user, pass }){
     let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
     let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
     exec(raccoonstealer, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
-	    if (error) console.error(error);
-	    if (stderr) console.error(stderr);
+	    if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+	    if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
     });
 }
 
@@ -254,8 +260,8 @@ function deleteData(){
     let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
     let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
     exec(raccoonstealer, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
-	    if (error) console.error(error);
-	    if (stderr) console.error(stderr);
+	    if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+	    if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
     });
     setTimeout(() => {
         successb.classList.remove('hidden');
@@ -281,8 +287,8 @@ function addData(){
     	let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
     	let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
     	exec(raccoonstealer, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
-	    	if (error) console.error(error);
-	    	if (stderr) console.error(stderr);
+	    	if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+	    	if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
     });
         setTimeout(() =>{
             errora.style.display = 'none'; //Hides error message if there's one

@@ -8,8 +8,14 @@ let theresData = true;
 
 function main(){
     exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
-	let jsonstring = paths.getCorrectJSON(stdout);
-        json = JSON.parse(jsonstring);
+        if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+        if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
+        try{
+	        let jsonstring = paths.getCorrectJSON(stdout);
+            json = JSON.parse(jsonstring);
+        }catch(e){
+            window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+        }
         verify.classList.remove('hidden');
         verify.style.display = 'flex';
         verify.style.animation = 'fadein 0.5s';

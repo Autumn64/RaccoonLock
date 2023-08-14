@@ -5,9 +5,15 @@ let verify = document.getElementById('verify');
 
 function main(){
     exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
+        if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+        if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
         let other = document.getElementById('other');
-	let jsonstring = paths.getCorrectJSON(stdout);
-        json = JSON.parse(jsonstring);
+        try{
+            let jsonstring = paths.getCorrectJSON(stdout);
+            json = JSON.parse(jsonstring);
+        }catch(e){
+            window.location.href = `error.html?err=${encodeURIComponent(e)}`;
+        }
         verify.classList.remove('hidden');
         verify.style.display = 'flex';
         verify.style.animation = 'fadein 0.5s';
@@ -96,10 +102,10 @@ function addData(){
 	    let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
         document.getElementById('goback').style.display = 'none'; //Hide back button
 	
-	exec(raccoonstealer, ["-a", `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
-	    if (error) console.error(error);
-	    if (stderr) console.error(stderr);
-	    return;
+	    exec(raccoonstealer, ["-a", `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
+	        if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+	        if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
+	        return;
     	});
         setTimeout(() =>{
             neww.style.animation = 'fadeout 0.5s forwards'; //Hide neww div

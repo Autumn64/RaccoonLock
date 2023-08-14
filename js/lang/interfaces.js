@@ -30,7 +30,7 @@ class interfaces{
 			jsonOnly = jsonOnly.replaceAll(`\\$`, `$`);
 			return jsonOnly;
 		}else{
-			return "Invalid JSON string";
+			return `${string} is not a valid JSON string`;
 		}
 	}
 

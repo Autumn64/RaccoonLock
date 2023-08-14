@@ -11,8 +11,14 @@ function main(){
     document.getElementById('birthdate').value = userinfo.birthdate;
     let passmode = document.getElementById('switch');
     exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
-        let jsonstring = paths.getCorrectJSON(stdout);
-        passjson = JSON.parse(jsonstring);
+        if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+        if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
+        try{
+            let jsonstring = paths.getCorrectJSON(stdout);
+            passjson = JSON.parse(jsonstring);
+        }catch(e){
+            window.location.href = `error.html?err=${encodeURIComponent(e)}`;
+        }
         document.getElementById('password').value = passjson.RaccoonLock;
         document.getElementById('goback').classList.remove('hidden'); //Shows go back and about buttons
         document.getElementById('about').classList.remove('hidden');
@@ -118,12 +124,8 @@ document.getElementById('switch').addEventListener('click', () =>{ //Password mo
     let newPassJSON = paths.makeCorrectJSON(JSON.stringify(passjson));
     let newJSON = paths.makeCorrectJSON(JSON.stringify(userinfo));
     exec(raccoonstealer, ['-a', `${path}/data.rlc`, newPassJSON, newJSON], (error, stdout, stderr) =>{
-	    if (error){
-		    console.error(error);
-	    }
-	    if (stderr){
-		    console.error(stderr);
-	    }
+	    if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+	    if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
     });
     successa.classList.remove('hidden');
 });
@@ -167,8 +169,8 @@ function updateJSON(){
     let newJSON = JSON.stringify(userinfo).replaceAll('"', `\"`);
     let newPassJSON = JSON.stringify(passjson).replaceAll('"', `\"`);
     exec(raccoonstealer, ["-a", `${path}/data.rlc`, newPassJSON, newJSON], (error, stdout, stderr) =>{
-	    if (error) console.error(error);
-	    if (stderr) console.error(stderr);
+	    if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+	    if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
 	    return;
     });
 }
