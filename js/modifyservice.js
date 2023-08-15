@@ -42,7 +42,6 @@ document.getElementById('vsubmit').addEventListener('click', () =>{
 
 	if (pass !== json.RaccoonLock){
 		errorv.classList.remove('hidden');
-		errorv.innerHTML = "Wrong password!";
 		return;
 	}
 

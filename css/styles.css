@@ -45,7 +45,7 @@ a:link{
     color: #2964c2;
 }
 
-#error {
+#error, #errorv {
     color: rgb(229, 83, 83);
     padding-top: 5px;
 }
