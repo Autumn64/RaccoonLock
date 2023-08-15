@@ -36,4 +36,8 @@ function setLang(){
     document.getElementById('title').innerHTML = currentlang.container.title;
     document.getElementById('search').placeholder = currentlang.container.search;
     document.getElementById('copied').innerHTML = currentlang.container.copied;
+    document.getElementById('nowenter').innerHTML = currentlang.verify.nowenter;
+    document.getElementById('vpass').placeholder = currentlang.verify.vpass;
+    document.getElementById('errorv').innerHTML = currentlang.verify.errorv;
+    document.getElementById('vsubmit').innerHTML = currentlang.verify.vsubmit;
 }

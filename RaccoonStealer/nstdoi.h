@@ -5,6 +5,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include <sys/stat.h>
 
 #ifdef _WIN32
 	#include <windows.h>
@@ -13,7 +14,7 @@
 	#include <unistd.h>
 #endif
 
-char* unnchar(char * str){
+unsigned char* unnchar(unsigned char * str){
 	if (strlen(str) > 1 && str[strlen(str) - 1] == '\n' ){	
 		str[strlen(str) - 1] = '\0';
 	}
@@ -40,6 +41,7 @@ void timeSleep(size_t milliseconds){
 #elif __linux__
 	usleep(milliseconds * 1000);
 #endif
+	return;
 }
 
 unsigned char *currentPath(){
@@ -48,13 +50,29 @@ unsigned char *currentPath(){
 	if (buffer == NULL) return NULL;
 #ifdef _WIN32
 	if ((_getcwd(buffer, BUFSIZ)) == NULL) return NULL;
-	buffer = realloc(buffer, strlen(buffer));
-	return buffer; //Don't forget to free this at the end!
 #elif __linux__
 	if ((getcwd(buffer, BUFSIZ)) == NULL) return NULL;
-	buffer = realloc(buffer, strlen(buffer));
-	return buffer;
 #endif
+	buffer = realloc(buffer, strlen(buffer));
+	return buffer; //Don't forget to free this at the end!
+}
+
+int makeDir(unsigned char *dirname){
+#ifdef _WIN32
+	if ((_mkdir(dirname)) != 0) return -1;
+#elif __linux__
+	if ((mkdir(dirname, 0777)) != 0) return -1;
+#endif
+	return 0;
+}
+
+int removeDir(unsigned char *dirname){
+#ifdef _WIN32
+	if ((_rmdir(dirname)) != 0) return -1;
+#elif __linux__
+	if ((rmdir(dirname)) != 0) return -1;
+#endif
+	return 0;
 }
 
 #endif // NSTDOI_H_INCLUDED

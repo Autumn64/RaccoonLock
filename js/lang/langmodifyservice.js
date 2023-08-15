@@ -53,4 +53,8 @@ function setLang(){
     document.getElementById('successa').innerHTML = currentlang.addd.successa;
     document.getElementById('savea').innerHTML = currentlang.addd.buttons.savea;
     document.getElementById('cancela').innerHTML = currentlang.addd.buttons.cancela;
+    document.getElementById('nowenter').innerHTML = currentlang.verify.nowenter;
+    document.getElementById('vpass').placeholder = currentlang.verify.vpass;
+    document.getElementById('errorv').innerHTML = currentlang.verify.errorv;
+    document.getElementById('vsubmit').innerHTML = currentlang.verify.vsubmit;
 }

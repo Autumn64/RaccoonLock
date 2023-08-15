@@ -60,9 +60,9 @@ document.getElementById('save').addEventListener('click', () =>{
             document.getElementById('errorv').style.display = 'none';
             document.getElementById('errorv').innerHTML = currentlang.verify.errorv[0];
             if(userinfo.language === 'kr') {
-                document.getElementById('nowenter').innerHTML = `${tmpuser}${currentlang.verify.nowenter}.`;
+                document.getElementById('nowenter').innerHTML = `${tmpuser}${currentlang.verify.nowenter}`;
             }else{
-                document.getElementById('nowenter').innerHTML = `${currentlang.verify.nowenter} ${tmpuser}.`;
+                document.getElementById('nowenter').innerHTML = `${currentlang.verify.nowenter} ${tmpuser}`;
             }
         }, 1000);
         sendm(tmpuser);
@@ -75,7 +75,7 @@ document.getElementById('save').addEventListener('click', () =>{
             verify.classList.remove('hidden');
             verify.style.display = 'flex';
             verify.style.animation = 'fadein 0.5s';
-            document.getElementById('nowenter').innerHTML = `${currentlang.verify.newenter}.`;
+            document.getElementById('nowenter').innerHTML = `${currentlang.verify.newenter}`;
             document.getElementById('code').type = 'password';
             document.getElementById('code').placeholder = currentlang.verify.code[1];
             document.getElementById('errorv').style.display = 'none';

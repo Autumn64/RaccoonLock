@@ -42,4 +42,8 @@ function setLang(){
     document.getElementById('password').placeholder = currentlang.neww.password;
     document.getElementById('success').innerHTML = currentlang.neww.success;
     document.getElementById('submit').innerHTML = currentlang.neww.submit;
+    document.getElementById('nowenter').innerHTML = currentlang.verify.nowenter;
+    document.getElementById('vpass').placeholder = currentlang.verify.vpass;
+    document.getElementById('errorv').innerHTML = currentlang.verify.errorv;
+    document.getElementById('vsubmit').innerHTML = currentlang.verify.vsubmit;
 }

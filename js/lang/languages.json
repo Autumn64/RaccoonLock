@@ -480,7 +480,7 @@
                 "nowenter": "으로<br>보낸 코드를 입력하세요",
                 "newenter": "암호를 입력하세요",
                 "code": ["코드", "암호"],
-                "errorv": ["잘못된 코드! 다시 시도해주세요.", "잘못된 암호! 다시 시도해주세요"],
+                "errorv": ["잘못된 코드! 다시 시도해주세요.", "잘못된 암호! 다시 시도해주세요."],
                 "sucess": "데이터가 성공적으로 수정되었습니다!",
                 "submitv": "확인",
                 "gobackl": "오, 내 데이터가 잘못됐구나."
@@ -680,6 +680,12 @@
                     "user": "User: ",
                     "password": "Password: "
                 }
+            },
+            "verify":{
+                "nowenter": "Enter your password",
+                "vpass": "Password",
+                "errorv": "Wrong password! Try again.",
+                "vsubmit": "Verify"
             }
         },
         "es": {
@@ -692,6 +698,12 @@
                     "user": "Usuario: ",
                     "password": "Contraseña: "
                 }
+            },
+            "verify":{
+                "nowenter": "Introduce tu contraseña",
+                "vpass": "Contraseña",
+                "errorv": "¡Contraseña incorrecta! Intenta de nuevo.",
+                "vsubmit": "Verificar"
             }
         },
         "fr": {
@@ -704,6 +716,12 @@
                     "user": "E-mail: ",
                     "password": "Mot de passe: "
                 }
+            },
+            "verify":{
+                "nowenter": "Entrez votre mot de passe",
+                "vpass": "Mot de passe",
+                "errorv": "Mot de passe incorrect! Essayez à nouveau.",
+                "vsubmit": "Vérifier"
             }
         },
         "eo": {
@@ -716,6 +734,12 @@
                     "user": "Retpoŝto: ",
                     "password": "Pasvorto: "
                 }
+            },
+            "verify":{
+                "nowenter": "Enigu vian pasvorton",
+                "vpass": "Pasvorto",
+                "errorv": "Malĝusta pasvorto! Provu denove.",
+                "vsubmit": "Konfirmi"
             }
         },
         "pt": {
@@ -728,6 +752,12 @@
                     "user": "Conta: ",
                     "password": "Senha: "
                 }
+            },
+            "verify":{
+                "nowenter": "Digite a sua senha",
+                "vpass": "Senha",
+                "errorv": "Senha incorreta! Tente de novo.",
+                "vsubmit": "Verificar"
             }
         },
         "nb": {
@@ -740,6 +770,12 @@
                     "user": "E-post: ",
                     "password": "Passord: "
                 }
+            },
+            "verify":{
+                "nowenter": "Skriv inn passordet ditt",
+                "vpass": "Passord",
+                "errorv": "Feil passord! Prøv på nytt.",
+                "vsubmit": "Bekreft"
             }
         },
         "kr": {
@@ -752,6 +788,12 @@
                     "user": "이메일: ",
                     "password": "암호: "
                 }
+            },
+            "verify":{
+                "nowenter": "암호를 입력하세요",
+                "vpass": "암호",
+                "errorv": "잘못된 암호! 다시 시도해주세요.",
+                "vsubmit": "확인"
             }
         }
     },
@@ -771,6 +813,12 @@
                 "error": ["There's already a service with that name!", "Enter the requested data."],
                 "success": "Data added successfully!",
                 "submit": "Add"
+            },
+            "verify":{
+                "nowenter": "Enter your password",
+                "vpass": "Password",
+                "errorv": "Wrong password! Try again.",
+                "vsubmit": "Verify"
             }
         },
         "es": {
@@ -788,6 +836,12 @@
                 "error": ["¡Ya existe un servicio con ese nombre!", "Introduce los datos solicitados."],
                 "success": "¡Datos agregados satisfactoriamente!",
                 "submit": "Agregar"
+            },
+            "verify":{
+                "nowenter": "Introduce tu contraseña",
+                "vpass": "Contraseña",
+                "errorv": "¡Contraseña incorrecta! Intenta de nuevo.",
+                "vsubmit": "Verificar"
             }
         },
         "fr": {
@@ -805,6 +859,12 @@
                 "error": ["Un service avec ce nom existe déjà!", "Entrez les données demandées."],
                 "success": "Données ajoutées avec succès!",
                 "submit": "Ajouter"
+            },
+            "verify":{
+                "nowenter": "Entrez votre mot de passe",
+                "vpass": "Mot de passe",
+                "errorv": "Mot de passe incorrect! Essayez à nouveau.",
+                "vsubmit": "Vérifier"
             }
         },
         "eo": {
@@ -822,6 +882,12 @@
                 "error": ["Jam ekzistas servo kun tiu nomo!", "Enigu la petitajn datumojn."],
                 "success": "Datumoj aldonitaj sukcese!",
                 "submit": "Aldonu"
+            },
+            "verify":{
+                "nowenter": "Enigu vian pasvorton",
+                "vpass": "Pasvorto",
+                "errorv": "Malĝusta pasvorto! Provu denove.",
+                "vsubmit": "Konfirmi"
             }
         },
         "pt": {
@@ -839,6 +905,12 @@
                 "error": ["Já existe um serviço com esse nome!", "Digite os dados solicitados."],
                 "success": "Dados adicionados com sucesso!",
                 "submit": "Adicionar"
+            },
+            "verify":{
+                "nowenter": "Digite a sua senha",
+                "vpass": "Senha",
+                "errorv": "Senha incorreta! Tente de novo.",
+                "vsubmit": "Verificar"
             }
         },
         "nb": {
@@ -856,6 +928,12 @@
                 "error": ["En tjeneste med det navnet finnes allerede!", "Skriv inn de forespurte dataene."],
                 "success": "Dataene ble lagt til med suksess!",
                 "submit": "Legg til"
+            },
+            "verify":{
+                "nowenter": "Skriv inn passordet ditt",
+                "vpass": "Passord",
+                "errorv": "Feil passord! Prøv på nytt.",
+                "vsubmit": "Bekreft"
             }
         },
         "kr": {
@@ -873,6 +951,12 @@
                 "error": ["그런 서비스가 이미 있습니다!", "요청된 데이터를 입력하세요."],
                 "success": "데이터가 성공적으로 추가되었습니다!",
                 "submit": "추가"
+            },
+            "verify":{
+                "nowenter": "암호를 입력하세요",
+                "vpass": "암호",
+                "errorv": "잘못된 암호! 다시 시도해주세요.",
+                "vsubmit": "확인"
             }
         }
     },
@@ -921,6 +1005,12 @@
                     "savea": "Save",
                     "cancela": "Cancel"
                 }
+            },
+            "verify":{
+                "nowenter": "Enter your password",
+                "vpass": "Password",
+                "errorv": "Wrong password! Try again.",
+                "vsubmit": "Verify"
             }
         },
         "es": {
@@ -967,6 +1057,12 @@
                     "savea": "Guardar",
                     "cancela": "Cancelar"
                 }
+            },
+            "verify":{
+                "nowenter": "Introduce tu contraseña",
+                "vpass": "Contraseña",
+                "errorv": "¡Contraseña incorrecta! Intenta de nuevo.",
+                "vsubmit": "Verificar"
             }
         },
         "fr": {
@@ -1013,6 +1109,12 @@
                     "savea": "Sauvegarder",
                     "cancela": "Annuler"
                 }
+            },
+            "verify":{
+                "nowenter": "Entrez votre mot de passe",
+                "vpass": "Mot de passe",
+                "errorv": "Mot de passe incorrect! Essayez à nouveau.",
+                "vsubmit": "Vérifier"
             }
         },
         "eo": {
@@ -1059,6 +1161,12 @@
                     "savea": "Konservu",
                     "cancela": "Nuligu"
                 }
+            },
+            "verify":{
+                "nowenter": "Enigu vian pasvorton",
+                "vpass": "Pasvorto",
+                "errorv": "Malĝusta pasvorto! Provu denove.",
+                "vsubmit": "Konfirmi"
             }
         },
         "pt": {
@@ -1105,6 +1213,12 @@
                     "savea": "Guardar",
                     "cancela": "Cancelar"
                 }
+            },
+            "verify":{
+                "nowenter": "Digite a sua senha",
+                "vpass": "Senha",
+                "errorv": "Senha incorreta! Tente de novo.",
+                "vsubmit": "Verificar"
             }
         },
         "nb": {
@@ -1151,6 +1265,12 @@
                     "savea": "Lagre",
                     "cancela": "Avbryt"
                 }
+            },
+            "verify":{
+                "nowenter": "Skriv inn passordet ditt",
+                "vpass": "Passord",
+                "errorv": "Feil passord! Prøv på nytt.",
+                "vsubmit": "Bekreft"
             }
         },
         "kr": {
@@ -1197,6 +1317,12 @@
                     "savea": "저장",
                     "cancela": "취소"
                 }
+            },
+            "verify":{
+                "nowenter": "암호를 입력하세요",
+                "vpass": "암호",
+                "errorv": "잘못된 암호! 다시 시도해주세요.",
+                "vsubmit": "확인"
             }
         }
     },
