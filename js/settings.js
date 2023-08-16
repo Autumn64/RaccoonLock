@@ -92,7 +92,7 @@ document.getElementById('submitv').addEventListener('click', () =>{
     let submitv = document.getElementById('submitv');
     let gobackl = document.getElementById('gobackl');
 
-    if (askPassword === false && code === twoFA || askPassword === true && code === tmppassword){
+    if (askPassword === false && code.trim() === twoFA.trim() || askPassword === true && code === tmppassword){
         let success = document.getElementById('success');
         err.style.display = 'none';
         success.classList.remove('hidden');
@@ -166,8 +166,8 @@ function updateJSON(){
     userinfo.language = document.getElementById('language').value;
     passjson.RaccoonLock = document.getElementById('password').value.trimStart();
 
-    let newJSON = JSON.stringify(userinfo).replaceAll('"', `\"`);
-    let newPassJSON = JSON.stringify(passjson).replaceAll('"', `\"`);
+    let newJSON = paths.makeCorrectJSON(JSON.stringify(userinfo));
+    let newPassJSON = paths.makeCorrectJSON(JSON.stringify(passjson));
     exec(raccoonstealer, ["-a", `${path}/data.rlc`, newPassJSON, newJSON], (error, stdout, stderr) =>{
 	    if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
 	    if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;

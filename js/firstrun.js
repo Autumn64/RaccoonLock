@@ -54,7 +54,7 @@ document.getElementById('submitv').addEventListener('click', () =>{ //Verificar 
     let code = document.getElementById('code').value;
     let verify = document.getElementById('verify');
     let userWrotePassword;
-    if (code === twoFA || code === password){
+    if (code.trim() === twoFA.trim() || code.trim() === password.trim()){
         userWrotePassword = code === password ? true : false;
         if (!fs.existsSync(`${path}/`)) fs.mkdirSync(`${path}/`);
         let info = {

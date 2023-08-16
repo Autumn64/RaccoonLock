@@ -810,7 +810,7 @@
                 "service": "Service or platform",
                 "user": "User",
                 "password": "Password",
-                "error": ["There's already a service with that name!", "Enter the requested data."],
+                "error": ["There's already a service with that name!<br>If you want to add a new account to this service, please go to Modify an existing service section.", "Enter the requested data."],
                 "success": "Data added successfully!",
                 "submit": "Add"
             },
@@ -833,7 +833,7 @@
                 "service": "Servicio o plataforma",
                 "user": "Usuario",
                 "password": "Contraseña",
-                "error": ["¡Ya existe un servicio con ese nombre!", "Introduce los datos solicitados."],
+                "error": ["¡Ya existe un servicio con ese nombre!<br>Si quieres agregar una nueva cuenta a este servicio, por favor ve a la sección de Modificar un servicio ya existente.", "Introduce los datos solicitados."],
                 "success": "¡Datos agregados satisfactoriamente!",
                 "submit": "Agregar"
             },
@@ -856,7 +856,7 @@
                 "service": "Service ou plateforme",
                 "user": "E-mail",
                 "password": "Mot de passe",
-                "error": ["Un service avec ce nom existe déjà!", "Entrez les données demandées."],
+                "error": ["Un service avec ce nom existe déjà!<br>Si vous voulez ajouter un compte nouveau à ce service, veuillez aller à la section Modifier un service existant.", "Entrez les données demandées."],
                 "success": "Données ajoutées avec succès!",
                 "submit": "Ajouter"
             },
@@ -879,7 +879,7 @@
                 "service": "Servon aŭ platformo",
                 "user": "Retpoŝto",
                 "password": "Pasvorto",
-                "error": ["Jam ekzistas servo kun tiu nomo!", "Enigu la petitajn datumojn."],
+                "error": ["Jam ekzistas servo kun tiu nomo!<br>Se vi volas aldoni novan konton al ĉi tiu servo, bonvolu iri al la Modifu ekzistantan servon sekcio.", "Enigu la petitajn datumojn."],
                 "success": "Datumoj aldonitaj sukcese!",
                 "submit": "Aldonu"
             },
@@ -902,7 +902,7 @@
                 "service": "Serviço ou plataforma",
                 "user": "E-mail",
                 "password": "Senha",
-                "error": ["Já existe um serviço com esse nome!", "Digite os dados solicitados."],
+                "error": ["Já existe um serviço com esse nome!<br>Se você quer adicionar uma conta nova a este serviço, por favor vá à seção Modificar um serviço existente", "Digite os dados solicitados."],
                 "success": "Dados adicionados com sucesso!",
                 "submit": "Adicionar"
             },
@@ -925,7 +925,7 @@
                 "service": "Tjeneste / plattform",
                 "user": "E-post",
                 "password": "Passord",
-                "error": ["En tjeneste med det navnet finnes allerede!", "Skriv inn de forespurte dataene."],
+                "error": ["En tjeneste med det navnet finnes allerede!<br>Hvis du vil legge til en ny konto til denne tjenesten, vær så snill å go til Endre en eksisterende tjeneste seksjon.", "Skriv inn de forespurte dataene."],
                 "success": "Dataene ble lagt til med suksess!",
                 "submit": "Legg til"
             },
@@ -948,7 +948,7 @@
                 "service": "서비스",
                 "user": "이메일",
                 "password": "암호",
-                "error": ["그런 서비스가 이미 있습니다!", "요청된 데이터를 입력하세요."],
+                "error": ["그런 서비스가 이미 있습니다!<br>새 계정을 추가하고 싶으면, 기존 서비스 수정 섹션으로 이동해주세요.", "요청된 데이터를 입력하세요."],
                 "success": "데이터가 성공적으로 추가되었습니다!",
                 "submit": "추가"
             },
