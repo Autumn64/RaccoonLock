@@ -3,7 +3,7 @@ const fs = require('fs');
 document.getElementById('accept').addEventListener('click', () =>{
     let text = document.getElementById('text');
     let buttons = document.getElementById('buttons');
-    fs.rm(path, { recursive: true, force: true }, (err) => window.location.href = `error.html?err=${encodeURIComponent(err)}`);
+    fs.rm(path, { recursive: true, force: true }, (err) => {});
     text.style.animation = 'fadeout 1s forwards';
     buttons.style.animation ='fadeout 1s forwards';
     setTimeout(() =>{

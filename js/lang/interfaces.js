@@ -23,20 +23,15 @@ class interfaces{
 	}
 
 	getCorrectJSON(string){
-		let last = string.lastIndexOf('}');
-		if (last !== -1) {
-			let jsonOnly = string.substring(0, last + 1);
-			jsonOnly = jsonOnly.replaceAll(`\\"`, `"`);
-			jsonOnly = jsonOnly.replaceAll(`\\$`, `$`);
-			return jsonOnly;
-		}else{
-			return `${string} is not a valid JSON string`;
-		}
+		let jsonOnly = decodeURIComponent(string);
+		let last = jsonOnly.lastIndexOf('}');
+		if (last === -1) return `${string} is not a valid JSON string`;
+		return jsonOnly.substring(0, last + 1);
+
 	}
 
 	makeCorrectJSON(string){
-		let newString = string.replaceAll(`"`, `\"`);
-		newString = newString.replaceAll(`$`, `\$`);
+		let newString = encodeURIComponent(string);
 		return newString;
 	}
 }

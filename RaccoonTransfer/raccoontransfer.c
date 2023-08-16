@@ -108,7 +108,7 @@ void copyFiles(unsigned char *src, unsigned char *dest, FILE *filesrc, FILE *fil
 		float percent = ((ftell(filesrc) / 1024.0) / filesize) * 100.0;
 		printf(" %.1f KiB read. %.0f%% complete.\033[1A", (ftell(filesrc))/1024.0, percent);
 		fflush(stdout);
-		timeSleep(2);
+		timeSleep(1);
 		if (filecontent == 0x100) break;
 	}
 	timeSleep(1000);
