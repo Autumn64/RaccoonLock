@@ -59,6 +59,7 @@ document.getElementById('submitv').addEventListener('click', () =>{ //Verificar 
         if (!fs.existsSync(`${path}/`)) fs.mkdirSync(`${path}/`);
         let info = {
             name: document.getElementById('name').value.trimStart(),
+	    index: "0",
             user: document.getElementById('email').value.trimStart(),
             phone: "",
             birthdate: "",

@@ -241,8 +241,8 @@
                     "tdbirthday": "Birthday:",
                     "tdpassword": "Password:",
                     "tdlanguage": "Language: ",
+		    "tdnameindex": "Preferred name:",
                     "tdpasswordmode": "Password mode:",
-
                     "name": "Name",
                     "user": "E-mail",
                     "phone": "Phone",
@@ -278,8 +278,8 @@
                     "tdbirthday": "Cumpleaños:",
                     "tdpassword": "Contraseña:",
                     "tdlanguage": "Idioma: ",
+		    "tdnameindex": "Nombre preferido:",
                     "tdpasswordmode": "Modo contraseña:",
-
                     "name": "Nombre",
                     "user": "E-mail",
                     "phone": "Teléfono",
@@ -315,8 +315,8 @@
                     "tdbirthday": "Anniversaire:",
                     "tdpassword": "Mot de passe:",
                     "tdlanguage": "Langue: ",
+		    "tdnameindex": "Nom préféré:",
                     "tdpasswordmode": "Mode mot de passe:",
-
                     "name": "Nom",
                     "user": "E-mail",
                     "phone": "Téléphone",
@@ -352,8 +352,8 @@
                     "tdbirthday": "Naskiĝtago:",
                     "tdpassword": "Pasvorto:",
                     "tdlanguage": "Lingvo: ",
+		    "tdnameindex": "Prefera nomo:",
                     "tdpasswordmode": "Pasvortreĝimo:",
-
                     "name": "Nomo",
                     "user": "Retpoŝto",
                     "phone": "Telefono",
@@ -389,8 +389,8 @@
                     "tdbirthday": "Aniversário:",
                     "tdpassword": "Senha:",
                     "tdlanguage": "Língua: ",
+		    "tdnameindex": "Nome preferido:",
                     "tdpasswordmode": "Modo senha:",
-
                     "name": "Nome",
                     "user": "E-mail",
                     "phone": "Telefone",
@@ -426,8 +426,8 @@
                     "tdbirthday": "Fødselsdag:",
                     "tdpassword": "Passord:",
                     "tdlanguage": "Språk: ",
+		    "tdnameindex": "Ønsket navn:",
                     "tdpasswordmode": "Passordmodus:",
-
                     "name": "Navn",
                     "user": "E-post",
                     "phone": "Telefon",
@@ -463,8 +463,8 @@
                     "tdbirthday": "생일:",
                     "tdpassword": "암호:",
                     "tdlanguage": "언어: ",
+		    "tdnameindex": "선호하는 이름:",
                     "tdpasswordmode": "암호 모드:",
-
                     "name": "이름",
                     "user": "이메일",
                     "phone": "전화 번호",

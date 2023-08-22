@@ -42,6 +42,7 @@ function setLang(){
     document.getElementById('tdbirthday').innerHTML = currentlang.info.table.tdbirthday;
     document.getElementById('tdpassword').innerHTML = currentlang.info.table.tdpassword;
     document.getElementById('tdpasswordmode').innerHTML = currentlang.info.table.tdpasswordmode;
+    document.getElementById('tdnameindex').innerHTML = currentlang.info.table.tdnameindex;
     document.getElementById('tdlanguage').innerHTML = currentlang.info.table.tdlanguage;
 
     document.getElementById('name').placeholder = currentlang.info.table.name;

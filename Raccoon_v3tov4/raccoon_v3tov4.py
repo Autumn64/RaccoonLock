@@ -9,6 +9,7 @@ path: str
 
 def error(err: str) -> None:
     print(f"{err}!", file=sys.stderr)
+    input("Press Enter to continue...")
     sys.exit(0)
 
 def decrypt() -> str:
@@ -42,6 +43,11 @@ if __name__ == "__main__":
         path = f"{os.path.expanduser('~')}/.raccoonlock"
         stealer = "/usr/share/raccoonlock/raccoonstealer"
     
+    if os.path.isfile(f"{path}/data.rlc"):
+        print(f"A data.rlc file was found at {path}, no changes will be made to user's data.")
+        input("Press Enter to continue...")
+        sys.exit(0)
+
     decrypted: str = decrypt()
     notEncrypted: str = readNotEncrypted()
     subprocess.call(f'{stealer} -c -y "{path}/data.rlc"', shell=True)

@@ -1,6 +1,11 @@
 function main(){
     let time = checkTime();
-    let name = userinfo.name.trimStart().split(' ')[0];
+    let name;
+    if ("index" in userinfo){
+    	name = userinfo.name.trimStart().split(' ')[Number(userinfo.index)];
+    }else{
+    	name = userinfo.name.trimStart().split(' ')[0];
+    }
     document.getElementById('logo').innerHTML += `<h2>${time}, ${name}.</h2>`
 }
 

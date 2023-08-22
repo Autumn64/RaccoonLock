@@ -9,6 +9,7 @@ function main(){
     document.getElementById('user').value = userinfo.user;
     document.getElementById('phone').value = userinfo.phone;
     document.getElementById('birthdate').value = userinfo.birthdate;
+    setName();
     let passmode = document.getElementById('switch');
     exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
         if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
@@ -37,9 +38,10 @@ document.getElementById('save').addEventListener('click', () =>{
     let tmppassword = document.getElementById('password').value;
     let passwordmode = document.getElementById('switch').checked;
     let tmplang = document.getElementById('language').value;
+    let tmpnameindex = document.getElementById('nameindex').value;
 
     if(tmpname !== userinfo.name || tmpuser !== userinfo.user || tmpphone !== userinfo.phone
-        || tmpbirthdate !== userinfo.birthdate || tmppassword !== passjson.RaccoonLock || tmplang !== userinfo.language){ //Super long condition but it's to check all values
+        || tmpbirthdate !== userinfo.birthdate || tmppassword !== passjson.RaccoonLock || tmplang !== userinfo.language || tmpnameindex !== userinfo.index){ //Super long condition but it's to check all values
             change = true;
     }
     if(tmpname.trim() === "" || tmpuser.trim() === "" || tmppassword.trim() === ""){
@@ -153,18 +155,36 @@ document.getElementById('gobackl').addEventListener('click', () =>{
     }, 1000);
 });
 
+function setName(){
+    let nameArray = userinfo.name.trimStart().split(' ');
+    for (let i = 0; i < nameArray.length; i++){
+	    let option = document.createElement("option");
+	    option.value = `${i}`;
+	    option.innerHTML = nameArray[i];
+	    document.getElementById('nameindex').appendChild(option);
+    }
+    if ("index" in userinfo){
+	    document.getElementById('nameindex').value = userinfo.index;
+    }else{
+	    document.getElementById('nameindex').value = "0";
+    }
+}
+
 function sendm(email){
     const mail = new sendMail(email, currentlang.mailtext);
     twoFA = mail.send();
 }
 
 function updateJSON(){
+    let resetName = false;
+    if (document.getElementById('name').value.trimStart() !== userinfo.name) resetName = true;
     userinfo.name = document.getElementById('name').value.trimStart(); //Update new values
     userinfo.user = document.getElementById('user').value.trimStart();
     userinfo.phone = document.getElementById('phone').value.trimStart();
     userinfo.birthdate = document.getElementById('birthdate').value.trimStart();
     userinfo.language = document.getElementById('language').value;
     passjson.RaccoonLock = document.getElementById('password').value.trimStart();
+    resetName == true ? userinfo.index = "0" : userinfo.index = document.getElementById('nameindex').value;
 
     let newJSON = paths.makeCorrectJSON(JSON.stringify(userinfo));
     let newPassJSON = paths.makeCorrectJSON(JSON.stringify(passjson));
