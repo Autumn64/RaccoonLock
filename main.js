@@ -1,12 +1,13 @@
 const { app, BrowserWindow, Notification } = require('electron');
 
-const currentVer = 410;
+const currentVer = 420;
 
 function createWindow(){
     const win = new BrowserWindow({
         width: 800,
         height: 600,
-	icon:'icon.png',
+	    icon:'icon.png',
+	    title: 'RaccoonLock',
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -21,13 +22,13 @@ function createWindow(){
 app.whenReady().then(() =>{
     createWindow();
     app.on('activate', () => {
-        if (BrowserWindow.getAllWindows().length === 0) createWindow()
+        if (BrowserWindow.getAllWindows().length === 0) createWindow();
     });
     checkUpdates();
 });
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') app.quit()
+    if (process.platform !== 'darwin') app.quit();
 });
 
 function checkUpdates(){
@@ -47,6 +48,6 @@ function checkUpdates(){
 const newUpdate = (version) =>{
 	new Notification({
 		title: "RaccoonLock",
-		body: `RaccoonLock ${version} is now available.\nDownload it at https://github.com/Autumn64/RaccoonLock/releases/.`,
+		body: `RaccoonLock ${version} is now available.`,
 	}).show();
 }

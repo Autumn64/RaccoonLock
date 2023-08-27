@@ -525,15 +525,27 @@
                 "accept": "Accept",
                 "cancel": "Cancel"
             },
-            "text2": "<h2>All the data was deleted. App will be restarted.</h2>"
-        },
+            "text2": "<h2>All the data was deleted. App will be restarted.</h2>",
+            "verify":{
+                "nowenter": "Enter your password",
+                "vpass": "Password",
+                "errorv": "Wrong password! Try again.",
+                "vsubmit": "Verify"
+	        }
+            },
         "es":{
             "text": "<h2>¿De verdad quieres hacer eso?</h2><h3>Resetear la app borrará todos tus datos y contraseñas permanentemente.</h3>",
             "buttons": {
                 "accept": "Aceptar",
                 "cancel": "Cancelar"
             },
-            "text2": "<h2>Datos eliminados. Se reiniciará la aplicación.</h2>"
+            "text2": "<h2>Datos eliminados. Se reiniciará la aplicación.</h2>",
+            "verify":{
+                "nowenter": "Introduce tu contraseña",
+                "vpass": "Contraseña",
+                "errorv": "¡Contraseña incorrecta! Intenta de nuevo.",
+                "vsubmit": "Verificar"
+            }
         },
         "fr":{
             "text": "<h2>Voulez-vous vraiment faire ça?</h2><h3>La réinitialisation de l'app supprimera permanentement toutes vos données et mots de passe.</h3>",
@@ -541,7 +553,13 @@
                 "accept": "Accepter",
                 "cancel": "Annuler"
             },
-            "text2": "<h2>Données supprimées. Réinitialisation de l'application.</h2>"
+            "text2": "<h2>Données supprimées. Réinitialisation de l'application.</h2>",
+            "verify":{
+                "nowenter": "Entrez votre mot de passe",
+                "vpass": "Mot de passe",
+                "errorv": "Mot de passe incorrect! Essayez à nouveau.",
+                "vsubmit": "Vérifier"
+	    }
         },
         "eo":{
             "text": "<h2>Ĉu vi volas vere fari tion?</h2><h3>Restarigi la programon forigos ĉiujn viajn datumojn kaj pasvortojn permanente.</h3>",
@@ -549,7 +567,13 @@
                 "accept": "Akceptu",
                 "cancel": "Nuligu"
             },
-            "text2": "<h2>Datumoj forigitaj. Programo estos rekomencita.</h2>"
+            "text2": "<h2>Datumoj forigitaj. Programo estos rekomencita.</h2>",
+            "verify":{
+                "nowenter": "Enigu vian pasvorton",
+                "vpass": "Pasvorto",
+                "errorv": "Malĝusta pasvorto! Provu denove.",
+                "vsubmit": "Konfirmi"
+            }
         },
         "pt":{
             "text": "<h2>Você quer mesmo fazer isso?</h2><h3>Redefinir o app vai apagar todos os seus dados e senhas permanentemente.</h3>",
@@ -557,7 +581,13 @@
                 "accept": "Aceitar",
                 "cancel": "Cancelar"
             },
-            "text2": "<h2>Dados apagados. O aplicativo será reiniciado.</h2>"
+            "text2": "<h2>Dados apagados. O aplicativo será reiniciado.</h2>",
+            "verify":{
+                "nowenter": "Digite a sua senha",
+                "vpass": "Senha",
+                "errorv": "Senha incorreta! Tente de novo.",
+                "vsubmit": "Verificar"
+            }
         },
         "nb":{
             "text": "<h2>Er du sikker på at du vil gjøre det?</h2><h3>Nullstilling av appen vil slette alle dine dataene og passordene permanent.</h3>",
@@ -565,7 +595,13 @@
                 "accept": "Aksepter",
                 "cancel": "Avbryt"
             },
-            "text2": "<h2>Alle dataene ble slettet. Appen startes på nytt.</h2>"
+            "text2": "<h2>Alle dataene ble slettet. Appen startes på nytt.</h2>",
+            "verify":{
+                "nowenter": "Skriv inn passordet ditt",
+                "vpass": "Passord",
+                "errorv": "Feil passord! Prøv på nytt.",
+                "vsubmit": "Bekreft"
+            }
         },
         "kr":{
             "text": "<h2>그렇게 하시겠습니까?</h2><h3>앱을 재설정하면 모든 데이터 및 암호가 삭제되겠습니다.</h3>",
@@ -573,7 +609,13 @@
                 "accept": "수락",
                 "cancel": "취소"
             },
-            "text2": "<h2>데이터가 삭제되었습니다. 다시 시작하는 중입니다.</h2>"
+            "text2": "<h2>데이터가 삭제되었습니다. 다시 시작하는 중입니다.</h2>",
+            "verify":{
+                "nowenter": "암호를 입력하세요",
+                "vpass": "암호",
+                "errorv": "잘못된 암호! 다시 시도해주세요.",
+                "vsubmit": "확인"
+            }
         }
     },
     "passgenerator": {

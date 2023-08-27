@@ -28,10 +28,15 @@ window.addEventListener('DOMContentLoaded', () =>{
                 }
                 currentlang = langs.reset[userinfo.language];
                 setLang();
+		main();
         });
 });
 
 function setLang(){
+    document.getElementById('nowenter').innerHTML = currentlang.verify.nowenter;
+    document.getElementById('vpass').placeholder = currentlang.verify.vpass;
+    document.getElementById('errorv').innerHTML = currentlang.verify.errorv;
+    document.getElementById('vsubmit').innerHTML = currentlang.verify.vsubmit;
     document.getElementById('text').innerHTML = currentlang.text;
     document.getElementById('accept').innerHTML = currentlang.buttons.accept;
     document.getElementById('cancel').innerHTML = currentlang.buttons.cancel;

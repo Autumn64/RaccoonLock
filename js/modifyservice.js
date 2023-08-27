@@ -6,12 +6,12 @@ let services = document.getElementById('services'); //Combobox
 let datas = document.getElementById('datas'); //Datas div
 let modify = document.getElementById('modify'); //Modify div
 let verify = document.getElementById('verify');
+let parameters = new URLSearchParams(document.location.search)
 
 function main(){
     exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
         if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
         if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-        let parameters = new URLSearchParams(document.location.search);
         try{
 	        let jsonstring = paths.getCorrectJSON(stdout);
             json = JSON.parse(jsonstring);
@@ -30,9 +30,16 @@ function main(){
         services.value = decodeURIComponent(parameters.get('id'));
         showAll(); //Shows the data if something is selected when page loads
     });
-	verify.classList.remove('hidden');
-	verify.style.display = 'flex';
-	verify.style.animation = 'fadein 0.5s';
+	let passScreen = decodeURIComponent(parameters.get('pass'));
+	if (passScreen === 'true'){
+		verify.classList.remove('hidden');
+		verify.style.display = 'flex';
+		verify.style.animation = 'fadein 0.5s';
+	}else{
+		container.classList.remove('hidden');
+		container.style.display = 'flex';
+		container.style.animation = 'fadein 0.5s';
+	}
 }
 
 
@@ -64,7 +71,7 @@ services.addEventListener('change', () =>{ //When user selects a value from the 
 document.getElementById('save').addEventListener('click', save);
 
 document.getElementById('cancel').addEventListener('click', () => //Cancel button
-    window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}` //Keep the value
+    window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}&pass=false` //Keep the value
 );
 
 document.getElementById('delete').addEventListener('click', () =>{ //Delete link
@@ -85,7 +92,7 @@ document.getElementById('accept').addEventListener('click', () => //Accept butto
 );
 
 document.getElementById('cancelb').addEventListener('click', () => //Cancel button from elimination screen
-    window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}`
+    window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}&pass=false`
 );
 
 document.getElementById('savea').addEventListener('click', () => //Save button from add screen
@@ -93,7 +100,7 @@ document.getElementById('savea').addEventListener('click', () => //Save button f
 );
 
 document.getElementById('cancela').addEventListener('click', () => //Cancel button from add screen
-    window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}`
+    window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}&pass=false`
 );
 
 
@@ -221,7 +228,7 @@ function save(){ //Save button
         hideDiv('title');
         hideDiv('modify');
         setTimeout(() => 
-        window.location.href = `modifyservice.html?id=${encodeURIComponent(tmpservice)}`, 3000);
+        window.location.href = `modifyservice.html?id=${encodeURIComponent(tmpservice)}&pass=false`, 3000);
     }
 }
 
@@ -298,7 +305,7 @@ function addData(){
         }, 300);
         hideDiv('addd');
         setTimeout(() =>
-        window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}`, 3000);
+        window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}&pass=false`, 3000);
     }else{
         errora.classList.remove('hidden');
         errora.innerHTML = currentlang.addd.errora;

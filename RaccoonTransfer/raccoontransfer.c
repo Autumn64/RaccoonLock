@@ -1,4 +1,4 @@
-//Please compile using GCC, as dirent.h does not exist on MSVC (I don't know about Borland compilers though).
+//Please compile using GCC, as dirent.h does not exist on MSVC (I don't know about other compilers though).
 #include <stdio.h>
 #include <errno.h>
 #include <ctype.h>
@@ -15,13 +15,13 @@ unsigned char *RaccoonLockFolder;
 void splash(){
 	clearscr();
 	timeSleep(1000);
-	printf("****** RaccoonTransfer v2.0 ******\n\n");
+	printf("\033[32m****** RaccoonTransfer v2.1 ******\n\n\033[0m");
 	return;
 }
 
 void error(unsigned char *message, unsigned char *extra){
 	splash();
-	fprintf(stderr, "Error: %s%s!\n", message, extra); 
+	fprintf(stderr, "\033[31mError: %s%s!\n\033[0m", message, extra); 
 	if (srcPath != NULL) free(srcPath);
 	if (RaccoonLockFolder != NULL) free(RaccoonLockFolder);
 	exit(1);
@@ -71,7 +71,7 @@ void checkIfExists(){
 
 	filesrc = fopen(srcPath, "r");
 	if (filesrc == NULL){
-		fprintf(stderr, "%s was not found!\n", srcPath);
+		printf("%s was not found!\n", srcPath);
 	}else{
 		printf("%s was found!\n", srcPath);
 		fclose(filesrc);
@@ -81,6 +81,7 @@ void checkIfExists(){
 }
 
 void copyFiles(unsigned char *src, unsigned char *dest, FILE *filesrc, FILE *filedest){
+	FILE *verify;
 	int filecontent;
 	float filesize;
 	printf(" %s >> %s\n", src, dest);
@@ -106,7 +107,7 @@ void copyFiles(unsigned char *src, unsigned char *dest, FILE *filesrc, FILE *fil
 		printf("\r              ");
 		printf("\r Read: %02X\n", filecontent);
 		float percent = ((ftell(filesrc) / 1024.0) / filesize) * 100.0;
-		printf(" %.1f KiB read. %.0f%% complete.\033[1A", (ftell(filesrc))/1024.0, percent);
+		printf("\033[94m %.1f\033[0m KiB read. \033[32m%.0f%%\033[0m complete.\033[1A", (ftell(filesrc))/1024.0, percent);
 		fflush(stdout);
 		timeSleep(1);
 		if (filecontent == 0x100) break;
@@ -114,6 +115,13 @@ void copyFiles(unsigned char *src, unsigned char *dest, FILE *filesrc, FILE *fil
 	timeSleep(1000);
 	printf("\n");
 	fclose(filesrc); fclose(filedest);
+	verify = fopen(dest, "r");
+	if (verify == NULL){
+		free(src); free(dest);
+		src = NULL; dest = NULL; srcPath = NULL;
+		error("Couldn't create file", "");
+	}
+	fclose(verify);
 	return;
 }
 
@@ -127,12 +135,18 @@ void makeBackup(){
 	if (cwd == NULL) error("Couldn't get current working directory", "");
 
 	filesrc = fopen(srcPath, "r");
-	if (filesrc == NULL) error(srcPath, " doesn't exist");
+	if (filesrc == NULL){
+		free(cwd);
+		error(srcPath, " doesn't exist");
+	}
 
 	destFolder = malloc(BUFSIZ);
 	destFile = malloc(BUFSIZ);
 
-	if (destFolder == NULL || destFile == NULL) error("Couldn't allocate memory for the program", "");
+	if (destFolder == NULL || destFile == NULL){
+		free(cwd);
+		error("Couldn't allocate memory for the program", "");
+	}
 
 	printf(" Enter the full route where you want to make a backup,\n");
 	printf(" press Enter for %s: ", cwd);
@@ -145,7 +159,7 @@ void makeBackup(){
 	free(cwd);
 	cwd = NULL;
 	if (strlen(destFile) == 1 && destFile[0] == '\n'){
-		printf(" Filename must not be empty.\n Press Enter to continue...");
+		printf(" \033[31mFilename must not be empty.\033[0m\n Press Enter to continue...");
 		getc(stdin);
 		free(destFolder); free(destFile);
 		destFolder = NULL; destFile = NULL;
@@ -160,7 +174,7 @@ void makeBackup(){
 	snprintf(dest, size, "%s/%s.rlc", destFolder, destFile);
 	free(destFile);
 	destFile = NULL;
-	printf(" Are you sure you want to make a backup in %s?\n This action will overwrite any file with the same name permanently. (y/n): ", dest);
+	printf(" Are you sure you want to make a backup in %s?\n This action will overwrite any file with the same name permanently. (\033[32my\033[0m/\033[31mn\033[0m): ", dest);
 	option = getc(stdin);
 	cleanstd();
 	if ((tolower(option)) != 121){
@@ -173,11 +187,11 @@ void makeBackup(){
 
 	DIR* dir = opendir(destFolder);
 	if (dir){
-		printf("\n %s exists, continuing...\n\n", destFolder);
+		printf("\n %s \033[32mexists\033[0m, continuing...\n\n", destFolder);
 		closedir(dir);
 	}
 	else if (ENOENT == errno){
-		printf("\n %s does not exist, creating...\n\n", destFolder);
+		printf("\n %s \033[31mdoes not exist\033[0m, creating...\n\n", destFolder);
 		if ((makeDir(destFolder)) != 0) error("Couldn't create", destFolder);
 	}
 	else {
@@ -201,7 +215,7 @@ void makeBackup(){
 
 	free(dest);
 	dest = NULL;
-	printf("\n Backup made successfully!\n Press Enter to continue...");
+	printf("\n \033[32mBackup made successfully!\033[0m\n Press Enter to continue...");
 	getc(stdin);
 	return;
 }
@@ -218,7 +232,10 @@ void restoreBackup(){
 	srcFolder = malloc(BUFSIZ);
 	srcFile = malloc(BUFSIZ);
 
-	if (srcFolder == NULL || srcFile == NULL) error("Couldn't allocate memory for the program", "");
+	if (srcFolder == NULL || srcFile == NULL) {
+		free(cwd);
+		error("Couldn't allocate memory for the program", "");
+	}
 
 	printf(" Enter the full route where you want to restore a backup from,\n");
 	printf(" press Enter for %s: ", cwd);
@@ -231,7 +248,7 @@ void restoreBackup(){
 	free(cwd);
 	cwd = NULL;
 	if (strlen(srcFile) == 1 && srcFile[0] == '\n'){
-		printf(" Filename must not be empty.\n Press Enter to continue...");
+		printf(" \033[31mFilename must not be empty.\033[0m\n Press Enter to continue...");
 		getc(stdin);
 		free(srcFolder); free(srcFile);
 		return;
@@ -245,7 +262,7 @@ void restoreBackup(){
 	snprintf(src, size, "%s/%s.rlc", srcFolder, srcFile);
 	free(srcFolder); free(srcFile);
 	srcFolder = NULL; srcFile = NULL;
-	printf(" Are you sure you want to restore a backup from %s?\n This action will overwrite any previous data permanently. (y/n): ", src);
+	printf(" Are you sure you want to restore a backup from %s?\n This action will overwrite any previous data permanently. (\033[32my\033[0m/\033[31mn\033[0m): ", src);
 	option = getc(stdin);
 	cleanstd();
 	if ((tolower(option)) != 121){
@@ -267,11 +284,11 @@ void restoreBackup(){
 
 	DIR* dir = opendir(RaccoonLockFolder);
 	if (dir){
-		printf("\n %s exists, continuing...\n\n", RaccoonLockFolder);
+		printf("\n %s \033[32mexists\033[0m, continuing...\n\n", RaccoonLockFolder);
 		closedir(dir);
 	}
 	else if (ENOENT == errno){
-		printf("\n %s does not exist, creating...\n\n", RaccoonLockFolder);
+		printf("\n %s \033[31mdoes not exist\033[0m, creating...\n\n", RaccoonLockFolder);
 		if ((makeDir(RaccoonLockFolder)) != 0) error("Couldn't create", RaccoonLockFolder);
 	}
 	else {
@@ -289,7 +306,7 @@ void restoreBackup(){
 
 	free(src);
 	src = NULL;
-	printf("\n Backup restored successfully!\n Press Enter to continue...");
+	printf("\n \033[32mBackup restored successfully!\033[0m\n Press Enter to continue...");
 	getc(stdin);
 	return;
 }
@@ -298,9 +315,9 @@ void menu(){
 	forever{
 		char option;
 		splash();
-		printf(" 1. Make backup\n 2. Restore backup\n 3. Exit\n\n\n\n\nAutumn64, 2023.\nLicensed by BSD-3-Clause License.");
+		printf(" 1. Make backup\n 2. Restore backup\n 3. Exit\n\n\n\n\n\033[93m(c) Autumn64, 2023.\n\033[36mLicensed by BSD-3-Clause License.");
 		printf("\033[5A");
-		printf("\n Choose an option (1-3): ");
+		printf("\n \033[0mChoose an option (1-3): ");
 		option = getc(stdin);
 		cleanstd();
 		switch(option){
@@ -327,5 +344,6 @@ int main(){
 	menu();
 	if (srcPath != NULL) free(srcPath);
 	if (RaccoonLockFolder != NULL) free(RaccoonLockFolder);
+	printf("\033[0m\n");
 	return 0;
 }

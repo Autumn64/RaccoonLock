@@ -21,13 +21,13 @@ unsigned char *data;
 
 
 void splash(char *message){
-	printf("RaccoonStealer v4.1.0 (c) Autumn64 2023.\nLicensed under BSD-3-Clause license.\n%s\n", message);
+	printf("RaccoonStealer v4.2.0 (c) Autumn64 2023.\nLicensed under BSD-3-Clause license.\n%s\n", message);
 	return;
 }
 
 void error(char *message, unsigned char *extra){
 	splash("");
-	fprintf(stderr, "Error: %s%s!\n", message, extra);
+	fprintf(stderr, "\033[31mError: %s%s!\033[0m\n", message, extra);
 	exit(1);
 }
 

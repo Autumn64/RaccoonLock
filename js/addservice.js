@@ -52,7 +52,7 @@ document.getElementById('submit').addEventListener('click', addData); //Submit b
 function checkIfExists(id){
     for(let key in json){
         if (id.toLowerCase() === key.toLowerCase()){ //If it exists send to modify service page
-            let location = `modifyservice.html?id=${encodeURIComponent(key)}`
+            let location = `modifyservice.html?id=${encodeURIComponent(key)}&pass=false`;
             window.location.href = location;
         }else{
             createNew(id); //Pass id

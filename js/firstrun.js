@@ -59,7 +59,7 @@ document.getElementById('submitv').addEventListener('click', () =>{ //Verificar 
         if (!fs.existsSync(`${path}/`)) fs.mkdirSync(`${path}/`);
         let info = {
             name: document.getElementById('name').value.trimStart(),
-	    index: "0",
+	        index: "0",
             user: document.getElementById('email').value.trimStart(),
             phone: "",
             birthdate: "",
@@ -117,7 +117,7 @@ document.getElementById('goback').addEventListener('click', () =>{ //Go back
         login.style.animation = 'fadein 0.5s';
         login.style.display = 'flex'; //Shows login again
     }, 1000);
-})
+});
 
 function sendm(email){
     const mail = new sendMail(email, "Your code is:");

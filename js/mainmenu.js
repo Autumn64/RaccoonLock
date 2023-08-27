@@ -51,7 +51,7 @@ document.getElementById('addservice').addEventListener('click', () =>
     window.location.href = 'addservice.html');
 
 document.getElementById('modifyservice').addEventListener('click', () =>{
-    window.location.href = 'modifyservice.html?id=none';
+    window.location.href = 'modifyservice.html?id=none&pass=true';
 });
 
 document.getElementById('goback').addEventListener('click', () =>{

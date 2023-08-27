@@ -14,7 +14,7 @@ function main(){
 	        let jsonstring = paths.getCorrectJSON(stdout);
             json = JSON.parse(jsonstring);
         }catch(e){
-            window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+            window.location.href = `error.html?err=${encodeURIComponent(e)}`;
         }
         verify.classList.remove('hidden');
         verify.style.display = 'flex';

