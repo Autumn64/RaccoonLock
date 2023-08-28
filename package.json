@@ -1,6 +1,6 @@
 {
   "name": "raccoonlock",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "An open-source, simple, powerful and customizable password manager.",
   "main": "main.js",
   "scripts": {

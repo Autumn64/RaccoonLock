@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Notification } = require('electron');
 
-const currentVer = 420;
+const currentVer = 421;
 
 function createWindow(){
     const win = new BrowserWindow({

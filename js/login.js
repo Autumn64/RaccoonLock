@@ -22,7 +22,7 @@ document.getElementById('submitv').addEventListener('click', () =>{
     let code = document.getElementById('code').value;
     let verify = document.getElementById('verify');
 
-    if (code === twoFA){
+    if (code.trim() === twoFA){
         verify.style.animation = 'fadeout 1s forwards';
         setTimeout(() => window.location.href = 'mainmenu.html', 3000);
     }else{

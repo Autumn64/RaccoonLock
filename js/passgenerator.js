@@ -1,13 +1,25 @@
+let randompass = '';
+
 document.getElementById('goback').addEventListener('click', () => //Go back button
     window.location.href = 'mainmenu.html');
 
 document.getElementById('generate').addEventListener('click', () =>{ //Generar button
     let pass = document.getElementById('pass');
     let selection = document.getElementById('pass_size').value;
-    const charset = "!#$%?*abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%?*0123456789"
+    const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%?*0123456789"
     pass.innerHTML = "";
-    for (let i = 1; i <= Number(selection); i++){
-        pass.innerHTML += charset.charAt(Math.floor(Math.random() * charset.length)); //Get random index
+    randompass = "";
+    for(;;){
+    	for (let i = 1; i <= Number(selection); i++){
+        	randompass += charset.charAt(Math.floor(Math.random() * charset.length)); //Get random index
+    	}
+	const digits = randompass.match(/\d/g);
+	const specialChars = randompass.match(/[!#&%$?*]/g);
+	if (digits !== null && specialChars !== null && digits.length >= 2 && specialChars.length >= 2){
+		pass.innerHTML = randompass;
+		break;
+	}
+	randompass = "";
     }
 });
 
