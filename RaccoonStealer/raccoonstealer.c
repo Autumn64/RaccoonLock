@@ -1,5 +1,5 @@
 /*
-  Please compile using GCC (I didn't test it in other compilers), make sure you have OpenSSL libraries installed and use flags -lssl -lcrypto 
+  Please compile using GCC / MinGW (I didn't test it in other compilers), make sure you have OpenSSL libraries installed and use flags -lssl -lcrypto 
   (same code works on Windows and GNU/Linux)
 */
 #include <stdio.h>
@@ -21,7 +21,7 @@ unsigned char *data;
 
 
 void splash(char *message){
-	printf("RaccoonStealer v4.2.1 (c) Autumn64 2023.\nLicensed under BSD-3-Clause license.\n%s\n", message);
+	printf("RaccoonStealer v4.2.2 (c) Autumn64 2023.\nLicensed under BSD-3-Clause license.\n%s\n", message);
 	return;
 }
 

@@ -1,6 +1,5 @@
 /*Made by Monica Nayely Flores Gomez (Autumn64)
-NSTDOI stands for Non-Standard Output-Input
-VS Code goes nuts with the variable types in this code. GCC seems to be fine with it though.*/
+NSTDOI stands for Non-Standard Output-Input*/
 #ifndef NSTDOI_H_INCLUDED
 #define NSTDOI_H_INCLUDED
 
@@ -51,11 +50,17 @@ unsigned char *currentPath(){
 	buffer = malloc(BUFSIZ);
 	if (buffer == NULL) return NULL;
 #ifdef _WIN32
-	if ((_getcwd(buffer, BUFSIZ)) == NULL) return NULL;
+	if ((_getcwd(buffer, BUFSIZ)) == NULL){
+		free(buffer);
+		return NULL;
+	}
 #elif __linux__
-	if ((getcwd(buffer, BUFSIZ)) == NULL) return NULL;
+	if ((getcwd(buffer, BUFSIZ)) == NULL){
+		free(buffer);
+		return NULL;
+	}
 #endif
-	buffer = realloc(buffer, strlen(buffer));
+	buffer = realloc(buffer, strlen(buffer) + 1);
 	return buffer; //Don't forget to free this at the end!
 }
 

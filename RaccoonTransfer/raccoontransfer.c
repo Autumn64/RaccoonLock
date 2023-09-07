@@ -1,10 +1,10 @@
-//Please compile using GCC, as dirent.h does not exist on MSVC (I don't know about other compilers though).
-#include <stdio.h>
-#include <errno.h>
+//Please compile using GCC / MinGW, as dirent.h and locale.h do not exist on MSVC (I don't know about other compilers though).
 #include <ctype.h>
+#include <errno.h>
+#include <stdio.h>
+#include <dirent.h>
 #include <stdlib.h>
 #include <string.h>
-#include <dirent.h>
 #include "nstdoi.h"
 
 #define forever for(;;)
@@ -15,7 +15,7 @@ unsigned char *RaccoonLockFolder;
 void splash(){
 	clearscr();
 	timeSleep(1000);
-	printf("\033[32m****** RaccoonTransfer v2.1 ******\n\n\033[0m");
+	printf("\033[32m****** RaccoonTransfer v2.2 ******\n\n\033[0m");
 	return;
 }
 
@@ -24,6 +24,8 @@ void error(unsigned char *message, unsigned char *extra){
 	fprintf(stderr, "\033[31mError: %s%s!\n\033[0m", message, extra); 
 	if (srcPath != NULL) free(srcPath);
 	if (RaccoonLockFolder != NULL) free(RaccoonLockFolder);
+	printf("Press Enter to continue...");
+	getchar();
 	exit(1);
 }
 
@@ -99,8 +101,8 @@ void copyFiles(unsigned char *src, unsigned char *dest, FILE *filesrc, FILE *fil
 			timeSleep(2000);
 			fclose(filesrc);
 			fclose(filedest);
-			free(src); free(dest);
-			src = NULL; dest = NULL; srcPath = NULL;
+			if (src != srcPath) free(src); 
+			if (dest != srcPath) free(dest);
 			error("EOF reached unexpectedly", "");
 		}
 		fprintf(filedest, "%02X ", filecontent);
@@ -117,8 +119,8 @@ void copyFiles(unsigned char *src, unsigned char *dest, FILE *filesrc, FILE *fil
 	fclose(filesrc); fclose(filedest);
 	verify = fopen(dest, "r");
 	if (verify == NULL){
-		free(src); free(dest);
-		src = NULL; dest = NULL; srcPath = NULL;
+		if (src != srcPath) free(src); 
+		if (dest != srcPath) free(dest);
 		error("Couldn't create file", "");
 	}
 	fclose(verify);
@@ -157,12 +159,10 @@ void makeBackup(){
 		strncpy(destFolder, cwd, BUFSIZ);
 	}
 	free(cwd);
-	cwd = NULL;
 	if (strlen(destFile) == 1 && destFile[0] == '\n'){
 		printf(" \033[31mFilename must not be empty.\033[0m\n Press Enter to continue...");
 		getc(stdin);
 		free(destFolder); free(destFile);
-		destFolder = NULL; destFile = NULL;
 		return;
 	}
 	unnchar(destFolder);
@@ -173,7 +173,6 @@ void makeBackup(){
 	dest = malloc(size);
 	snprintf(dest, size, "%s/%s.rlc", destFolder, destFile);
 	free(destFile);
-	destFile = NULL;
 	printf(" Are you sure you want to make a backup in %s?\n This action will overwrite any file with the same name permanently. (\033[32my\033[0m/\033[31mn\033[0m): ", dest);
 	option = getc(stdin);
 	cleanstd();
@@ -181,7 +180,6 @@ void makeBackup(){
 		printf(" Operation cancelled.\n Press Enter to continue...");
 		getc(stdin);
 		free(dest); free(destFolder);
-		dest = NULL; destFolder = NULL;
 		return;
 	}
 
@@ -198,23 +196,19 @@ void makeBackup(){
 		unsigned char destinationFolder[strlen(destFolder)];
 		strcpy(destinationFolder, destFolder);
 		free(destFolder); free(dest);
-		destFolder = NULL; dest = NULL;
-		error(destinationFolder, " is not a folder!");
+		error(destinationFolder, " is not a folder");
 	}
 	free(destFolder);
-	destFolder = NULL;
 	filedest = fopen(dest, "w");
 	if (filedest == NULL){
 		unsigned char destination[strlen(dest)];
 		strcpy(destination, dest);
 		free(dest);
-		dest = NULL;
 		error("Couldn't create ", destination);
 	}
 	copyFiles(srcPath, dest, filesrc, filedest);
 
 	free(dest);
-	dest = NULL;
 	printf("\n \033[32mBackup made successfully!\033[0m\n Press Enter to continue...");
 	getc(stdin);
 	return;
@@ -246,7 +240,6 @@ void restoreBackup(){
 		strncpy(srcFolder, cwd, BUFSIZ);
 	}
 	free(cwd);
-	cwd = NULL;
 	if (strlen(srcFile) == 1 && srcFile[0] == '\n'){
 		printf(" \033[31mFilename must not be empty.\033[0m\n Press Enter to continue...");
 		getc(stdin);
@@ -269,7 +262,6 @@ void restoreBackup(){
 		printf(" Operation cancelled.\n Press Enter to continue...");
 		getc(stdin);
 		free(src);
-		src = NULL;
 		return;
 	}
 
@@ -278,7 +270,6 @@ void restoreBackup(){
 		unsigned char source[strlen(src)];
 		strcpy(source, src);
 		free(src);
-		src = NULL;
 		error(source, " doesn't exist");
 	}
 
@@ -293,19 +284,16 @@ void restoreBackup(){
 	}
 	else {
 		free(src);
-		src = NULL;
-		error(RaccoonLockFolder, " is not a folder!");
+		error(RaccoonLockFolder, " is not a folder");
 	}
 	filedest = fopen(srcPath, "w");
 	if (filedest == NULL){
 		free(src);
-		src = NULL;
 		error("Couldn't create ", srcPath);
 	}
 	copyFiles(src, srcPath, filesrc, filedest);
 
 	free(src);
-	src = NULL;
 	printf("\n \033[32mBackup restored successfully!\033[0m\n Press Enter to continue...");
 	getc(stdin);
 	return;
@@ -315,8 +303,8 @@ void menu(){
 	forever{
 		char option;
 		splash();
-		printf(" 1. Make backup\n 2. Restore backup\n 3. Exit\n\n\n\n\n\033[93m(c) Autumn64, 2023.\n\033[36mLicensed by BSD-3-Clause License.");
-		printf("\033[5A");
+		printf(" 1. Make backup\n 2. Restore backup\n 3. Exit\n\n\n\n\n\033[93m(c) Autumn64, 2023.\n\033[36mLicensed by BSD-3-Clause License.\n\033[94mMade with the help of a lovely bl\u00E5haj <3.");
+		printf("\033[6A");
 		printf("\n \033[0mChoose an option (1-3): ");
 		option = getc(stdin);
 		cleanstd();
