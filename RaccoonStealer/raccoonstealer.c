@@ -229,10 +229,8 @@ void readInfo(unsigned char* route){
 int main(int argc, char *argv[]){
 	if (argc == 4 && strcmp(argv[1], "-d") == 0 && strcmp(argv[2], "-y") == 0){
 		readDecrypted(argv[3]);
-		clearscr();
 	}else if (argc == 3 && strcmp(argv[1], "-i") == 0){
 		readInfo(argv[2]);
-		clearscr();
 	}else if (argc == 3 && strcmp(argv[1], "-c") == 0){
 		splash("\nCreating a new key will overwrite (and delete) all of your previous data,\ndon't run this command unless you know what you're doing.");
 	}else if (argc == 4 && strcmp(argv[1], "-c") == 0 && strcmp(argv[2], "-y") == 0){

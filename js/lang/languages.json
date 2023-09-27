@@ -252,6 +252,7 @@
                 "error": "Enter at least a name, an e-mail address and a password.",
                 "sucessa": ["Password mode enabled.<br>Warning: Password mode is unsecure! Use it only if you can't receive 2FA codes.", "Password mode disabled."],
                 "save": "Save",
+                "backup": "Make backup",
                 "reset": "Reset app"
             },
             "verify":{
@@ -289,6 +290,7 @@
                 "error": "Introduce al menos un nombre, una dirección e-mail y una contraseña.",
                 "sucessa": ["Modo contraseña activado.<br>Alerta: ¡El modo contraseña es inseguro! Úsalo sólo si no puedes recibir códigos 2FA.", "Modo contraseña desactivado."],
                 "save": "Guardar",
+                "backup": "Respaldar",
                 "reset": "Resetear app"
             },
             "verify":{
@@ -326,6 +328,7 @@
                 "error": "Entrez au moins un nom, une adresse e-mail et un mot de passe.",
                 "sucessa": ["Mode mot de passe activé.<br>Attention: Le mode mot de passe est insécurisé! Utilisez-le seulement si vous ne pouvez pas recevoir de codes 2FA.", "Mode mot de passe désactivé."],
                 "save": "Sauvegarder",
+                "backup": "Faire un backup",
                 "reset": "Réinitialiser l'app"
             },
             "verify":{
@@ -363,6 +366,7 @@
                 "error": "Enigu almenaŭ nomon, retpoŝton kaj pasvorton.",
                 "sucessa": ["Pasvortreĝimo aktivigita.<br>Averto: Pasvortreĝimo estas malsekura! Uzu ĝin nur se vi ne povas ricevi 2FA kodojn.", "Pasvortreĝimo malaktivigita."],
                 "save": "Konservu",
+                "backup": "Sekurkopiu",
                 "reset": "Restarigu programon"
             },
             "verify":{
@@ -400,6 +404,7 @@
                 "error": "Digite pelo menos um nome, um endereço de e-mail e uma senha.",
                 "sucessa": ["Modo senha ativado.<br>Atenção: O modo senha é inseguro! Use somente se você não conseguir recber códigos 2FA.", "Modo senha desativado."],
                 "save": "Guardar",
+                "backup": "Fazer backup",
                 "reset": "Redefinir app"
             },
             "verify":{
@@ -437,6 +442,7 @@
                 "error": "Skriv inn minst et navn, en e-post og et passord.",
                 "sucessa": ["Passordmodus aktivert.<br>Advarsel: Passordmodusen er usikker! Bruk den bare hvis du ikke kan få 2FA-koder.", "Passordmodus deaktivert."],
                 "save": "Lagre",
+                "backup": "Lage backup",
                 "reset": "Nullstill appen"
             },
             "verify":{
@@ -474,6 +480,7 @@
                 "error": "최소한 이름, 이메일 및 암호를 입력하세요.",
                 "sucessa": ["암호 모드를 활성화했습니다.<br>경고: 암호 모드는 안전하지 않습니다! 2FA 코드를 받을 수 없는 경우에만 사용해도 됩니다.", "암호 모드를 비활성화했습니다."],
                 "save": "저장",
+                "backup": "백업 하기",
                 "reset": "앱 재설정"
             },
             "verify":{

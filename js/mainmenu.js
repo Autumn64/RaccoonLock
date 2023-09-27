@@ -6,7 +6,8 @@ function main(){
     }else{
     	name = userinfo.name.trimStart().split(' ')[0];
     }
-    document.getElementById('logo').innerHTML += `<h2>${time}, ${name}.</h2>`
+    document.getElementById('logo').innerHTML += `<h2>${time}, ${name}.</h2>`;
+    console.log(global.miVariableGlobal);
 }
 
 document.getElementById('settings').addEventListener('click', () =>{

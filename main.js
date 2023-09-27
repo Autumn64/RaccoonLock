@@ -1,8 +1,9 @@
-const { app, BrowserWindow, Notification } = require('electron');
+const { app, BrowserWindow, Notification, ipcMain, dialog} = require('electron');
 
 const currentVer = 422;
 
 function createWindow(){
+
     const win = new BrowserWindow({
         width: 800,
         height: 600,
@@ -14,8 +15,44 @@ function createWindow(){
             enableRemoteModule: false,
         }
     });
-    //win.webContents.openDevTools();
-    win.removeMenu();
+
+    ipcMain.on('open-save-dialog', async (event) => {
+        const options = {
+          filters: [
+            { name: 'RaccoonLock Container', extensions: ['rlc'] }
+          ]
+        };
+    
+        const { filePath } = await dialog.showSaveDialog(win, options);
+
+        if (!filePath){
+            event.sender.send('save-dialog-closed', null);
+            return;
+        }
+
+        event.sender.send('save-dialog-closed', filePath);
+    });
+
+    ipcMain.on('backup-success', (event, message) =>{
+        dialog.showMessageBox({
+            type: 'info',
+            title: 'RaccoonLock',
+            message: `Backup made in ${message} successfully!`,
+            buttons: ['OK']
+        });
+    });
+
+    ipcMain.on('backup-failure', (event, message) =>{
+        dialog.showMessageBox({
+            type: 'info',
+            title: 'RaccoonLock',
+            message: `Backup failed! ${message}`,
+            buttons: ['OK']
+        });
+    });
+
+    win.webContents.openDevTools();
+    //win.removeMenu();
     win.loadFile('index.html');
 }
 

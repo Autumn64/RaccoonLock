@@ -1,3 +1,5 @@
+const { ipcRenderer } = require('electron');
+const fs = require("fs");
 const sendMail = require('./js/sendmail.js');
 
 let twoFA = "";
@@ -153,6 +155,26 @@ document.getElementById('gobackl').addEventListener('click', () =>{
         info.style.animation = 'fadein 0.5s';
         info.style.display = 'flex';
     }, 1000);
+});
+
+document.getElementById('backup').addEventListener('click', () =>{
+    ipcRenderer.send('open-save-dialog');
+});
+
+ipcRenderer.on('save-dialog-closed', (event, filePath) => {
+    if (filePath) {
+        if (!filePath.endsWith(".rlc")){
+            filePath = filePath + ".rlc";
+        }
+        let file = fs.readFileSync(`${path}/data.rlc`);
+        try{
+            fs.writeFileSync(filePath, file);
+        }catch(e){
+            ipcRenderer.send('backup-failure', e);
+            return;
+        }
+        ipcRenderer.send('backup-success', filePath);
+    }
 });
 
 function setName(){

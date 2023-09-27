@@ -41,10 +41,7 @@ function setLang(){
     document.getElementById('tdphone').innerHTML = currentlang.info.table.tdphone;
     document.getElementById('tdbirthday').innerHTML = currentlang.info.table.tdbirthday;
     document.getElementById('tdpassword').innerHTML = currentlang.info.table.tdpassword;
-    document.getElementById('tdpasswordmode').innerHTML = currentlang.info.table.tdpasswordmode;
-    document.getElementById('tdnameindex').innerHTML = currentlang.info.table.tdnameindex;
-    document.getElementById('tdlanguage').innerHTML = currentlang.info.table.tdlanguage;
-
+    document.getElementById('tdpasswordmode').innerHTML = currentlang.info.table.tdpasswsave
     document.getElementById('name').placeholder = currentlang.info.table.name;
     document.getElementById('user').placeholder = currentlang.info.table.user;
     document.getElementById('phone').placeholder = currentlang.info.table.phone;
@@ -53,6 +50,7 @@ function setLang(){
     document.getElementById('language').value = userinfo.language;
 
     document.getElementById('save').innerHTML = currentlang.info.save;
+    document.getElementById('backup').innerHTML = currentlang.info.backup;
     document.getElementById('reset').innerHTML = currentlang.info.reset;
 
     document.getElementById('code').placeholder = currentlang.verify.code;
