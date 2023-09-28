@@ -16,7 +16,6 @@ function main(){
         passwordd.style.animation = 'fadein 0.5s';
     });
 	email = userinfo.user;
-    console.log(global.miVariableGlobal);
 }
 
 document.getElementById('submitv').addEventListener('click', () =>{

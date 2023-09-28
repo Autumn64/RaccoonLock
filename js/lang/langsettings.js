@@ -41,7 +41,7 @@ function setLang(){
     document.getElementById('tdphone').innerHTML = currentlang.info.table.tdphone;
     document.getElementById('tdbirthday').innerHTML = currentlang.info.table.tdbirthday;
     document.getElementById('tdpassword').innerHTML = currentlang.info.table.tdpassword;
-    document.getElementById('tdpasswordmode').innerHTML = currentlang.info.table.tdpasswsave
+    document.getElementById('tdpasswordmode').innerHTML = currentlang.info.table.tdpasswordmode;
     document.getElementById('name').placeholder = currentlang.info.table.name;
     document.getElementById('user').placeholder = currentlang.info.table.user;
     document.getElementById('phone').placeholder = currentlang.info.table.phone;

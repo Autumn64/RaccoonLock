@@ -170,10 +170,10 @@ ipcRenderer.on('save-dialog-closed', (event, filePath) => {
         try{
             fs.writeFileSync(filePath, file);
         }catch(e){
-            ipcRenderer.send('backup-failure', e);
+            ipcRenderer.send('backup-failure', currentlang.info["backup-failure"], e);
             return;
         }
-        ipcRenderer.send('backup-success', filePath);
+        ipcRenderer.send('backup-success', currentlang.info["backup-success"], filePath);
     }
 });
 

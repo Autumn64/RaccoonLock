@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Notification, ipcMain, dialog} = require('electron');
 
-const currentVer = 422;
+const currentVer = 430;
 
 function createWindow(){
 
@@ -33,26 +33,26 @@ function createWindow(){
         event.sender.send('save-dialog-closed', filePath);
     });
 
-    ipcMain.on('backup-success', (event, message) =>{
+    ipcMain.on('backup-success', (event, message, path) =>{
         dialog.showMessageBox({
             type: 'info',
             title: 'RaccoonLock',
-            message: `Backup made in ${message} successfully!`,
+            message: `${message} ${path}`,
             buttons: ['OK']
         });
     });
 
-    ipcMain.on('backup-failure', (event, message) =>{
+    ipcMain.on('backup-failure', (event, message, error) =>{
         dialog.showMessageBox({
             type: 'info',
             title: 'RaccoonLock',
-            message: `Backup failed! ${message}`,
+            message: `${message} ${error}`,
             buttons: ['OK']
         });
     });
 
-    win.webContents.openDevTools();
-    //win.removeMenu();
+    //win.webContents.openDevTools();
+    win.removeMenu();
     win.loadFile('index.html');
 }
 

@@ -21,7 +21,7 @@ unsigned char *data;
 
 
 void splash(char *message){
-	printf("RaccoonStealer v4.2.2 (c) Autumn64 2023.\nLicensed under BSD-3-Clause license.\n%s\n", message);
+	printf("RaccoonStealer v4.3.0 (c) Autumn64 2023.\nLicensed under BSD-3-Clause license.\n%s\n", message);
 	return;
 }
 

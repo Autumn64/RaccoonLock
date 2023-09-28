@@ -15,7 +15,7 @@ unsigned char *RaccoonLockFolder;
 void splash(){
 	clearscr();
 	timeSleep(1000);
-	printf("\033[32m****** RaccoonTransfer v2.2 ******\n\n\033[0m");
+	printf("\033[32m****** RaccoonTransfer v2.3 ******\n\n\033[0m");
 	return;
 }
 
@@ -303,7 +303,7 @@ void menu(){
 	forever{
 		char option;
 		splash();
-		printf(" 1. Make backup\n 2. Restore backup\n 3. Exit\n\n\n\n\n\033[93m(c) Autumn64, 2023.\n\033[36mLicensed by BSD-3-Clause License.\n\033[94mMade with the help of a lovely bl\u00E5haj <3.");
+		printf(" 1. Make backup\n 2. Restore backup\n 3. Exit\n\n\n\n\n\033[93m(c) Autumn64, 2023.\n\033[36mLicensed by BSD-3-Clause License.\n");
 		printf("\033[6A");
 		printf("\n \033[0mChoose an option (1-3): ");
 		option = getc(stdin);
