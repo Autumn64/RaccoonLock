@@ -3,15 +3,13 @@
 ![Stars](https://img.shields.io/github/stars/Autumn64/RaccoonLock)
 ![License](https://img.shields.io/github/license/Autumn64/RaccoonLock)
 ![Issues](https://img.shields.io/github/issues/Autumn64/RaccoonLock)
-[![RaccoonLock](https://img.shields.io/badge/copr-RaccoonLock-51A2DA?label=COPR&logo=fedora&logoColor=white)](https://copr.fedorainfracloud.org/coprs/autumn64/RaccoonLock/)
-[![RaccoonLock](https://img.shields.io/badge/copr-Raccoonlock-3AB6A9?label=COPR&logo=opensuse&logoColor=white)](https://copr.fedorainfracloud.org/coprs/autumn64/RaccoonLock/)
 ## An open-source, simple, powerful and customizable password manager.
 
 ### Description
 RaccoonLock is a multi-platform password manager coded in Electron, Python and C, made with the purpose of providing a lightweight, straightforward and secure password manager for PC users who want to store their passwords in a safe way, but who don't care about having them everywhere.
 
 ### Contribution Guidelines
-Since currently there are no contributors to this project, please send me an email to eunbyeol64@naver.com or a message to my Instagram @autumn.x86_64 if you want to contribute. If this project grows and more people start contributing we will add specific and well-defined contribution guidelines. Just be aware that every contribution should use the BSD 3-Clause or a compatible license.
+At this moment we're not accepting contributions as we're currently rewriting large chunks of code. We'll publish appropriate contribution guidelines soon.
 
 ### Features
 - Multi-platform
