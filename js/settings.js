@@ -13,7 +13,7 @@ function main(){
     document.getElementById('birthdate').value = userinfo.birthdate;
     setName();
     let passmode = document.getElementById('switch');
-    exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
+    exec(raccoonreader, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
         if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
         if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
         try{
@@ -127,7 +127,7 @@ document.getElementById('switch').addEventListener('click', () =>{ //Password mo
     }
     let newPassJSON = paths.makeCorrectJSON(JSON.stringify(passjson));
     let newJSON = paths.makeCorrectJSON(JSON.stringify(userinfo));
-    exec(raccoonstealer, ['-a', `${path}/data.rlc`, newPassJSON, newJSON], (error, stdout, stderr) =>{
+    exec(raccoonreader, ['-a', `${path}/data.rlc`, newPassJSON, newJSON], (error, stdout, stderr) =>{
 	    if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
 	    if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
     });
@@ -210,7 +210,7 @@ function updateJSON(){
 
     let newJSON = paths.makeCorrectJSON(JSON.stringify(userinfo));
     let newPassJSON = paths.makeCorrectJSON(JSON.stringify(passjson));
-    exec(raccoonstealer, ["-a", `${path}/data.rlc`, newPassJSON, newJSON], (error, stdout, stderr) =>{
+    exec(raccoonreader, ["-a", `${path}/data.rlc`, newPassJSON, newJSON], (error, stdout, stderr) =>{
 	    if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
 	    if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
 	    return;

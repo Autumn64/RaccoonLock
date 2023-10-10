@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Notification, ipcMain, dialog} = require('electron');
 
-const currentVer = 430;
+const currentVer = 440;
 
 function createWindow(){
 

@@ -6,7 +6,7 @@ let email;
 let passwordd = document.getElementById('passwordd');
 
 function main(){
-	exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
+	exec(raccoonreader, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
 		if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
         if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
         let jsonstring = paths.getCorrectJSON(stdout);

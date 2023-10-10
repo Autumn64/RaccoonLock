@@ -14,11 +14,11 @@ class interfaces{
 		}
 	}
 
-	getStealer(){
+	getReader(){
 		if (this.platform === "win32"){
-			return 'raccoonstealer.exe';
+			return 'raccoonreader.exe';
 		}else if(this.platform === "linux"){
-			return './raccoonstealer';
+			return './raccoonreader';
 		}
 	}
 

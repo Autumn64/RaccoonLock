@@ -4,7 +4,7 @@ let neww = document.getElementById('neww');
 let verify = document.getElementById('verify');
 
 function main(){
-    exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
+    exec(raccoonreader, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
         if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
         if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
         let other = document.getElementById('other');
@@ -101,7 +101,7 @@ function addData(){
 	    let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
         document.getElementById('goback').style.display = 'none'; //Hide back button
 	
-	    exec(raccoonstealer, ["-a", `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
+	    exec(raccoonreader, ["-a", `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
 	        if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
 	        if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
 	        return;

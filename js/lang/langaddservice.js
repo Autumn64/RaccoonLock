@@ -2,14 +2,14 @@ const interfaces = require("./js/lang/interfaces.js");
 const paths = new interfaces(process.platform);
 const path = paths.getPath();
 const langs = require("./js/lang/languages.json");
-const raccoonstealer = paths.getStealer();
+const raccoonreader = paths.getReader();
 const exec = require('child_process').execFile;
 
 let userinfo;
 let currentlang;
 
 window.addEventListener('DOMContentLoaded', () =>{ 
-        exec(raccoonstealer, ["-i", `${path}/data.rlc`], (error, stdout, stderr) =>{ 
+        exec(raccoonreader, ["-i", `${path}/data.rlc`], (error, stdout, stderr) =>{ 
                 if (error){
 			window.location.href = `error.html?err=${encodeURIComponent(error)}`;
 			return;

@@ -9,7 +9,7 @@ let verify = document.getElementById('verify');
 let parameters = new URLSearchParams(document.location.search)
 
 function main(){
-    exec(raccoonstealer, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
+    exec(raccoonreader, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
         if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
         if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
         try{
@@ -244,7 +244,7 @@ function updateJSON({ key, index, service, user, pass }){
     json[key].password[index] = pass;
     let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
     let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
-    exec(raccoonstealer, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
+    exec(raccoonreader, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
 	    if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
 	    if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
     });
@@ -265,7 +265,7 @@ function deleteData(){
     
     let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
     let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
-    exec(raccoonstealer, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
+    exec(raccoonreader, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
 	    if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
 	    if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
     });
@@ -292,7 +292,7 @@ function addData(){
 	    
     	let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
     	let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
-    	exec(raccoonstealer, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
+    	exec(raccoonreader, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
 	    	if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
 	    	if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
     });

