@@ -1,8 +1,8 @@
 # RaccoonLock
-![Pull requests](https://img.shields.io/badge/dynamic/json.svg?label=pull%20requests&style=for-the-badge&color=limegreen&url=https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock&query=open_pr_counter)
-![Issues](https://img.shields.io/badge/dynamic/json.svg?label=issues&style=for-the-badge&color=red&url=https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock&query=open_issues_count)
-![Stars](https://img.shields.io/badge/dynamic/json.svg?label=stars&style=for-the-badge&color=yellow&url=https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock&query=stars_count)
-![License](https://img.shields.io/badge/license-BSD--3--Clause-green?label=license&style=for-the-badge&url=)
+[![Pull requests](https://img.shields.io/badge/dynamic/json.svg?label=pull%20requests&style=for-the-badge&color=limegreen&url=https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock&query=open_pr_counter)](https://codeberg.org/Autumn64/RaccoonLock/pulls)
+[![Issues](https://img.shields.io/badge/dynamic/json.svg?label=issues&style=for-the-badge&color=red&url=https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock&query=open_issues_count)](https://codeberg.org/Autumn64/RaccoonLock/issues)
+[![Stars](https://img.shields.io/badge/dynamic/json.svg?label=stars&style=for-the-badge&color=yellow&url=https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock&query=stars_count)](https://codeberg.org/Autumn64/RaccoonLock)
+[![License](https://img.shields.io/badge/license-BSD--3--Clause-green?label=license&style=for-the-badge&url=)](https://codeberg.org/Autumn64/RaccoonLock/src/branch/main/LICENSE.txt)
 ## An open-source, simple, powerful and customizable password manager.
 
 ### Description
