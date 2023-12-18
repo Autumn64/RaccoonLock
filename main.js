@@ -1,6 +1,6 @@
 const { app, BrowserWindow, Notification, ipcMain, dialog} = require('electron');
 
-const currentVer = 440;
+const currentVer = 450;
 
 function createWindow(){
 
@@ -86,7 +86,7 @@ app.on('window-all-closed', () => {
 });
 
 function checkUpdates(){
-	const request = new Request("https://api.github.com/repos/Autumn64/RaccoonLock/releases/latest");
+	const request = new Request("https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock/releases/latest");
 	fetch(request)
 	.then(response =>{
 		if (response.status === 200) return response.json();
