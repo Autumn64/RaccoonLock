@@ -1,8 +1,8 @@
 # RaccoonLock
-![Contributors](https://img.shields.io/github/contributors/Autumn64/RaccoonLock)
-![Stars](https://img.shields.io/github/stars/Autumn64/RaccoonLock)
-![License](https://img.shields.io/github/license/Autumn64/RaccoonLock)
-![Issues](https://img.shields.io/github/issues/Autumn64/RaccoonLock)
+![Pull requests](https://img.shields.io/badge/dynamic/json.svg?label=pull%20requests&style=for-the-badge&color=limegreen&url=https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock&query=open_pr_counter)
+![Issues](https://img.shields.io/badge/dynamic/json.svg?label=issues&style=for-the-badge&color=red&url=https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock&query=open_issues_count)
+![Stars](https://img.shields.io/badge/dynamic/json.svg?label=stars&style=for-the-badge&color=yellow&url=https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock&query=stars_count)
+![License](https://img.shields.io/badge/license-BSD--3--Clause-green?label=license&style=for-the-badge&url=)
 ## An open-source, simple, powerful and customizable password manager.
 
 ### Description
@@ -25,6 +25,6 @@ At this moment we're not accepting contributions as we're currently rewriting la
 - RaccoonUpdater only works on Windows. You need requests, subprocess, urllib, tkinter, PIL (pillow) and win32api libraries to run it. Additionally you need the "interfaces.py" module provided along with the source code. The binary provided in Windows releases is compiled with PyInstaller, not sure if it would work using other packagers.
 
 ### Extra information
-Thanks so much to all of our [contributors](https://github.com/Autumn64/RaccoonLock/graphs/contributors).
+Thanks so much to all of our [contributors](https://codeberg.org/Autumn64/RaccoonLock/activity/yearly).
 
 #### All the code in this repository is licensed under the BSD 3-Clause license. The resources used for the app's logo and styles are Creative Commons, and the resources used for the private logos and names inside the app belong to their respective Copyright holders and no infraction is intended by using them. This app is meant to be distributed for non-commercial purposes, and neither this project's owner nor its contributors are responsible for the use anyone outside of it might give to the software provided and its assets.
