@@ -158,7 +158,7 @@ document.getElementById('gobackl').addEventListener('click', () =>{
 });
 
 document.getElementById('backup').addEventListener('click', () =>{
-    ipcRenderer.send('open-save-dialog');
+    ipcRenderer.send('save-dialog');
 });
 
 ipcRenderer.on('save-dialog-closed', (event, filePath) => {
@@ -175,6 +175,20 @@ ipcRenderer.on('save-dialog-closed', (event, filePath) => {
         }
         ipcRenderer.send('backup-success', currentlang.info["backup-success"], filePath);
     }
+});
+
+document.getElementById('restore').addEventListener('click', () =>{
+    ipcRenderer.send('open-dialog');
+});
+
+ipcRenderer.on('open-dialog-closed', (event, filePath) =>{
+    if (!filePath) return;
+
+    if (!filePath.endsWith(".rlc")){
+        ipcRenderer.send('backup-failure', "Error restoring backup!", "");
+        return;
+    }
+    ipcRenderer.send('backup-success', "Backup restored successfully!","");
 });
 
 function setName(){

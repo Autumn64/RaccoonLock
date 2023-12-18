@@ -16,7 +16,7 @@ function createWindow(){
         }
     });
 
-    ipcMain.on('open-save-dialog', async (event) => {
+    ipcMain.on('save-dialog', async (event) => {
         const options = {
           filters: [
             { name: 'RaccoonLock Container', extensions: ['rlc'] }
@@ -31,6 +31,23 @@ function createWindow(){
         }
 
         event.sender.send('save-dialog-closed', filePath);
+    });
+
+    ipcMain.on('open-dialog', async (event) => {
+        const options ={
+            filters: [
+                { name: 'RaccoonLock Container', extensions: ['rlc'] }
+            ]
+        };
+
+        const { filePaths } = await dialog.showOpenDialog(win, options);
+
+        if (filePaths.length < 1){
+            event.sender.send('open-dialog-closed', null);
+            return;
+        }
+        
+        event.sender.send('open-dialog-closed', filePaths[0]);
     });
 
     ipcMain.on('backup-success', (event, message, path) =>{
