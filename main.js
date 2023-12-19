@@ -51,7 +51,7 @@ function createWindow(){
     });
 
     ipcMain.on('backup-success', (event, message, path) =>{
-        dialog.showMessageBox({
+        dialog.showMessageBoxSync({
             type: 'info',
             title: 'RaccoonLock',
             message: `${message} ${path}`,
@@ -66,6 +66,11 @@ function createWindow(){
             message: `${message} ${error}`,
             buttons: ['OK']
         });
+    });
+
+    ipcMain.on('restart', (event) =>{
+        app.relaunch();
+        app.exit(0);
     });
 
     //win.webContents.openDevTools();

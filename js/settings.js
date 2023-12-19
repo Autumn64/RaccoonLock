@@ -185,10 +185,19 @@ ipcRenderer.on('open-dialog-closed', (event, filePath) =>{
     if (!filePath) return;
 
     if (!filePath.endsWith(".rlc")){
-        ipcRenderer.send('backup-failure', "Error restoring backup!", "");
+        ipcRenderer.send('backup-failure', "Error:", "File must end with extension .rlc!");
         return;
     }
-    ipcRenderer.send('backup-success', "Backup restored successfully!","");
+    let file = fs.readFileSync(filePath);
+    try{
+        fs.writeFileSync(`${path}/data.rlc`, file);
+    }catch(e){
+        ipcRenderer.send('backup-failure', currentlang.info["backup-failure"], e);
+        return;
+    }
+
+    ipcRenderer.send('backup-success', "Backup restored successfully!", "The app will restart");
+    ipcRenderer.send('restart');
 });
 
 function setName(){
