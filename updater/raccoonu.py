@@ -7,7 +7,7 @@ from win32api import *
 from interfaces import updaterWindow
 
 file_path: str = os.getcwd().replace('\\', '/')
-url: str = "https://api.github.com/repos/Autumn64/RaccoonLock/releases/latest"
+url: str = "https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock/releases/latest"
 user_path: str = os.getenv('LOCALAPPDATA').replace('\\', '/')
 response: dict = {}
 
