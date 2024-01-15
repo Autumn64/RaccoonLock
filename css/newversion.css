@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<!--
+/*
 Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
 
 RaccoonLock is free software: you can redistribute it and/or modify it 
@@ -14,20 +13,17 @@ General Public License for more details.
 
 You should have received a copy of the GNU General Public License 
 along with this program. If not, see <https://www.gnu.org/licenses/>.
--->
+*/
 
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-        <link rel="stylesheet" href="css/styles.css">
-        <link rel="stylesheet" href="css/splash.css"> 
-        <title>RaccoonLock</title>
-    </head>
-    <body>
-        <div id="container">
-            <img src="res/logo.png" height="200" id="logo"><br>
-        </div>
-    </body>
-</html>
+#container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding: 150px;
+}
+
+#startbtn{
+    margin-top: 50px;
+}

@@ -1,28 +1,35 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    background-color: #282C34;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/*
+Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
+
+RaccoonLock is free software: you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by 
+the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
+
+RaccoonLock is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License 
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
+body{
+    animation: none;
 }
-.img-splash{
-    width: 300px; 
-}
-.img-loading{
-    height: 50px;
-    width: 50px;
-}
+
 #container{
-    height: 100%;
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    animation: fadein 2s;
 }
-#starting{
-    display: inline-flex;
-    text-align: center;
-    padding-top: 5px;
+
+#logo{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }

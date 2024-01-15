@@ -1,24 +1,24 @@
 {
   "name": "raccoonlock",
-  "version": "4.5.0",
-  "description": "An open-source, simple, powerful and customizable password manager.",
+  "version": "5.0.0",
+  "description": "A free, open-source, simple and powerful password manager.",
   "main": "main.js",
   "scripts": {
     "start": "electron ."
   },
   "keywords": [
     "passwords",
-    "passmanager"
+    "manager",
+    "gpg"
   ],
-  "author": "Autumn64",
-  "license": "BSD-3-Clause",
+  "author": "Mónica Gómez (Autumn64)",
+  "license": "GPL-3.0-or-later",
   "devDependencies": {
     "electron": "^25.1.1",
     "electron-builder": "^24.6.3"
   },
   "dependencies": {
     "@electron/remote": "^2.0.11",
-    "fs": "^0.0.1-security",
-    "nodemailer": "^6.9.3"
+    "fs": "^0.0.1-security"
   }
 }

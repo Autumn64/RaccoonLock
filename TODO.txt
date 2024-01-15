@@ -1,9 +1,21 @@
-So, this is the last build before the major next update v5.0.0. These are the things we will do:
+Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
 
-- Basically rewrite everything. We will rewrite the whole app in order to make it better organized and we will redo some concepts that were implemented the wrong way in the past (i.e we will make the app read the passwords and settings once and only once instead of reading it everytime the user changes switches from a screen to another, we will also modify the way we handle the language translations, as keeping everything in a single file was the worst idea ever).
+RaccoonLock is free software: you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by 
+the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
 
-- We will also rewrite RaccoonReader in order to meet the requirements of AES encryption. When I first developed RaccoonReader in C, I had no idea about how AES-256 works and thus I implemented it based on what I understood and what I thought was good. As a consequence, the order of the information in the file is KEY-IV-INFO, while it should actually be IV-INFO-KEY. I also included the config information (which is not encrypted) in the same file, which basically made the simple act of reading the information extremely hard. Even so, the algorithm hasn't seemed to have any problems or bugs at all, so that's why I didn't pay too much attention to it and decided to leave its fixing for the v5.0.0. I will also start to write the information in binary mode instead of just text mode, and I will give up on that stupidity of trying to 'obfuscate' everything by writing it as hex pairs, something that instead of making the app more secure, it makes it easier for the hackers to get the users' information, and since I anyway use unsigned chars to get the KEY, the IV and the information itself, I think it's pretty secure to just leave it raw and write it in binary mode as it's a lot harder for a human to understand where a specific byte in the file starts and ends if everything is just like that. This might have the disadvantage of increasing the risk of loss of information, but hey, it's a file with a size of at most 10 KiB (and if someone stores just a few passwords, say 10, the file's size becomes something like 1 or 2 KiB), and also backups exist for a reason. Therefore, the settings information will be stored in a different file (surely it will be a JSON) and it will not have any encryption whatsoever since it will not contain any sensitive information at all. It will, at most, contain the user's name, the language settings, whether if password mode is enabled, and that kind of stuff which serves to basically nothing when it comes to trying to hack someone.
+RaccoonLock is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
 
-Because of this, we will not accept any contributions until we release the new version (I know I said so ~3 months ago, but the changes I've recently made are so minuscule that that's why v4.5.0 is a thing while versions from v3 and below didn't even get to the X.4.0 or so, as at that moment I did add big things that weren't incompatible with older versions and thus needed to take the leap to the new major release version.
+You should have received a copy of the GNU General Public License 
+along with this program. If not, see <https://www.gnu.org/licenses/>.
 
-I am looking super straightforward to this future major release, as I will be able to apply everything I have learnt since I released the version v1.0.0, I will fix everything that is wrong and I will make the app's development a pleasant rather than a painful thing.
+Current TODOs:
+- Read the old information with RaccoonReader and re-encrypt it using GPG. Separate the 
+  originally non-encrypted information and put it in a separate JSON file.
+- Implement the welcome screen for new users.
+- Find a less painful way to include translations.
+- Figure out how to include a light/dark mode.
