@@ -14,8 +14,7 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 Current TODOs:
-- Read the old information with RaccoonReader and re-encrypt it using GPG. Separate the 
-  originally non-encrypted information and put it in a separate JSON file.
+- Reimplement RaccoonReader as it seems much less painful to do it rather than using GPG.
 - Implement the welcome screen for new users.
 - Find a less painful way to include translations.
 - Figure out how to include a light/dark mode.

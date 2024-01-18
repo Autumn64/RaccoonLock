@@ -46,10 +46,11 @@ function createWindow(){
 
     splash.loadFile('splash.html');
     splash.center();
-    loadData(splash, win);
+    setTimeout(() => {loadData(splash, win);}, 3000)
 }
 
 app.whenReady().then(() =>{
+    setHandlers();
     createWindow();
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -94,16 +95,54 @@ function getPath(){
 }
 
 function loadData(splash, win){
-    setTimeout(() =>{
-        splash.close();
-        if(fs.existsSync(`${path}/data.rlc`)){
-            win.loadFile('newversion.html');
-        }else{
-            win.loadFile('index.html');
-        }
-        //win.webContents.openDevTools();
-        win.removeMenu();
-        win.center();
+
+    splash.destroy();
+    if(fs.existsSync(`${path}/config.json`) && fs.existsSync(`${path}/data.rld`)){
+        win.loadFile('index.html'); win.removeMenu(); win.center();
         win.show();
-    }, 2000);
+        return;
+    }
+
+    if(fs.existsSync(`${path}/data.rlc`)){
+        win.loadFile('newversion.html'); 
+        //win.removeMenu(); 
+        win.center();
+        win.webContents.openDevTools();
+        win.show();
+        return;
+    }
+
+    if(!fs.existsSync(`${path}/config.json`) && fs.existsSync(`${path}/data.rld`)){
+        dialog.showMessageBoxSync({
+            title: "RaccoonLock",
+            message: "Couldn't read configuration file!"
+        });
+        app.exit(1);
+        return;
+    }
+
+    if(fs.existsSync(`${path}/config.json`) && !fs.existsSync(`${path}/data.rld`)){
+        dialog.showMessageBoxSync({
+            title: "RaccoonLock",
+            message: "FATAL ERROR: Couldn't read data file!"
+        });
+        app.exit(1);
+        return;
+    }
+
+    win.loadFile('index.html'); win.removeMenu(); win.center();
+    win.show();
+}
+
+const setHandlers = () =>{
+    ipcMain.on('send-path', (event) =>{
+        event.reply('receive-path', path);
+    });
+    
+    ipcMain.on('success-dataup', () =>{
+        dialog.showMessageBoxSync({
+            title: "RaccoonLock",
+            message: "Data updated successfully!"
+        });
+    });
 }
