@@ -15,13 +15,15 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { app, BrowserWindow, Notification, ipcMain, dialog} = require('electron');
+const { app, BrowserWindow, Notification, ipcMain, dialog } = require('electron');
 const fs = require("fs");
 
 const currentVer = 500;
 const path = getPath();
 
 function createWindow(){
+
+    //Splash window.
     const splash = new BrowserWindow({
         width: 450,
         height: 250,
@@ -31,6 +33,7 @@ function createWindow(){
         resizable: false
     });
 
+    //Main window.
     const win = new BrowserWindow({
         width: 800,
         height: 600,
@@ -63,6 +66,10 @@ app.on('window-all-closed', () => {
 });
 
 function checkUpdates(){
+    /*
+    Read the JSON file from the latest release. If such JSON contains a higher version number than the
+    number that is hardcoded here, send a notification that a new version is available.
+    */
 	const request = new Request("https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock/releases/latest");
 	fetch(request)
 	.then(response =>{
@@ -83,6 +90,7 @@ const newUpdate = (version) =>{
 	}).show();
 }
 
+//Adapt global variables depending on the platform.
 function getPath(){
     if (process.platform === "win32"){
         let path = `${process.env.LOCALAPPDATA}\\Raccoonlock`;
@@ -94,8 +102,8 @@ function getPath(){
     }
 }
 
+//If the .json and the .rld file are present, ignore any .rlc file. This function is currently incomplete.
 function loadData(splash, win){
-
     splash.destroy();
     if(fs.existsSync(`${path}/config.json`) && fs.existsSync(`${path}/data.rld`)){
         win.loadFile('index.html'); win.removeMenu(); win.center();
@@ -134,6 +142,7 @@ function loadData(splash, win){
     win.show();
 }
 
+//Handlers for all the possible signals the main process might receive.
 const setHandlers = () =>{
     ipcMain.on('send-path', (event) =>{
         event.reply('receive-path', path);

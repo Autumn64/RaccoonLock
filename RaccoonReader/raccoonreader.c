@@ -312,7 +312,7 @@ int main(int argc, char *argv[]){
 	}
 
 	if (argc == 3 && strcmp(argv[1], "-c") == 0){
-		splash("\nPreparing to encrypt 1 file.\n\n");
+		splash("\nPreparing to encrypt 1 file.\nWARNING: This operation will overwrite any data if the specified file already exists!\n\n");
 		encrypt(argv[2]);
 		return 0;
 	}
