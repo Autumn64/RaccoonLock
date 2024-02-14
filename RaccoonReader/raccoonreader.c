@@ -61,9 +61,9 @@ void splash(char *message){
 
 void help(){
 	printf("Usage:\n");
-	printf("  Encrypt a file: raccoonreader -c <FILENAME>\n");
-	printf("  Decrypt a file: raccoonreader -d <FILENAME>\n");
-	printf("  Display this screen: raccoonreader -h\n");
+	printf("  Encrypt a file: raccoonreader -c <FILENAME>, raccoonreader --symmetric <FILENAME>\n");
+	printf("  Decrypt a file: raccoonreader -d <FILENAME>, raccoonreader --decrypt <FILENAME>\n");
+	printf("  Display this screen: raccoonreader -h, raccoonreader --help\n");
 	return;
 }
 
@@ -209,7 +209,6 @@ void decrypt(char *filename){
 		error("Couldn't get the correct file size!");
 	}
 
-	int XD = ftell(fp);
 	ciphertext_len = ftell(fp) - IV_SIZE - SALT_SIZE;
 
 	if (ciphertext_len <= 0){
@@ -259,7 +258,7 @@ void decrypt(char *filename){
 		error("Couldn't derive the encryption key from the password!");
 	}
 
-	str_free(&password); //With the encryption key we no longer need the password.
+	str_free(&password); //With the encryption key available we no longer need the password.
 
 	//Initialize decryption context.
 	ctx = EVP_CIPHER_CTX_new();
@@ -306,22 +305,41 @@ void decrypt(char *filename){
 }
 
 int main(int argc, char *argv[]){
-	if (argc >= 2 && strcmp(argv[1], "-h") == 0){
+	if (argc >= 2 && (strcmp(argv[1], "-h") == 0
+	   || strcmp(argv[1], "--help") == 0)){
 		help();
 		return 0;
 	}
 
-	if (argc == 3 && strcmp(argv[1], "-c") == 0){
+	if (argc == 3 && (strcmp(argv[1], "-c") == 0
+	   || strcmp(argv[1], "--symmetric") == 0)){
 		splash("\nPreparing to encrypt 1 file.\nWARNING: This operation will overwrite any data if the specified file already exists!\n\n");
 		encrypt(argv[2]);
 		return 0;
 	}
 
-	if (argc == 3 && strcmp(argv[1], "-d") == 0){
+	if (argc == 3 && (strcmp(argv[1], "-d") == 0
+	   || strcmp(argv[1], "--decrypt") == 0)){
 		splash("\nPreparing to decrypt 1 file.\n\n");
 		decrypt(argv[2]);
 		return 0;
 	}
 
+	//Send an error message if user specifies the right parameter but doesn't specify the file.
+	if (argc == 2 && (strcmp(argv[1], "-c") == 0
+	   || strcmp(argv[1], "--symmetric") == 0)){
+		splash("");
+		error("A file must be specified!");
+		return 1;
+	}
+
+	if (argc == 2 && (strcmp(argv[1], "-d") == 0
+	   || strcmp(argv[1], "--decrypt") == 0)){
+		splash("");
+		error("A file must be specified!");
+		return 1;
+	}
+
 	splash("Unknown parameters.");
+	return 0;
 }

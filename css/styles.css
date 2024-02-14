@@ -26,6 +26,7 @@ body{ /*Generic body layout*/
     flex-direction:column; 
     justify-content:center;
     align-items: center;
+    text-align: center;
 }
 
 input{ /*Generic input field*/
@@ -43,7 +44,7 @@ input{ /*Generic input field*/
 
 button{ /*Generic button*/
     padding: 2px;
-    width: 200px;
+    width: 150px;
     height: 40px;
     border: 2px solid #3a464e;
     border-radius: 5px;

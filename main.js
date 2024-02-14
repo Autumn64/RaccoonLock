@@ -16,15 +16,19 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 const { app, BrowserWindow, Notification, ipcMain, dialog } = require('electron');
+const interfaces = require("./js/interfaces.js")
 const fs = require("fs");
 
 const currentVer = 500;
-const path = getPath();
+const path = interfaces.getPath();
+
+let splash;
+let win;
 
 function createWindow(){
 
     //Splash window.
-    const splash = new BrowserWindow({
+    splash = new BrowserWindow({
         width: 450,
         height: 250,
         icon:'icon.png',
@@ -34,7 +38,7 @@ function createWindow(){
     });
 
     //Main window.
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 800,
         height: 600,
 	    icon:'icon.png',
@@ -90,32 +94,20 @@ const newUpdate = (version) =>{
 	}).show();
 }
 
-//Adapt global variables depending on the platform.
-function getPath(){
-    if (process.platform === "win32"){
-        let path = `${process.env.LOCALAPPDATA}\\Raccoonlock`;
-        return path;
-    }else{
-        const os = require("os");
-        let path = `${os.homedir()}/.raccoonlock`;
-        return path;
-    }
-}
-
 //If the .json and the .rld file are present, ignore any .rlc file. This function is currently incomplete.
 function loadData(splash, win){
     splash.destroy();
     if(fs.existsSync(`${path}/config.json`) && fs.existsSync(`${path}/data.rld`)){
-        win.loadFile('index.html'); win.removeMenu(); win.center();
+        win.loadFile('index.html'); //win.removeMenu();
+        win.center();
         win.show();
         return;
     }
 
     if(fs.existsSync(`${path}/data.rlc`)){
         win.loadFile('newversion.html'); 
-        //win.removeMenu(); 
+        win.removeMenu(); 
         win.center();
-        win.webContents.openDevTools();
         win.show();
         return;
     }
@@ -143,15 +135,16 @@ function loadData(splash, win){
 }
 
 //Handlers for all the possible signals the main process might receive.
-const setHandlers = () =>{
-    ipcMain.on('send-path', (event) =>{
-        event.reply('receive-path', path);
-    });
-    
-    ipcMain.on('success-dataup', () =>{
+const setHandlers = () =>{    
+    ipcMain.on('message', (event, message) =>{
         dialog.showMessageBoxSync({
             title: "RaccoonLock",
-            message: "Data updated successfully!"
+            message: message
         });
+    });
+
+    ipcMain.on('restart', () =>{
+        app.relaunch();
+        app.exit(0);
     });
 }

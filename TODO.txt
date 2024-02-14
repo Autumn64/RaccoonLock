@@ -14,7 +14,14 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 Current TODOs:
-- Reimplement RaccoonReader as it seems much less painful to do it rather than using GPG.
+- Implement main screen.
 - Implement the welcome screen for new users.
 - Find a less painful way to include translations.
 - Figure out how to include a light/dark mode.
+
+MAIN SCREEN:
+Buttons: Password generator, password manager, settings.
+
+PASSWORD MANAGER:
+Show the passwords directly, add an "add password" button and each service will have its own button.
+After selecting a service, show another screen with the passwords for that service.
