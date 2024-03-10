@@ -20,11 +20,10 @@ const interfaces = require("./js/interfaces.js");
 const path = interfaces.getPath();
 const langs = require("./js/lang/languages.json");
 
-let userinfo;
+let userinfo = require(`${path}/config.json`);
 let currentlang;
 
 window.addEventListener('DOMContentLoaded', () =>{
-	userinfo = require(`${path}/config.json`);
 	currentlang = langs.login[userinfo.language];
 	setLang();
 });

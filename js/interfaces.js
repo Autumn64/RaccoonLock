@@ -45,12 +45,20 @@ class Interfaces{
     }
 
     static getReader(){
-		if (this.platform === "win32"){
+		if (process.platform === "win32"){
 			return 'raccoonreader.exe';
-		}else if(this.platform === "linux"){
+		}else if(process.platform === "linux"){
 			return './raccoonreader';
 		}
 	}
+
+    static getOldReader(){
+        if (process.platform === "win32"){
+			return 'oldreader.exe';
+		}else if(process.platform === "linux"){
+			return './oldreader';
+		}
+    }
 }
 
 module.exports = Interfaces;

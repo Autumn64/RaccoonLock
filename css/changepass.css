@@ -1,0 +1,29 @@
+#container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#title{
+    margin-bottom: 50px;
+}
+
+#goback{
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+}
+
+#save{
+    width: 150px;
+    margin-top: 50px;
+}
+
+input{
+    padding: 5px 5px 3px;
+    width: 250px;
+    height: 40px;
+    transition-duration: 0.2s;
+    margin-bottom: 15px;
+}

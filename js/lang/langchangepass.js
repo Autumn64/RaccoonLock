@@ -15,16 +15,23 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-const fs = require('fs');
 const interfaces = require("./js/interfaces.js");
-const path = interfaces.getPath();
 
-document.addEventListener('DOMContentLoaded', () =>{
-	let dump;
-	let parameters = new URLSearchParams(document.location.search);
-	let errorMsg = decodeURIComponent(parameters.get('err'));
-	let date = new Date();
-	document.getElementById('err').innerHTML = errorMsg;
-	dump = `System: ${process.platform}\nTime: ${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getUTCHours()}:${date.getUTCMinutes()} UTC\n${errorMsg}\n`;
-	fs.appendFileSync(`${path}/errors.rle`, dump);
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+
+let userinfo = require(`${path}/config.json`);
+let currentlang;
+
+window.addEventListener('DOMContentLoaded', () =>{ 
+        currentlang = langs.changepass[userinfo.language];
+        setLang();
 });
+
+function setLang(){
+    document.getElementById('title').innerHTML = currentlang.title;
+    document.getElementById('oldpass').placeholder = currentlang.oldpass;
+    document.getElementById('newpass').placeholder = currentlang.newpass;
+    document.getElementById('renewpass').placeholder = currentlang.renewpass;
+    document.getElementById('save').innerHTML = currentlang.save;
+}

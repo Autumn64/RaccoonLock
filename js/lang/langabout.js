@@ -15,37 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-const interfaces = require("./js/lang/interfaces.js");
-const paths = new interfaces(process.platform);
-const path = paths.getPath();
-const langs = require("./js/lang/languages.json");
-const raccoonreader = paths.getReader();
-const exec = require('child_process').execFile;
+const interfaces = require("./js/interfaces.js");
 
-let userinfo;
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+
+let userinfo = require(`${path}/config.json`);
 let currentlang;
 
 window.addEventListener('DOMContentLoaded', () =>{ 
-        exec(raccoonreader, ["-i", `${path}/data.rlc`], (error, stdout, stderr) =>{ 
-                if (error){
-			window.location.href = `error.html?err=${encodeURIComponent(error)}`;
-			return;
-		}
-                if (stderr){
-			window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-			return;
-		}
-
-                try{
-                        let jsonstring = paths.getCorrectJSON(stdout);
-		        userinfo = JSON.parse(jsonstring);
-                }catch(e){
-                        window.location.href = `error.html?err=${encodeURIComponent(e)}`;
-                        return;
-                }
-                currentlang = langs.about[userinfo.language];
-                setLang();
-        });
+        currentlang = langs.about[userinfo.language];
+        setLang();
 });
 
 function setLang(){

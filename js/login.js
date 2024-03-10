@@ -19,14 +19,15 @@ const chp = require('child_process');
 let passwordd = document.getElementById('passwordd');
 
 document.getElementById('submit').addEventListener('click', () =>{
-    let password = document.getElementById('password').value
-    const reader = chp.spawn("./raccoonreader", ["-d", `${path}/data.rld`]);
+    let password = document.getElementById('password').value;
+    const reader = chp.spawn(interfaces.getReader(), ["-d", `${path}/data.rld`]);
     reader.stdin.setDefaultEncoding("utf-8");
     reader.stdin.write(`${password}\n`);
-    
+    reader.stdin.end();
     reader.stderr.on('data', (error) =>{
-        if (!error.includes("FATAL ERROR: Couldn't finish the decryption operation! Did you enter the correct password?")){
-            window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+        let errorstr = error.toString();
+        if (!errorstr.includes("FATAL ERROR: Couldn't finish the decryption operation! Did you enter the correct password?")){
+            window.location.href = `error.html?err=${encodeURIComponent(errorstr)}`;
         }
         let errora = document.getElementById('errora');
         errora.classList.remove('hidden');

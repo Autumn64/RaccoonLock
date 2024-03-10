@@ -63,7 +63,7 @@ function saveConfig(config){
 function createData(){
     //Get the encrypted data and the user's password from the old data.rlc file.
     let data, pass;
-    chp.execFile("./oldreader", ["-d", "-y", `${path}/data.rlc`], (error, stdout, stderr) =>{
+    chp.execFile(interfaces.getOldReader(), ["-d", "-y", `${path}/data.rlc`], (error, stdout, stderr) =>{
         let sdata = interfaces.decodeJSON(stdout);
         data = JSON.parse(sdata);
         pass = data["RaccoonLock"];
@@ -76,11 +76,16 @@ function saveData(data, pass){
     //Save the new data.rld file with the same data and password.
     data = interfaces.encodeJSON(JSON.stringify(data));
 
-    const reader = chp.spawn("./raccoonreader", ["-c", `${path}/data.rld`]);
+    const reader = chp.spawn(interfaces.getReader(), ["-c", `${path}/data.rld`]);
     reader.stdin.setDefaultEncoding("utf-8");
+
+    reader.stdin.on('data', (data) => {
+        console.log(`Datos escritos en stdin: ${data}`);
+      });
     reader.stdin.write(`${data}\n`);
     reader.stdin.write(`${pass}\n`);
     reader.stdin.write(`${pass}\n`);
+    reader.stdin.end();
 }
 
 function deleteOld(){
