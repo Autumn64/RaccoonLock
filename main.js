@@ -15,35 +15,17 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { app, BrowserWindow, Notification, ipcMain, dialog } = require('electron');
-const interfaces = require("./js/interfaces.js")
-const fs = require("fs");
+const { app, BrowserWindow, Notification, ipcMain, dialog} = require('electron');
 
 const currentVer = 500;
-const path = interfaces.getPath();
-
-let splash;
-let win;
 
 function createWindow(){
 
-    //Splash window.
-    splash = new BrowserWindow({
-        width: 450,
-        height: 250,
-        icon:'icon.png',
-        transparent: true,
-        frame: false,
-        resizable: false
-    });
-
-    //Main window.
-    win = new BrowserWindow({
+    const win = new BrowserWindow({
         width: 800,
         height: 600,
 	    icon:'icon.png',
 	    title: 'RaccoonLock',
-        show: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
@@ -51,13 +33,78 @@ function createWindow(){
         }
     });
 
-    splash.loadFile('splash.html');
-    splash.center();
-    setTimeout(() => {loadData(splash, win);}, 3000)
+    ipcMain.on('save-dialog', async (event) => {
+        const options = {
+          filters: [
+            { name: 'RaccoonLock Container', extensions: ['rlc'] }
+          ]
+        };
+    
+        const { filePath } = await dialog.showSaveDialog(win, options);
+
+        if (!filePath){
+            event.sender.send('save-dialog-closed', null);
+            return;
+        }
+
+        event.sender.send('save-dialog-closed', filePath);
+    });
+
+    ipcMain.on('open-dialog', async (event) => {
+        const options ={
+            filters: [
+                { name: 'RaccoonLock Container', extensions: ['rlc'] }
+            ]
+        };
+
+        const { filePaths } = await dialog.showOpenDialog(win, options);
+
+        if (filePaths.length < 1){
+            event.sender.send('open-dialog-closed', null);
+            return;
+        }
+        
+        event.sender.send('open-dialog-closed', filePaths[0]);
+    });
+
+    ipcMain.on('message', (event, message) =>{
+        dialog.showMessageBoxSync({
+            type: 'info',
+            title: 'RaccoonLock',
+            message: `${message}`,
+            buttons: ['OK']
+        });
+    });
+
+    ipcMain.on('backup-success', (event, message, path) =>{
+        dialog.showMessageBoxSync({
+            type: 'info',
+            title: 'RaccoonLock',
+            message: `${message} ${path}`,
+            buttons: ['OK']
+        });
+    });
+
+    ipcMain.on('backup-failure', (event, message, error) =>{
+        dialog.showMessageBox({
+            type: 'info',
+            title: 'RaccoonLock',
+            message: `${message} ${error}`,
+            buttons: ['OK']
+        });
+    });
+
+    ipcMain.on('restart', (event) =>{
+        app.relaunch();
+        app.exit(0);
+    });
+
+    win.webContents.openDevTools();
+    //win.removeMenu();
+    win.loadFile('index.html');
 }
 
 app.whenReady().then(() =>{
-    setHandlers();
     createWindow();
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow();
@@ -70,10 +117,6 @@ app.on('window-all-closed', () => {
 });
 
 function checkUpdates(){
-    /*
-    Read the JSON file from the latest release. If such JSON contains a higher version number than the
-    number that is hardcoded here, send a notification that a new version is available.
-    */
 	const request = new Request("https://codeberg.org/api/v1/repos/Autumn64/RaccoonLock/releases/latest");
 	fetch(request)
 	.then(response =>{
@@ -92,59 +135,4 @@ const newUpdate = (version) =>{
 		title: "RaccoonLock",
 		body: `RaccoonLock ${version} is now available.`,
 	}).show();
-}
-
-//If the .json and the .rld file are present, ignore any .rlc file. This function is currently incomplete.
-function loadData(splash, win){
-    splash.destroy();
-    if(fs.existsSync(`${path}/config.json`) && fs.existsSync(`${path}/data.rld`)){
-        win.loadFile('index.html'); //win.removeMenu();
-        win.center();
-        win.show();
-        return;
-    }
-
-    if(fs.existsSync(`${path}/data.rlc`)){
-        win.loadFile('newversion.html'); 
-        win.removeMenu(); 
-        win.center();
-        win.show();
-        return;
-    }
-
-    if(!fs.existsSync(`${path}/config.json`) && fs.existsSync(`${path}/data.rld`)){
-        dialog.showMessageBoxSync({
-            title: "RaccoonLock",
-            message: "Couldn't read configuration file!"
-        });
-        app.exit(1);
-        return;
-    }
-
-    if(fs.existsSync(`${path}/config.json`) && !fs.existsSync(`${path}/data.rld`)){
-        dialog.showMessageBoxSync({
-            title: "RaccoonLock",
-            message: "FATAL ERROR: Couldn't read data file!"
-        });
-        app.exit(1);
-        return;
-    }
-
-    win.loadFile('index.html'); win.removeMenu(); win.center();
-    win.show();
-}
-
-//Handlers for all the possible signals the main process might receive.
-const setHandlers = () =>{    
-    ipcMain.on('message', (event, message) =>{
-        dialog.showMessageBoxSync({
-            title: "RaccoonLock",
-            message: message
-        });
-    });
-
-    ipcMain.on('restart', () =>{
-        app.relaunch();
-        app.exit(0);
-    });
 }

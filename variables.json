@@ -1,4 +1,0 @@
-{
-    "readercommand": ["./racoonreader.exe", "./raccoonreader"],
-    "oldreader": ["./oldreader.exe", "./oldreader"]
-}

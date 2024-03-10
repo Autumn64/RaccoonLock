@@ -22,17 +22,19 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/splash.css"> 
+    <link rel="stylesheet" href="css/login.css">
     <title>RaccoonLock</title>
   </head>
   <body>
-    <div id="container">
-      <div id="splash">
-          <img src="res/logo.png" alt="RaccoonLock Logo" class="img-splash">
-      </div>
-      <br>
-      <div id="starting"></div>
-  </div>
+    <div id="passwordd">
+      <br><br><br><br>
+      <h2 id="bienvenue"></h2><br><br>
+      <input id="password" type="password" required>
+      <div id="errora" class="hidden">
+      </div><br><br>
+      <button id="submit"></button><br>
+    </div>
   </body>
-  <script src="js/index.js"></script>
+  <script src="js/login.js"></script>
+  <script src="./js/lang/langlogin.js"></script>
 </html>

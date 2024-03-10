@@ -23,17 +23,17 @@ In order to contribute, please follow these steps:
 
 ### How to compile manually
 - All the dependencies required for Electron are already defined in the `package.json` file, so it should work just by running `npm install` and then `npm start`.
-- In order to compile RaccoonReader, you need to have OpenSSL installed on your system. Don't forget to include the `nsstring.h` and `nsstring.c` files, or, if you prefer, you can [dynamically link the library](https://codeberg.org/Autumn64/nsstring.h).
+- In order to compile RaccoonReader, you need to have OpenSSL installed on your system. Don't forget to include the `smartstr.h` and `smartstr.c` files, or, if you prefer, you can [dynamically link the library](https://codeberg.org/Autumn64/smartstr.h).
 
 A suitable syntax for compiling RaccoonReader using gcc on GNU/Linux would be:
 ```bash
 # On Windows, add `.exe` at the end of the filename.
-gcc -o raccoonreader raccoonreader.c nsstring.c -lssl -lcrypto
+gcc -o raccoonreader raccoonreader.c smartstr.c -lssl -lcrypto
 ```
 Or, if you prefer to dynamically link the NSSTRING.H library:
 ```bash
 # On Windows, use `nsstring.dll`
-gcc -o raccoonreader raccoonreader.c -I<ROUTE TO HEADER FILE> -L<ROUTE TO .SO FILE> -lssl -lcrypto -lnsstring
+gcc -o raccoonreader raccoonreader.c -I<ROUTE TO HEADER FILE> -L<ROUTE TO .SO FILE> -lssl -lcrypto -lsmartstr
 ```
 
 ### Extra information

@@ -1,35 +1,13 @@
-/*
-Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
-
-RaccoonLock is free software: you can redistribute it and/or modify it 
-under the terms of the GNU General Public License as published by 
-the Free Software Foundation, either version 3 of the License, or 
-(at your option) any later version.
-
-RaccoonLock is distributed in the hope that it will be useful, 
-but WITHOUT ANY WARRANTY; without even the implied warranty of 
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
-General Public License for more details.
-
-You should have received a copy of the GNU General Public License 
-along with this program. If not, see <https://www.gnu.org/licenses/>.
-*/
-
 @font-face{font-family: Raleway-SemiBold; src: url('./Raleway-SemiBold.ttf')}
-body{ /*Generic body layout*/
+body{
     background-color: #282C34;
     font-family: Raleway-SemiBold;
     font-size: medium;
     color: #d8d8d8;
     animation: fadein 0.5s;
-    display: flex;
-    flex-direction:column; 
-    justify-content:center;
-    align-items: center;
-    text-align: center;
 }
 
-input{ /*Generic input field*/
+input{
     padding: 5px 5px;
     width: 80%;
     height: 40px;
@@ -42,9 +20,9 @@ input{ /*Generic input field*/
     font-size: medium;
 }
 
-button{ /*Generic button*/
+button{
     padding: 2px;
-    width: 150px;
+    width: 60%;
     height: 40px;
     border: 2px solid #3a464e;
     border-radius: 5px;
@@ -67,6 +45,11 @@ a:link{
     color: #2964c2;
 }
 
+#error, #errorv {
+    color: rgb(229, 83, 83);
+    padding-top: 5px;
+}
+
 #topbar{
     display: inline;
     position: fixed;
@@ -75,6 +58,135 @@ a:link{
     margin-left: 10px;
 }
 
+#pass_size{
+    padding: 3px 3px 3px;
+    width: 150px;
+    height: 40px;
+    border: 2px solid #2b7499;
+    border-radius: 5px;
+    background-color: #21252B;
+    color: #CCCCCC;
+    text-align: center;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+    transition-duration: 0.2s;
+}
+
+#pass{
+    padding: 15px 5px 3px;
+    width: 250px;
+    height: 30px;
+    border: 2px solid #2b7499;
+    border-radius: 5px;
+    background-color: #21252B;
+    color: #CCCCCC;
+    text-align: center;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+    transition-duration: 0.2s;
+}
+
+#pass:hover{
+    background-color: #2b2d30;
+}
+
+#pass:active{
+    background-color: #274858;
+}
+
+select{
+    padding: 3px 3px 3px;
+    width: 250px;
+    height: 40px;
+    border: 2px solid #2b7499;
+    border-radius: 5px;
+    background-color: #21252B;
+    color: #CCCCCC;
+    text-align: center;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+    transition-duration: 0.2s;
+}
+
+#success, #successa, #successb{
+    color:lightseagreen;
+    padding-top: 5px;
+}
+
+#switch{
+    display: none;
+}
+
+
+.switch{
+    position: relative;
+    display: inline-block;
+    width: 90px;
+    height: 40px;
+    margin: 0 10px;
+
+}
+
+.slider{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #21252B;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider::before{
+    position: absolute;
+    content: "";
+    height: 30px;
+    width: 30px;
+    left: 5px;
+    bottom: 5px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 30px;
+}
+
+#switch:checked + .slider{
+    background-color: #2b7499;
+}
+
+#switch:checked + .slider::before{
+    transform: translateX(50px);
+}
+
+.data{
+    display: inline-block;
+    margin-top: 10px;
+    padding: 5px 5px 5px;
+    width: 200px;
+    height: fit-content;
+    border: 2px solid #2b7499;
+    border-radius: 5px;
+    background-color: #21252B;
+    color: #CCCCCC;
+    font-family: Raleway-SemiBold;
+    font-size: medium;
+    transition-duration: 0.2s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.data:hover{
+    background-color: #2b2d30;
+}
+
+.data:active{
+    background-color: #274858;
+}
+
+.hidden{
+    display: none;
+}
 
 @keyframes fadein {
     from { opacity: 0; }

@@ -34,7 +34,7 @@ All errors are written to STDERR.
 #include <openssl/err.h>
 #include <openssl/evp.h>
 #include <openssl/rand.h>
-#include "nsstring.h"
+#include "smartstr.h"
 
 #define KEY_SIZE 32 //Key size in AES-256 is 32 bytes (32 * 8 = 256).
 #define IV_SIZE 16

@@ -20,7 +20,7 @@ const chp = require('child_process');
 const fs = require("fs");
 const interfaces = require("./js/interfaces.js");
 
-let path;
+let path = interfaces.getPath();
 
 window.addEventListener("DOMContentLoaded", () =>{
     //Get the information related to the operating system in order to ensure a multi-platform environment.
@@ -33,6 +33,7 @@ document.getElementById("startbtn").addEventListener("click", () =>{
     document.getElementById("container").innerHTML += "<h3>Updating data...</h3>"
     createConfig();
     createData();
+    deleteOld();
     setTimeout(() => {
         ipcRenderer.send("message", "Data updated successfully! You can now use RaccoonLock v5.0.0.");
         ipcRenderer.send("message", "RaccoonLock will restart.");
@@ -80,11 +81,8 @@ function saveData(data, pass){
     reader.stdin.write(`${data}\n`);
     reader.stdin.write(`${pass}\n`);
     reader.stdin.write(`${pass}\n`);
-
 }
 
-// ---------- IPC LISTENERS ----------
-
-ipcRenderer.on('receive-path', (event, cpath) =>{
-    path = cpath;
-});
+function deleteOld(){
+    fs.rmSync(`${path}/data.rlc`);
+}

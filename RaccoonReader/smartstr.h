@@ -1,5 +1,5 @@
 /*
-NSSTRING.H; A free, open-source, simple, memory-safe and lightweight Strings library for C.
+SMARTSTR.H; A free, open-source, simple, memory-safe and lightweight Strings library for C.
 Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
 
 This program is free software: you can redistribute it and/or modify it 

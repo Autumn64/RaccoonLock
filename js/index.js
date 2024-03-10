@@ -15,5 +15,33 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { ipcRenderer } = require('electron');
 const interfaces = require("./js/interfaces.js");
+const path = interfaces.getPath();
+const fs = require('fs');
+
+window.addEventListener('DOMContentLoaded', () => {
+    let div = document.getElementById('starting');
+    let container = document.getElementById('container');
+
+    if (fs.existsSync(`${path}/data.rlc`)){
+        setTimeout(() => container.style.animation = 'fadeout 1s forwards', 2000);
+        setTimeout(() => window.location.href = 'newversion.html', 3000);
+    }
+
+    if(!fs.existsSync(`${path}/data.rld`) && !fs.existsSync(`${path}/config.json`)){
+        setTimeout(() => div.innerHTML += "<br>Preparing to start for the first time...", 5000);
+        setTimeout(() => window.location.href = 'firstrun.html', 15000);
+    }
+
+    if(fs.existsSync(`${path}/data.rld`) && !fs.existsSync(`${path}/config.json`)){
+        setTimeout(() => window.location.href = `error.html?err=${encodeURIComponent("Config file not found!")}`, 2000);
+    }
+
+    if(!fs.existsSync(`${path}/data.rld`) && fs.existsSync(`${path}/config.json`)){
+        setTimeout(() => window.location.href = `error.html?err=${encodeURIComponent("FATAL ERROR: Data file not found!")}`, 2000);
+    }
+    
+    setTimeout(() => div.innerHTML += '<img src="res/spinner2.gif" class="img-loading">', 3000);
+    setTimeout(() => container.style.animation = 'fadeout 1s forwards', 4000);
+    setTimeout(() => window.location.href = 'login.html', 5000);
+});

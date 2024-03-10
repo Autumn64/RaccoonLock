@@ -1,10 +1,9 @@
 html, body {
     height: 100%;
     margin: 0;
-    background-color: #282C34;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 .img-splash{
     width: 300px; 
@@ -15,14 +14,17 @@ html, body {
 }
 #container{
     height: 100%;
-    display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    animation: fadein 2s;
 }
-#starting{
-    display: inline-flex;
+#splash{
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.loading{
     text-align: center;
     padding-top: 5px;
 }

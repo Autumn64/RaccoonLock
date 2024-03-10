@@ -1,5 +1,5 @@
 /*
-NSSTRING.H; A free, open-source, simple, memory-safe and lightweight Strings library for C.
+SMARTSTR.H; A free, open-source, simple, memory-safe and lightweight Strings library for C.
 Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
 
 This program is free software: you can redistribute it and/or modify it 
@@ -16,7 +16,7 @@ You should have received a copy of the GNU Lesser General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>. 
 */
 
-#include "nsstring.h"
+#include "smartstr.h"
 
 String str_new(){
 	String str;

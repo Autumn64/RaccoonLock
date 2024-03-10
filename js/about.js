@@ -1,4 +1,4 @@
-<!--
+/*
 Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
 
 RaccoonLock is free software: you can redistribute it and/or modify it 
@@ -13,26 +13,7 @@ General Public License for more details.
 
 You should have received a copy of the GNU General Public License 
 along with this program. If not, see <https://www.gnu.org/licenses/>.
--->
+*/
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/splash.css"> 
-    <title>RaccoonLock</title>
-  </head>
-  <body>
-    <div id="container">
-      <div id="splash">
-          <img src="res/logo.png" alt="RaccoonLock Logo" class="img-splash">
-      </div>
-      <br>
-      <div id="starting"></div>
-  </div>
-  </body>
-  <script src="js/index.js"></script>
-</html>
+document.getElementById('goback').addEventListener('click', () =>
+    window.location.href = 'settings.html');

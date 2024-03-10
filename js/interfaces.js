@@ -43,6 +43,14 @@ class Interfaces{
             return path;
         }
     }
+
+    static getReader(){
+		if (this.platform === "win32"){
+			return 'raccoonreader.exe';
+		}else if(this.platform === "linux"){
+			return './raccoonreader';
+		}
+	}
 }
 
 module.exports = Interfaces;
