@@ -32,6 +32,7 @@ document.getElementById('submit').addEventListener('click', () =>{
         let errora = document.getElementById('errora');
         errora.classList.remove('hidden');
         errora.innerHTML = currentlang.passwordd.errora;
+        cleanInput();
     });
 
     reader.stdout.on('data', (data) =>{
@@ -46,3 +47,7 @@ document.getElementById('submit').addEventListener('click', () =>{
         }, 2000);
     });
 });
+
+const cleanInput = () =>{
+    document.getElementById("password").value = "";
+}

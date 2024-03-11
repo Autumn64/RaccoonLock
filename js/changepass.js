@@ -24,58 +24,64 @@ document.getElementById('goback').addEventListener('click', () =>
 document.getElementById('save').addEventListener('click', getData);
 
 function getData(){
-    let datastr;
-    const password = document.getElementById('oldpass').value;
+    let datastr = "";
+    const currentpass = document.getElementById('oldpass').value;
+    const newpass = document.getElementById('newpass').value;
     const reader = chp.spawn(interfaces.getReader(), ["-d", `${path}/data.rld`]);
     reader.stdin.setDefaultEncoding("utf-8");
-    reader.stdin.write(`${password}\n`);
+    reader.stdin.write(`${currentpass}\n`);
     reader.stdin.end();
     reader.stderr.on('data', (error) =>{
-        if (!error.includes("FATAL ERROR: Couldn't finish the decryption operation! Did you enter the correct password?")){
-            window.location.href = `error.html?err=${encodeURIComponent(error)}`;
+        if (error.includes("FATAL ERROR: Couldn't finish the decryption operation! Did you enter the correct password?")){
+            ipcRenderer.send('message', currentlang.errwp);
+            cleanInputs();
+            return;   
         }
-        ipcRenderer.send('message', currentlang.errwp);
+        window.location.href = `error.html?err=${encodeURIComponent(error)}`;
     });
 
     reader.stdout.on('data', (data) =>{
-        datastr = data.toString().replace(/^RaccoonReader v[\d.]+[\s\S]+?Enter your password:/, '');
-        if (datastr.trim() === "") return;
+        datastr += data.toString().replace(/^RaccoonReader v[\d.]+[\s\S]+?Enter your password: /, '');
     });
 
     reader.on('close', (code) =>{
-        reader.stdin.end();
-        if (datastr.trim() !== "") updatePass(datastr);
+        if (datastr.trim() !== "") updatePass(datastr, newpass);
     });
 }
 
-function updatePass(data){
-    const newpassword = document.getElementById('newpass').value.trim();
-
-    if (newpassword.length < 8){
+function updatePass(data, newpass){
+    if (newpass.length < 8){
         ipcRenderer.send('message', currentlang.errsp);
+        cleanInputs();
         return;
     }
 
-    if (document.getElementById('renewpass').value.trim() != newpassword){
+    if (document.getElementById('renewpass').value.trim() != newpass){
         ipcRenderer.send('message', currentlang.errdp);
+        cleanInputs();
         return;
     }
 
     const reader = chp.spawn(interfaces.getReader(), ["-c", `${path}/data.rld`]);
     reader.stdin.setDefaultEncoding("utf-8");
-    reader.stdin.write(`${data}\n`);
-    reader.stdin.write(`${newpassword}\n`);
-    reader.stdin.write(`${newpassword}\n`);
+    reader.stdin.write(`${data}`); //The data already includes a '\n'
+    reader.stdin.write(`${newpass}\n`);
+    reader.stdin.write(`${newpass}\n`);
     reader.stdin.end();
 
     reader.stderr.on('data', (error) =>{
-        console.error(error.toString());
-        //window.location.href = `error.html?err=${encodeURIComponent(errorstr)}`;
+        window.location.href = `error.html?err=${encodeURIComponent(errorstr)}`;
     });
 
     reader.stdout.on('data', (data) =>{
-        let datastr = data.toString();
-        if (datastr.includes("Data encrypted successfully!"))
+        if (data.toString().includes("Data encrypted successfully!"))
             ipcRenderer.send('message', currentlang.success);
+            cleanInputs();
     });
+}
+
+const cleanInputs = () =>{
+    document.getElementById('oldpass').value = "";
+    document.getElementById('newpass').value = "";
+    document.getElementById('renewpass').value = "";
 }

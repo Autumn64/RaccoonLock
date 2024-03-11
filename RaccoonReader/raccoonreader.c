@@ -85,6 +85,7 @@ void encrypt(char *filename){
 		str_free(&info);
 		error("Couldn't allocate memory for the password!");
 	}
+
 	if (password1.length < 9){ //9 because it counts the null character.
 		str_free(&info); str_free(&password1);
 		error("Password must have a length of at least 8 characters!");

@@ -78,10 +78,6 @@ function saveData(data, pass){
 
     const reader = chp.spawn(interfaces.getReader(), ["-c", `${path}/data.rld`]);
     reader.stdin.setDefaultEncoding("utf-8");
-
-    reader.stdin.on('data', (data) => {
-        console.log(`Datos escritos en stdin: ${data}`);
-      });
     reader.stdin.write(`${data}\n`);
     reader.stdin.write(`${pass}\n`);
     reader.stdin.write(`${pass}\n`);
