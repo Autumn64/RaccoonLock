@@ -33,22 +33,11 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
       <br><br><br><br>
       <h2>First, let's set up an account.</h2><br><br>
       <input id="name" type="text" placeholder="Name" required><br>
-      <input id="email" type="email" placeholder="E-mail address" required><br>
-      <input id="password" type="password" placeholder="Password" required>
+      <input id="password" type="password" placeholder="Password" required><br>
+      <input id="repassword" type="password" placeholder="Retype password" required>
       <div id="error" class="hidden">
       </div><br><br>
       <button id="submit">Start</button>
-    </div>
-    <div id="verify" class="hidden">
-      <br><br><br><br>
-      <h2 id="nowenter"></h2>
-      <h4>(If you don't have an internet connection or you can't receive the code, <br>type your password instead).</h4><br><br>
-      <input id="code" type="password" placeholder="Code" required>
-      <div id="errorv" class="hidden">
-      </div>
-      <div id="success" class="hidden">If you're having issues receiving the code, please <br>activate Password Mode in Settings.</div><br><br>
-      <button id="submitv">Verify</button><br>
-      <a id="goback" href="#">Whoops! I got my data wrong.</a>
     </div>
   </body>
   <script src="js/firstrun.js"></script>

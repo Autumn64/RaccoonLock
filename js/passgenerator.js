@@ -15,6 +15,19 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+const interfaces = require("./js/interfaces.js");
+
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+
+let userinfo = require(`${path}/config.json`);
+let currentlang;
+
+window.addEventListener('DOMContentLoaded', () =>{ 
+        currentlang = langs.passgenerator[userinfo.language];
+        setLang();
+});
+
 let randompass = '';
 
 document.getElementById('goback').addEventListener('click', () => //Go back button
@@ -30,13 +43,13 @@ document.getElementById('generate').addEventListener('click', () =>{ //Generar b
     	for (let i = 1; i <= Number(selection); i++){
         	randompass += charset.charAt(Math.floor(Math.random() * charset.length)); //Get random index
     	}
-	const digits = randompass.match(/\d/g);
-	const specialChars = randompass.match(/[!#&%$?*]/g);
-	if (digits !== null && specialChars !== null && digits.length >= 2 && specialChars.length >= 2){
-		pass.innerHTML = randompass;
-		break;
-	}
-	randompass = "";
+        const digits = randompass.match(/\d/g);
+        const specialChars = randompass.match(/[!#&%$?*]/g);
+        if (digits !== null && specialChars !== null && digits.length >= 2 && specialChars.length >= 2){
+            pass.innerHTML = randompass;
+            break;
+        }
+        randompass = "";
     }
 });
 
@@ -64,4 +77,15 @@ function copy(){
         }, 3000);
         setTimeout(() => copied.style.display = 'none', 4000);
     }
+}
+
+function setLang(){
+    document.getElementById('title').innerHTML = currentlang.container.title;
+    document.getElementById('pass_size').options[0].innerHTML = currentlang.container.select.eight;
+    document.getElementById('pass_size').options[1].innerHTML = currentlang.container.select.ten;
+    document.getElementById('pass_size').options[2].innerHTML = currentlang.container.select.twelve;
+    document.getElementById('pass_size').options[3].innerHTML = currentlang.container.select.fifteen;
+
+    document.getElementById('generate').innerHTML = currentlang.container.generate;
+    document.getElementById('copied').innerHTML = currentlang.container.copied;
 }

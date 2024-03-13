@@ -26,19 +26,24 @@ window.addEventListener('DOMContentLoaded', () => {
     if (fs.existsSync(`${path}/data.rlc`)){
         setTimeout(() => container.style.animation = 'fadeout 1s forwards', 2000);
         setTimeout(() => window.location.href = 'newversion.html', 3000);
+        return;
     }
 
     if(!fs.existsSync(`${path}/data.rld`) && !fs.existsSync(`${path}/config.json`)){
-        setTimeout(() => div.innerHTML += "<br>Preparing to start for the first time...", 5000);
-        setTimeout(() => window.location.href = 'firstrun.html', 15000);
+        setTimeout(() => div.innerHTML += "<br>Preparing to start for the first time...", 3000);
+        setTimeout(() => container.style.animation = 'fadeout 1s forwards', 8000);
+        setTimeout(() => window.location.href = 'firstrun.html', 10000);
+        return;
     }
 
     if(fs.existsSync(`${path}/data.rld`) && !fs.existsSync(`${path}/config.json`)){
         setTimeout(() => window.location.href = `error.html?err=${encodeURIComponent("Config file not found!")}`, 2000);
+        return;
     }
 
     if(!fs.existsSync(`${path}/data.rld`) && fs.existsSync(`${path}/config.json`)){
         setTimeout(() => window.location.href = `error.html?err=${encodeURIComponent("FATAL ERROR: Data file not found!")}`, 2000);
+        return;
     }
     
     setTimeout(() => div.innerHTML += '<img src="res/spinner2.gif" class="img-loading">', 3000);

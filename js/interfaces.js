@@ -25,7 +25,7 @@ class Interfaces{
         let jsonOnly = decodeURIComponent(string);
         let last = jsonOnly.lastIndexOf('}');
         if (last === -1) return `${string} is not a valid JSON string`;
-        return jsonOnly.substring(0, last + 1);
+        return jsonOnly;
     }
 
     static encodeJSON(string){

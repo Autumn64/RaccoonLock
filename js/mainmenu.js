@@ -15,12 +15,21 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-function main(){
-    let time = checkTime();
-    let name;
-    name = userinfo.name.split(" ")[0];
-    document.getElementById('logo').innerHTML += `<h2>${time}, ${name}.</h2>`;
-}
+const interfaces = require("./js/interfaces.js");
+
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+
+let userinfo = require(`${path}/config.json`);
+let currentlang;
+
+window.addEventListener('DOMContentLoaded', () =>{ 
+        currentlang = langs.mainmenu[userinfo.language];
+        setLang();
+        let time = checkTime();
+        let name = userinfo.name.split(" ")[0];
+        document.getElementById('logo').innerHTML += `<h2>${time}, ${name}.</h2>`;
+});
 
 document.getElementById('settings').addEventListener('click', () =>{
     window.location.href = 'settings.html';
@@ -97,4 +106,13 @@ function checkTime(){
     }else{
         return currentlang.evening;
     }
+}
+
+function setLang(){
+    document.getElementById('logout').innerHTML = currentlang.topbar.logout;
+    document.getElementById('passgen').innerHTML = currentlang.buttons.passgen;
+    document.getElementById('showpass').innerHTML = currentlang.buttons.showpass;
+    document.getElementById('editpass').innerHTML = currentlang.buttons.editpass;
+    document.getElementById('addservice').innerHTML = currentlang.modify.addservice;
+    document.getElementById('modifyservice').innerHTML = currentlang.modify.modifyservice;
 }

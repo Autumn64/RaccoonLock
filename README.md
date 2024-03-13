@@ -23,20 +23,25 @@ In order to contribute, please follow these steps:
 
 ### How to compile manually
 - All the dependencies required for Electron are already defined in the `package.json` file, so it should work just by running `npm install` and then `npm start`.
-- In order to compile RaccoonReader, you need to have OpenSSL installed on your system. Don't forget to include the `smartstr.h` and `smartstr.c` files, or, if you prefer, you can [dynamically link the library](https://codeberg.org/Autumn64/smartstr.h).
+- In order to compile RaccoonReader, you need to have OpenSSL installed on your system. You can compile by using the makefile provided in the `RaccoonReader` folder.
+```bash
+# On Windows, you might want to modify the makefile so everything gets compiled correctly.
+make
+```
+- If you wish to compile manually, please don't forget to include the `smartstr.h` and `smartstr.c` files, or, if you prefer, you can [dynamically link the library](https://codeberg.org/Autumn64/smartstr.h).
 
 A suitable syntax for compiling RaccoonReader using gcc on GNU/Linux would be:
 ```bash
 # On Windows, add `.exe` at the end of the filename.
-gcc -o raccoonreader raccoonreader.c smartstr.c -lssl -lcrypto
+gcc -o raccoonreader src/raccoonreader.c src/smartstr.c -lssl -lcrypto
 ```
-Or, if you prefer to dynamically link the NSSTRING.H library:
+Or, if you prefer to dynamically link the SMARTSTR.H library:
 ```bash
-# On Windows, use `nsstring.dll`
-gcc -o raccoonreader raccoonreader.c -I<ROUTE TO HEADER FILE> -L<ROUTE TO .SO FILE> -lssl -lcrypto -lsmartstr
+# On Windows, use `smartstr.dll`.
+gcc -o raccoonreader src/raccoonreader.c -I<ROUTE TO HEADER FILE> -L<ROUTE TO .SO FILE> -lssl -lcrypto -lsmartstr
 ```
 
 ### Extra information
 Thanks so much to all of our [contributors](https://codeberg.org/Autumn64/RaccoonLock/activity/yearly).
 
-#### All the code in this repository is licensed under the [GNU General Public License version 3 or later](./LICENSE) and the [GNU Lesser General Public License version 3 or later](./LICENSES/LICENSE-LGPLv3.txt), with some parts licensed under the [Open Font License](./LICENSES/LICENSE-OFL.txt) and some [Creative Commons licenses](./LICENSES/LICENSE-CC.txt). The resources used for the private logos and names inside the app belong to their respective Copyright holders and no infraction is intended by using them. This app is meant to be distributed for non-commercial purposes, and neither this project's owner nor its contributors are responsible for the use anyone outside of it might give to the software provided and its assets.
+#### All the code in this repository is licensed under the [GNU General Public License version 3 or later](./LICENSE) and the [GNU Lesser General Public License version 3 or later](./LICENSES/LICENSE-LGPLv3.txt), with some parts licensed under the [Open Font License](./LICENSES/LICENSE-OFL.txt) and some [Creative Commons licenses](./LICENSES/LICENSE-CC.txt). The resources used for the private logos and names inside the app belong to their respective Copyright holders and no infraction is intended by using them. This app is meant to be distributed for non-commercial purposes, and neither this project's owner nor its contributors are responsible for the use anyone outside of it may give to the software provided and its assets.

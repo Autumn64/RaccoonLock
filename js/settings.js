@@ -17,10 +17,19 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 const { ipcRenderer } = require('electron');
 const fs = require("fs");
+const interfaces = require("./js/interfaces.js");
 
-function main(){
-    document.getElementById('name').value = userinfo.name;
-}
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+
+let userinfo = require(`${path}/config.json`);
+let currentlang;
+
+window.addEventListener('DOMContentLoaded', () =>{ 
+        currentlang = langs.settings[userinfo.language];
+        setLang();
+        document.getElementById('name').value = userinfo.name;
+});
 
 document.getElementById('reset').addEventListener('click', () =>
     window.location.href = 'reset.html');
@@ -55,4 +64,20 @@ function updateScreen(){
     currentlang = langs.settings[userinfo.language];
     setLang();
     ipcRenderer.send('message', currentlang.info.sucessa);
+}
+
+function setLang(){
+    document.getElementById('about').innerHTML = currentlang.topbar.about;
+    document.getElementById('title').innerHTML = currentlang.info.title;
+
+    document.getElementById('tdname').innerHTML = currentlang.info.table.tdname;
+    document.getElementById('tdlanguage').innerHTML = currentlang.info.table.tdlanguage;
+    document.getElementById('name').placeholder = currentlang.info.table.name;
+    document.getElementById('language').value = userinfo.language;
+
+    document.getElementById('changepasswd').innerHTML = currentlang.info.changepasswd;
+    document.getElementById('save').innerHTML = currentlang.info.save;
+    document.getElementById('backup').innerHTML = currentlang.info.backup;
+    document.getElementById('restore').innerHTML = currentlang.info.restore;
+    document.getElementById('reset').innerHTML = currentlang.info.reset;
 }

@@ -17,6 +17,18 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 const chp = require('child_process');
 const { ipcRenderer } = require('electron');
+const interfaces = require("./js/interfaces.js");
+
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+
+let userinfo = require(`${path}/config.json`);
+let currentlang;
+
+window.addEventListener('DOMContentLoaded', () =>{ 
+        currentlang = langs.changepass[userinfo.language];
+        setLang();
+});
 
 document.getElementById('goback').addEventListener('click', () =>
     window.location.href = 'settings.html');
@@ -70,7 +82,7 @@ function updatePass(data, newpass){
     reader.stdin.end();
 
     reader.stderr.on('data', (error) =>{
-        window.location.href = `error.html?err=${encodeURIComponent(errorstr)}`;
+        window.location.href = `error.html?err=${encodeURIComponent(error.toString())}`;
     });
 
     reader.stdout.on('data', (data) =>{
@@ -84,4 +96,12 @@ const cleanInputs = () =>{
     document.getElementById('oldpass').value = "";
     document.getElementById('newpass').value = "";
     document.getElementById('renewpass').value = "";
+}
+
+function setLang(){
+    document.getElementById('title').innerHTML = currentlang.title;
+    document.getElementById('oldpass').placeholder = currentlang.oldpass;
+    document.getElementById('newpass').placeholder = currentlang.newpass;
+    document.getElementById('renewpass').placeholder = currentlang.renewpass;
+    document.getElementById('save').innerHTML = currentlang.save;
 }

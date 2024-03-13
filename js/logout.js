@@ -15,6 +15,24 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+const interfaces = require("./js/interfaces.js");
+
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+
+let userinfo = require(`${path}/config.json`);
+let currentlang;
+
+window.addEventListener('DOMContentLoaded', () =>{ 
+        currentlang = langs.logout[userinfo.language];
+        setLang();
+});
+
 document.getElementById('ok').addEventListener('click', () =>{
     window.location.href = 'index.html';
 })
+
+function setLang(){
+    document.getElementById('signedout').innerHTML = currentlang.signedout;
+    document.getElementById('ok').innerHTML = currentlang.ok;
+}

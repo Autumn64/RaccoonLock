@@ -16,45 +16,55 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 const fs = require('fs');
+const chp = require('child_process');
+const interfaces = require("./js/interfaces.js");
 
-let password;
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
 
-function main(){
-   exec(raccoonreader, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) =>{
-	   if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
-	   if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-	   try{
-		let jsonstring = paths.getCorrectJSON(stdout);
-		let json =JSON.parse(jsonstring);
-		password = json.RaccoonLock;
-	   }catch(e){
-		   window.location.href = `error.html?err=${encodeURIComponent(e)}`;
-	   }
-	   verify.classList.remove('hidden');
-	   verify.style.display = 'flex';
-	   verify.style.animation = 'fadein 0.5s';
-   });
-}
+let userinfo = require(`${path}/config.json`);
+let currentlang;
+
+window.addEventListener('DOMContentLoaded', () =>{ 
+	currentlang = langs.reset[userinfo.language];
+    setLang();
+	verify.classList.remove('hidden');
+	verify.style.display = 'flex';
+	verify.style.animation = 'fadein 0.5s';
+});
 
 document.getElementById('vsubmit').addEventListener('click', () =>{
 	let pass = document.getElementById('vpass').value;
 	let errorv = document.getElementById('errorv');
+    const reader = chp.spawn(interfaces.getReader(), ["-d", `${path}/data.rld`]);
+    reader.stdin.setDefaultEncoding("utf-8");
+    reader.stdin.write(`${pass}\n`);
+    reader.stdin.end();
+    reader.stderr.on('data', (error) =>{
+        let errorstr = error.toString();
+        if (!errorstr.includes("FATAL ERROR: Couldn't finish the decryption operation! Did you enter the correct password?")){
+            window.location.href = `error.html?err=${encodeURIComponent(errorstr)}`;
+        }
+        errorv.classList.remove('hidden');
+        cleanInput();
+    });
 
-	if (pass !== password){
-		errorv.classList.remove('hidden');
-		return;
-	}
+    reader.stdout.on('data', (data) =>{
+        let datastr = data.toString().replace(/^RaccoonReader v[\d.]+[\s\S]+?Enter your password:/, '');
 
-	verify.style.animation = "fadeout 0.5s forwards";
-	setTimeout(() =>{
-		verify.style.display = 'none';
-		text.classList.remove('hidden');
-		buttons.classList.remove('hidden');
-		text.style.display = 'flex';
-		buttons.style.display = 'flex';
-		text.style.animation = 'fadein 0.5s';
-		buttons.style.animation = 'fadein 0.5s';
-	}, 600);
+        if (datastr.trim() === "") return;
+
+        verify.style.animation = "fadeout 0.5s forwards";
+		setTimeout(() =>{
+			verify.style.display = 'none';
+			text.classList.remove('hidden');
+			buttons.classList.remove('hidden');
+			text.style.display = 'flex';
+			buttons.style.display = 'flex';
+			text.style.animation = 'fadein 0.5s';
+			buttons.style.animation = 'fadein 0.5s';
+		}, 600);
+    });
 });
 
 document.getElementById('accept').addEventListener('click', () =>{
@@ -76,3 +86,17 @@ document.getElementById('accept').addEventListener('click', () =>{
 
 document.getElementById('cancel').addEventListener('click', () =>
     window.location.href = 'settings.html');
+
+const cleanInput = () =>{
+	document.getElementById("vpass").value = "";
+}
+
+function setLang(){
+	document.getElementById('nowenter').innerHTML = currentlang.verify.nowenter;
+	document.getElementById('vpass').placeholder = currentlang.verify.vpass;
+	document.getElementById('errorv').innerHTML = currentlang.verify.errorv;
+	document.getElementById('vsubmit').innerHTML = currentlang.verify.vsubmit;
+	document.getElementById('text').innerHTML = currentlang.text;
+	document.getElementById('accept').innerHTML = currentlang.buttons.accept;
+	document.getElementById('cancel').innerHTML = currentlang.buttons.cancel;
+}

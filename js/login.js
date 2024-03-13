@@ -15,6 +15,18 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 const chp = require('child_process');
+const interfaces = require("./js/interfaces.js");
+
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+
+let userinfo = require(`${path}/config.json`);
+let currentlang;
+
+window.addEventListener('DOMContentLoaded', () =>{
+	currentlang = langs.login[userinfo.language];
+	setLang();
+});
 
 let passwordd = document.getElementById('passwordd');
 
@@ -50,4 +62,10 @@ document.getElementById('submit').addEventListener('click', () =>{
 
 const cleanInput = () =>{
     document.getElementById("password").value = "";
+}
+
+function setLang(){
+    document.getElementById('bienvenue').innerHTML = currentlang.passwordd.bienvenue;
+    document.getElementById('password').placeholder = currentlang.passwordd.password;
+    document.getElementById('submit').innerHTML = currentlang.passwordd.submit;
 }

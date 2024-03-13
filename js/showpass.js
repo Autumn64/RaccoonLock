@@ -15,6 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+const interfaces = require("./js/interfaces.js");
+const chp = require('child_process');
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+
+let userinfo = require(`${path}/config.json`);
+let currentlang;
+
 let json;
 let keys = [];
 
@@ -23,43 +31,52 @@ const container = document.getElementById('container');
 const copied = document.getElementById('copied');
 let theresData = true;
 
-function main(){
-    exec(raccoonreader, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
-        if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
-        if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-        try{
-	        let jsonstring = paths.getCorrectJSON(stdout);
-            json = JSON.parse(jsonstring);
-        }catch(e){
-            window.location.href = `error.html?err=${encodeURIComponent(e)}`;
-        }
-        verify.classList.remove('hidden');
-        verify.style.display = 'flex';
-        verify.style.animation = 'fadein 0.5s';
-        for(let key in json){
-            if (key === 'RaccoonLock') continue; //Ignores the app's password
-            keys.push(key);
-        }
-    });
-}
+window.addEventListener('DOMContentLoaded', () =>{ 
+    currentlang = langs.showpass[userinfo.language];
+    setLang();
+    verify.classList.remove('hidden');
+    verify.style.display = 'flex';
+    verify.style.animation = 'fadein 0.5s';
+});
 
 document.getElementById('vsubmit').addEventListener('click', () =>{
 	let pass = document.getElementById('vpass').value;
 	let errorv = document.getElementById('errorv');
+    let datastr = "";
 
-	if (pass !== json.RaccoonLock){
-		errorv.classList.remove('hidden');
-		return;
-	}
+	const reader = chp.spawn(interfaces.getReader(), ["-d", `${path}/data.rld`]);
+    reader.stdin.setDefaultEncoding("utf-8");
+    reader.stdin.write(`${pass}\n`);
+    reader.stdin.end();
+    reader.stderr.on('data', (error) =>{
+        let errorstr = error.toString();
+        if (!errorstr.includes("FATAL ERROR: Couldn't finish the decryption operation! Did you enter the correct password?")){
+            window.location.href = `error.html?err=${encodeURIComponent(errorstr)}`;
+        }
+        errorv.classList.remove('hidden');
+        cleanInput();
+    });
 
-	verify.style.animation = "fadeout 0.5s forwards";
-	setTimeout(() =>{
-		verify.style.display = 'none';
-		container.classList.remove('hidden');
-		container.style.display = 'flex';
-		container.style.animation = 'fadein 0.5s';
-		setData();
-	}, 600);
+    reader.stdout.on('data', (data) =>{
+        datastr += data.toString().replace(/^RaccoonReader v[\d.]+[\s\S]+?Enter your password: /, '');
+    });
+
+    reader.on('close', (code) =>{
+        if (datastr.trim() === "") return;
+
+        json = JSON.parse(interfaces.decodeJSON(datastr));
+        for (let key in json){
+            keys.push(key);
+        }
+        verify.style.animation = "fadeout 0.5s forwards";
+        setTimeout(() =>{
+            verify.style.display = 'none';
+            container.classList.remove('hidden');
+            container.style.display = 'flex';
+            container.style.animation = 'fadein 0.5s';
+            setData();
+        }, 600);
+    });
 });
 
 document.getElementById('goback').addEventListener('click', () =>
@@ -139,7 +156,6 @@ function showData(key){ //Iterates for each service
 
 function addClick(){
     let allinps = Array.from(document.getElementsByClassName('data'));
-    let verify = document.getElementById("verify");
     for(let i = 0; i < allinps.length; i++){
         allinps[i].addEventListener('click', () => {
 		allinps[i].type = "text";
@@ -164,4 +180,18 @@ function copy(text){
         copied.style.animation = 'fadeout 0.2s forwards';
     }, 3000);
     setTimeout(() => copied.style.display = 'none', 4000);
+}
+
+const cleanInput = () =>{
+    document.getElementById('vpass').value = "";
+}
+
+function setLang(){
+    document.getElementById('title').innerHTML = currentlang.container.title;
+    document.getElementById('search').placeholder = currentlang.container.search;
+    document.getElementById('copied').innerHTML = currentlang.container.copied;
+    document.getElementById('nowenter').innerHTML = currentlang.verify.nowenter;
+    document.getElementById('vpass').placeholder = currentlang.verify.vpass;
+    document.getElementById('errorv').innerHTML = currentlang.verify.errorv;
+    document.getElementById('vsubmit').innerHTML = currentlang.verify.vsubmit;
 }
