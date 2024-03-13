@@ -14,5 +14,4 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 Current TODOs:
-- Fix the bug that makes it impossible to change the password because of that weird
-'8 characters' message.
+- Finish adapting the rest of sections to the new implementation

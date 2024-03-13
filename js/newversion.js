@@ -43,7 +43,7 @@ document.getElementById("startbtn").addEventListener("click", () =>{
 
 function createConfig(){
     //Get settings from the old data.rlc file.
-    chp.execFile("./oldreader", ["-i", `${path}/data.rlc`], (error, stdout, stderr) =>{
+    chp.execFile(interfaces.getOldReader(), ["-i", `${path}/data.rlc`], (error, stdout, stderr) =>{
         let config = interfaces.decodeJSON(stdout);
         saveConfig(config);
     });
