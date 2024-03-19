@@ -16,13 +16,20 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 const { app, BrowserWindow, Notification, ipcMain, dialog} = require('electron');
+const fs = require('fs');
 const tar = require('tar');
 const interfaces = require("./js/interfaces.js");
 const path = interfaces.getPath();
 const langs = require("./js/lang/languages.json");
+let userinfo
+let currentlang
 
-let userinfo = require(`${path}/config.json`);
-let currentlang = langs.misc[userinfo.language];
+if (fs.existsSync(`${path}/config.json`)){
+    userinfo = require(`${path}/config.json`);
+    currentlang = langs.misc[userinfo.language];
+}else{
+    currentlang = langs.misc["en"]
+}
 
 const currentVer = 500;
 
@@ -90,8 +97,7 @@ function createWindow(){
         app.exit(0);
     });
 
-    win.webContents.openDevTools();
-    //win.removeMenu();
+    win.removeMenu();
     win.loadFile('index.html');
 }
 
@@ -161,6 +167,8 @@ async function restoreBackup(filePath){
         });
         return;
     }
+
+    if(!fs.existsSync(path)) fs.mkdirSync(path);
 
     tar.x({
         file: filePath,

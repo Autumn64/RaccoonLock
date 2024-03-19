@@ -19,6 +19,7 @@ const interfaces = require("./js/interfaces.js");
 const path = interfaces.getPath();
 const chp = require('child_process');
 const fs = require('fs');
+const { ipcRenderer } = require('electron');
 
 window.addEventListener('DOMContentLoaded', () =>{
     const bienvenue = document.getElementById('bienvenue');
@@ -87,8 +88,14 @@ document.getElementById('submit').addEventListener('click', () =>{ //Comenzar bu
     reader.stdin.write(`${password}\n`);
     reader.stdin.write(`${password}\n`);
     reader.stdin.end();
+    ipcRenderer.send('update-userinfo');
 
     setTimeout(() => window.location.href = 'verified.html', 1000);
+});
+
+document.getElementById('restoreacc').addEventListener('click', () => {
+    ipcRenderer.send('message', "If you already have an account, please select your RaccoonLock backup file.");
+    ipcRenderer.send('backup-r');
 });
 
 const cleanInputs = () =>{

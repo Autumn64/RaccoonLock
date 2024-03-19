@@ -36,6 +36,7 @@ document.getElementById("startbtn").addEventListener("click", () =>{
     deleteOld();
     setTimeout(() => {
         ipcRenderer.send("message", "Data updated successfully! You can now use RaccoonLock v5.0.0.");
+        ipcRenderer.send("message", "It is highly recommended to create a backup so you can restore your information anywhere at anytime.")
         ipcRenderer.send("message", "RaccoonLock will restart.");
         ipcRenderer.send("restart");
     }, 2000);

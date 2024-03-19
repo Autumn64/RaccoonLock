@@ -17,6 +17,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 const fs = require('fs');
 const chp = require('child_process');
+const { ipcRenderer } = require('electron');
 const interfaces = require("./js/interfaces.js");
 
 const path = interfaces.getPath();
@@ -81,7 +82,7 @@ document.getElementById('accept').addEventListener('click', () =>{
     setTimeout(() =>{
         text.style.animation = 'fadeout 1s forwards';
     }, 8000);
-    setTimeout(() => window.location.href = 'index.html', 10000);
+    setTimeout(() => ipcRenderer.send('restart'), 10000);
 });
 
 document.getElementById('cancel').addEventListener('click', () =>
