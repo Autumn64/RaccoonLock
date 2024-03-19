@@ -45,6 +45,7 @@ document.getElementById('submit').addEventListener('click', () =>{
         errora.classList.remove('hidden');
         errora.innerHTML = currentlang.passwordd.errora;
         cleanInput();
+
     });
 
     reader.stdout.on('data', (data) =>{

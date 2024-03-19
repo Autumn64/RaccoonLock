@@ -1343,5 +1343,56 @@
             "errdp": "새로운 암호 일치가 없습니다! 다시 시도해주세요.",
             "errsp": "새로운 암호가 최소 8자 있어야 됩니다!"
         }
+    },
+    "misc": {
+        "en": {
+            "newver": ["RaccoonLock", "is now available."],
+            "bcsuccess": "Backup made successfully!",
+            "notrlfile": "That's not a RaccoonLock backup file!",
+            "brsuccess": "Backup restored successfully!",
+            "restart": "RaccoonLock will restart."
+        },
+        "es": {
+            "newver": ["RaccoonLock", "está ahora disponible."],
+            "bcsuccess": "¡Respaldo hecho exitosamente!",
+            "notrlfile": "¡Ese no es un archivo de respaldo de RaccoonLock!",
+            "brsuccess": "¡Respaldo reestablecido exitosamente!",
+            "restart": "RaccoonLock se reiniciará."
+        },
+        "fr": {
+            "newver": ["RaccoonLock", "est maintenant disponible."],
+            "bcsuccess": "Backup fait avec succès!",
+            "notrlfile": "Cela n'est pas un fichier de RaccoonLock!",
+            "brsuccess": "Backup restauré avec succès!",
+            "restart": "RaccoonLock redémarrera."
+        },
+        "eo": {
+            "newver": ["RaccoonLock", "nun haveblas."],
+            "bcsuccess": "Sekurkopio farita sukcese!",
+            "notrlfile": "Tio ne estas dosiero de RaccoonLock!",
+            "brsuccess": "Sekurkopio restarigita sukcese!",
+            "restart": "RaccoonLock restartiĝos."
+        },
+        "pt": {
+            "newver": ["RaccoonLock", "agora está disponível."],
+            "bcsuccess": "Backup feito com sucesso!",
+            "notrlfile": "Isso não é um arquivo de RaccoonLock!",
+            "brsuccess": "Backup restaurado com sucesso!",
+            "restart": "RaccoonLock va reiniciar."
+        },
+        "nb": {
+            "newver": ["RaccoonLock", "er nå tilgjengelig."],
+            "bcsuccess": "Backup laget med suksess!",
+            "notrlfile": "Det er ikke ei RaccoonLock fil!",
+            "brsuccess": "Backup restaurert med suksess!",
+            "restart": "RaccoonLock skal starte på nytt."
+        },
+        "kr": {
+            "newver": ["RaccoonLock", "가 지금 사용 가능합니다."],
+            "bcsuccess": "백업이 성공적으로 완료되었습니다!",
+            "notrlfile": "그 파일은 RaccoonLock 파일 아닙니다!",
+            "brsuccess": "백업이 성공적으로 복원되었습니다!",
+            "restart": "RaccoonLock는 다시 시작하겠습니다."
+        }
     }
 }

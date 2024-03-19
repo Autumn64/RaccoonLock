@@ -19,7 +19,7 @@ In order to contribute, please follow these steps:
 - Clone this repository.
 - Make all your changes in the "prerelease" branch.
 - Create a [Pull request](https://codeberg.org/Autumn64/RaccoonLock/pulls) in the "prerelease" branch. Pull requests in the "main" branch will be rejected as the purpose of that branch is to store the exact source code that is included in the binary releases.
-#### Please sign your commmit, as unsigned commits will not be accepted. If you don't know how to sign a git commit, please check [this guide on how to create a GPG keypair](https://emailselfdefense.fsf.org/en/) and [this guide on how to sign a git commit with your GPG keypair](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits). Signing-off your commit would also be preferable, though it's not necessary.
+#### Please sign your commit, as unsigned commits will not be accepted. If you don't know how to sign a git commit, please check [this guide on how to create a GPG keypair](https://emailselfdefense.fsf.org/en/) and [this guide on how to sign a git commit with your GPG keypair](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits). Signing-off your commit would also be preferable, though it's not necessary.
 
 ### How to compile manually
 - All the dependencies required for Electron are already defined in the `package.json` file, so it should work just by running `npm install` and then `npm start`.

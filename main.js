@@ -19,6 +19,10 @@ const { app, BrowserWindow, Notification, ipcMain, dialog} = require('electron')
 const tar = require('tar');
 const interfaces = require("./js/interfaces.js");
 const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+
+let userinfo = require(`${path}/config.json`);
+let currentlang = langs.misc[userinfo.language];
 
 const currentVer = 500;
 
@@ -66,6 +70,10 @@ function createWindow(){
         }
         
         restoreBackup(filePaths[0]);
+    });
+
+    ipcMain.on('change-lang', (event, newlang) =>{
+        currentlang = langs.misc[newlang];
     });
 
     ipcMain.on('message', (event, message) =>{
@@ -116,7 +124,7 @@ function checkUpdates(){
 const newUpdate = (version) =>{
 	new Notification({
 		title: "RaccoonLock",
-		body: `RaccoonLock ${version} is now available.`
+		body: `${currentlang.newver[0]} ${version} ${currentlang.newver[1]}`
 	}).show();
 }
 
@@ -131,7 +139,7 @@ function createBackup(filePath){
     .then(() => dialog.showMessageBoxSync({
         type: 'info',
         title: 'RaccoonLock',
-        message: `Backup made successfully!`,
+        message: currentlang.bcsuccess,
         buttons: ['OK']
     }));
 }
@@ -148,7 +156,7 @@ async function restoreBackup(filePath){
         dialog.showMessageBoxSync({
             type: 'info',
             title: 'RaccoonLock',
-            message: `That's not a RaccoonLock backup file!`,
+            message: currentlang.notrlfile,
             buttons: ['OK']
         });
         return;
@@ -159,19 +167,16 @@ async function restoreBackup(filePath){
         C: path
     })
     .then(() => {
-        dialog.showMessageBoxSync({
-            type: 'info',
-            title: 'RaccoonLock',
-            message: `Backup restored successfully!`,
-            buttons: ['OK']
-        });
+        const messages = [currentlang.brsuccess, currentlang.restart];
 
-        dialog.showMessageBoxSync({
-            type: 'info',
-            title: 'RaccoonLock',
-            message: `RaccoonLock will restart.`,
-            buttons: ['OK']
-        });
+        for (let i = 0; i < 2; i++){
+            dialog.showMessageBoxSync({
+                type: 'info',
+                title: 'RaccoonLock',
+                message: messages[i],
+                buttons: ['OK']
+            });
+        }
 
         app.relaunch();
         app.exit(0);

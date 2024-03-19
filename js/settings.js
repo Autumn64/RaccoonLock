@@ -71,6 +71,7 @@ function saveData(){
 function updateScreen(){
     currentlang = langs.settings[userinfo.language];
     setLang();
+    ipcRenderer.send('change-lang', userinfo.language);
     ipcRenderer.send('message', currentlang.info.sucessa);
 }
 

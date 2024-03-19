@@ -249,6 +249,11 @@ void decrypt(char *filename){
 	printf("Enter your password: ");
 	if (str_readln(&password, stdin) != STR_SUCCESS) error("Couldn't allocate memory for the password!");
 
+	if (password.length < 2) {
+		str_free(&password);
+		error("Couldn't finish the decryption operation! Did you enter the correct password?");
+	}
+
 	// ---------- BEGIN DECRYPTION OPERATION ----------
 	EVP_CIPHER_CTX *ctx;
 	int len, decrypttext_len;
