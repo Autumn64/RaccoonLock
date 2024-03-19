@@ -45,6 +45,14 @@ document.getElementById('changepasswd').addEventListener('click', () =>
 
 document.getElementById('save').addEventListener('click', saveData);
 
+document.getElementById('backup').addEventListener('click', () =>{
+    ipcRenderer.send('backup-c');
+});
+
+document.getElementById('restore').addEventListener('click', () =>{
+    ipcRenderer.send('backup-r');
+});
+
 function saveData(){
     let newName = document.getElementById('name').value.trim();
     let newLang = document.getElementById('language').value;

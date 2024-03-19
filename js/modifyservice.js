@@ -15,6 +15,14 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
+const interfaces = require("./js/interfaces.js");
+const chp = require('child_process');
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+
+let userinfo = require(`${path}/config.json`);
+let currentlang;
+
 let json;
 let keys = [];
 let user; //User
@@ -23,59 +31,67 @@ let services = document.getElementById('services'); //Combobox
 let datas = document.getElementById('datas'); //Datas div
 let modify = document.getElementById('modify'); //Modify div
 let verify = document.getElementById('verify');
-let parameters = new URLSearchParams(document.location.search)
+let parameters = new URLSearchParams(document.location.search);
+let gPassword;
 
-function main(){
-    exec(raccoonreader, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
-        if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
-        if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-        try{
-	        let jsonstring = paths.getCorrectJSON(stdout);
-            json = JSON.parse(jsonstring);
-        }catch(e){
-            window.location.href = `error.html?err=${encodeURIComponent(e)}`;
-        }
-        for (let key in json){
-            if(key === 'RaccoonLock') continue; //Ignores the app's password
-            keys.push(key);
-        }
-        keys.forEach((key) =>{
-            let option = document.createElement('option');
-            option.value, option.innerHTML = key; //Both value and inner HTML will be the key
-            services.appendChild(option);
-        });
-        services.value = decodeURIComponent(parameters.get('id'));
-        showAll(); //Shows the data if something is selected when page loads
-    });
-	let passScreen = decodeURIComponent(parameters.get('pass'));
-	if (passScreen === 'true'){
-		verify.classList.remove('hidden');
-		verify.style.display = 'flex';
-		verify.style.animation = 'fadein 0.5s';
-	}else{
-		container.classList.remove('hidden');
-		container.style.display = 'flex';
-		container.style.animation = 'fadein 0.5s';
-	}
-}
+window.addEventListener('DOMContentLoaded', () =>{
+    currentlang = langs.modifyservice[userinfo.language];
+    setLang();
+
+	verify.classList.remove('hidden');
+	verify.style.display = 'flex';
+    verify.style.animation = 'fadein 0.5s';
+});
 
 
 document.getElementById('vsubmit').addEventListener('click', () =>{
 	let pass = document.getElementById('vpass').value;
 	let errorv = document.getElementById('errorv');
 
-	if (pass !== json.RaccoonLock){
-		errorv.classList.remove('hidden');
-		return;
-	}
+    let datastr = "";
 
-	verify.style.animation = "fadeout 0.5s forwards";
-	setTimeout(() =>{
-		verify.style.display = 'none';
-		container.classList.remove('hidden');
-		container.style.display = 'flex';
-		container.style.animation = 'fadein 0.5s';
-	}, 600);
+	const reader = chp.spawn(interfaces.getReader(), ["-d", `${path}/data.rld`]);
+    reader.stdin.setDefaultEncoding("utf-8");
+    reader.stdin.write(`${pass}\n`);
+    reader.stdin.end();
+    reader.stderr.on('data', (error) =>{
+        let errorstr = error.toString();
+        if (!errorstr.includes("FATAL ERROR: Couldn't finish the decryption operation! Did you enter the correct password?")){
+            window.location.href = `error.html?err=${encodeURIComponent(errorstr)}`;
+        }
+        errorv.classList.remove('hidden');
+        document.getElementById("vpass").value = "";
+    });
+
+    reader.stdout.on('data', (data) =>{
+        datastr += data.toString().replace(/^RaccoonReader v[\d.]+[\s\S]+?Enter your password: /, '');
+    });
+
+    reader.on('close', (code) =>{
+        if (datastr.trim() === "") return;
+        gPassword = pass;
+        json = JSON.parse(interfaces.decodeJSON(datastr));
+
+        for (let key in json){
+            keys.push(key);
+        }
+
+        keys.forEach((key) =>{
+            let option = document.createElement('option');
+            option.value, option.innerHTML = key; //Both value and inner HTML will be the key
+            services.appendChild(option);
+        });
+        services.value = decodeURIComponent(parameters.get('id'));
+        showAll();
+
+        verify.style.animation = "fadeout 0.5s forwards";
+        setTimeout(() =>{
+            verify.style.display = 'none';
+            container.classList.remove('hidden');
+            container.style.display = 'flex';
+            container.style.animation = 'fadein 0.5s';
+        }, 600);
+    });
 });
 
 document.getElementById('goback').addEventListener('click', () =>
@@ -259,12 +275,8 @@ function updateJSON({ key, index, service, user, pass }){
     }
     json[key].user[index] = user;
     json[key].password[index] = pass;
-    let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
-    let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
-    exec(raccoonreader, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
-	    if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
-	    if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-    });
+    let newJSON = interfaces.encodeJSON(JSON.stringify(json));
+    saveAll(newJSON);
 }
 
 function deleteData(){
@@ -280,12 +292,8 @@ function deleteData(){
         delete json[key];
     }
     
-    let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
-    let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
-    exec(raccoonreader, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
-	    if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
-	    if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-    });
+    let newJSON = interfaces.encodeJSON(JSON.stringify(json));
+    saveAll(newJSON);
     setTimeout(() => {
         successb.classList.remove('hidden');
         document.getElementById('goback').style.animation = 'fadeout 0.5s forwards'; //Hide back button
@@ -307,12 +315,8 @@ function addData(){
         json[key].user.push(usera.trimStart());
         json[key].password.push(passworda.trimStart());
 	    
-    	let newJSON = paths.makeCorrectJSON(JSON.stringify(json));
-    	let newINFO = paths.makeCorrectJSON(JSON.stringify(userinfo));
-    	exec(raccoonreader, ['-a', `${path}/data.rlc`, newJSON, newINFO], (error, stdout, stderr) =>{
-	    	if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
-	    	if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-    });
+    	let newJSON = interfaces.encodeJSON(JSON.stringify(json));
+    	saveAll(newJSON);
         setTimeout(() =>{
             errora.style.display = 'none'; //Hides error message if there's one
             successa.classList.remove('hidden');
@@ -333,4 +337,45 @@ const hideDiv = (div) =>{
     setTimeout(() =>{
         document.getElementById(div).style.animation = 'fadeout 0.5s forwards'; //Hide all
     }, 2500);
+}
+
+function saveAll(jsondata){
+    const reader = chp.spawn(interfaces.getReader(), ["-c", `${path}/data.rld`]);
+    reader.stdin.setDefaultEncoding("utf-8");
+    reader.stdin.write(`${jsondata}\n`);
+    reader.stdin.write(`${gPassword}\n`);
+    reader.stdin.write(`${gPassword}\n`);
+    reader.stdin.end();
+
+    reader.stderr.on('data', (error) =>{
+        window.location.href = `error.html?err=${encodeURIComponent(error.toString())}`;
+    });
+}
+
+function setLang(){
+    document.getElementById('title').innerHTML = currentlang.container.title;
+    document.getElementById('services').options[0].innerHTML = currentlang.container.select.none;
+
+    document.getElementById('user').placeholder = currentlang.container.modify.user;
+    document.getElementById('password').placeholder = currentlang.container.modify.password;
+    document.getElementById('success').innerHTML = currentlang.container.modify.success;
+    document.getElementById('save').innerHTML = currentlang.container.modify.buttons.save;
+    document.getElementById('cancel').innerHTML = currentlang.container.modify.buttons.cancel;
+    document.getElementById('delete').innerHTML = currentlang.container.modify.delete;
+
+    document.getElementById('text').innerHTML = currentlang.confirm.text;
+    document.getElementById('successb').innerHTML = currentlang.confirm.successb;
+    document.getElementById('accept').innerHTML = currentlang.confirm.buttons.accept;
+    document.getElementById('cancelb').innerHTML = currentlang.confirm.buttons.cancelb;
+
+    document.getElementById('titleadd').innerHTML = currentlang.addd.titleadd;
+    document.getElementById('usera').placeholder = currentlang.addd.usera;
+    document.getElementById('passworda').placeholder = currentlang.addd.passworda;
+    document.getElementById('successa').innerHTML = currentlang.addd.successa;
+    document.getElementById('savea').innerHTML = currentlang.addd.buttons.savea;
+    document.getElementById('cancela').innerHTML = currentlang.addd.buttons.cancela;
+    document.getElementById('nowenter').innerHTML = currentlang.verify.nowenter;
+    document.getElementById('vpass').placeholder = currentlang.verify.vpass;
+    document.getElementById('errorv').innerHTML = currentlang.verify.errorv;
+    document.getElementById('vsubmit').innerHTML = currentlang.verify.vsubmit;
 }

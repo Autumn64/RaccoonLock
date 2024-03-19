@@ -16,6 +16,9 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 const { app, BrowserWindow, Notification, ipcMain, dialog} = require('electron');
+const tar = require('tar');
+const interfaces = require("./js/interfaces.js");
+const path = interfaces.getPath();
 
 const currentVer = 500;
 
@@ -33,38 +36,36 @@ function createWindow(){
         }
     });
 
-    ipcMain.on('save-dialog', async (event) => {
+    ipcMain.on('backup-c', async (event) => {
         const options = {
           filters: [
-            { name: 'RaccoonLock Container', extensions: ['rlc'] }
+            { name: 'RaccoonLock Backup File (.tar.gz)', extensions: ['tar.gz'] }
           ]
         };
     
         const { filePath } = await dialog.showSaveDialog(win, options);
 
         if (!filePath){
-            event.sender.send('save-dialog-closed', null);
             return;
         }
 
-        event.sender.send('save-dialog-closed', filePath);
+        createBackup(filePath);
     });
 
-    ipcMain.on('open-dialog', async (event) => {
+    ipcMain.on('backup-r', async (event) => {
         const options ={
             filters: [
-                { name: 'RaccoonLock Container', extensions: ['rlc'] }
+                { name: 'RaccoonLock Backup File (.tar.gz)', extensions: ['tar.gz'] }
             ]
         };
 
         const { filePaths } = await dialog.showOpenDialog(win, options);
 
         if (filePaths.length < 1){
-            event.sender.send('open-dialog-closed', null);
             return;
         }
         
-        event.sender.send('open-dialog-closed', filePaths[0]);
+        restoreBackup(filePaths[0]);
     });
 
     ipcMain.on('message', (event, message) =>{
@@ -72,24 +73,6 @@ function createWindow(){
             type: 'info',
             title: 'RaccoonLock',
             message: `${message}`,
-            buttons: ['OK']
-        });
-    });
-
-    ipcMain.on('backup-success', (event, message, path) =>{
-        dialog.showMessageBoxSync({
-            type: 'info',
-            title: 'RaccoonLock',
-            message: `${message} ${path}`,
-            buttons: ['OK']
-        });
-    });
-
-    ipcMain.on('backup-failure', (event, message, error) =>{
-        dialog.showMessageBox({
-            type: 'info',
-            title: 'RaccoonLock',
-            message: `${message} ${error}`,
             buttons: ['OK']
         });
     });
@@ -133,6 +116,64 @@ function checkUpdates(){
 const newUpdate = (version) =>{
 	new Notification({
 		title: "RaccoonLock",
-		body: `RaccoonLock ${version} is now available.`,
+		body: `RaccoonLock ${version} is now available.`
 	}).show();
+}
+
+function createBackup(filePath){
+    filePath = filePath.includes(".tar.gz") ? filePath : `${filePath}.tar.gz`;
+
+    tar.c({
+        gzip: true,
+        file: filePath,
+        C: path
+    }, [`config.json`, `data.rld`])
+    .then(() => dialog.showMessageBoxSync({
+        type: 'info',
+        title: 'RaccoonLock',
+        message: `Backup made successfully!`,
+        buttons: ['OK']
+    }));
+}
+
+async function restoreBackup(filePath){
+    const filenames = [];
+
+    await tar.t({
+        file: filePath,
+        onentry: entry => filenames.push(entry.path)
+    }).then(() =>{});
+
+    if (!filenames.includes("config.json") || !filenames.includes("data.rld")){
+        dialog.showMessageBoxSync({
+            type: 'info',
+            title: 'RaccoonLock',
+            message: `That's not a RaccoonLock backup file!`,
+            buttons: ['OK']
+        });
+        return;
+    }
+
+    tar.x({
+        file: filePath,
+        C: path
+    })
+    .then(() => {
+        dialog.showMessageBoxSync({
+            type: 'info',
+            title: 'RaccoonLock',
+            message: `Backup restored successfully!`,
+            buttons: ['OK']
+        });
+
+        dialog.showMessageBoxSync({
+            type: 'info',
+            title: 'RaccoonLock',
+            message: `RaccoonLock will restart.`,
+            buttons: ['OK']
+        });
+
+        app.relaunch();
+        app.exit(0);
+    });
 }
