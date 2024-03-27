@@ -16,10 +16,8 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 const chp = require('child_process');
 const interfaces = require("./js/interfaces.js");
-
 const path = interfaces.getPath();
 const langs = require("./js/lang/languages.json");
-
 let userinfo = require(`${path}/config.json`);
 let currentlang;
 
@@ -50,9 +48,7 @@ document.getElementById('submit').addEventListener('click', () =>{
 
     reader.stdout.on('data', (data) =>{
         let datastr = data.toString().replace(/^RaccoonReader v[\d.]+[\s\S]+?Enter your password:/, '');
-
         if (datastr.trim() === "") return;
-
         passwordd.style.animation = 'fadeout 1s forwards';
         setTimeout(() => {
             passwordd.style.display = 'none';

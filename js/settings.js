@@ -18,10 +18,8 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 const { ipcRenderer } = require('electron');
 const fs = require("fs");
 const interfaces = require("./js/interfaces.js");
-
 const path = interfaces.getPath();
 const langs = require("./js/lang/languages.json");
-
 let userinfo = require(`${path}/config.json`);
 let currentlang;
 
@@ -63,7 +61,6 @@ function saveData(){
     userinfo.name = newName;
     userinfo.language = newLang;
     let newData = JSON.stringify(userinfo);
-
     fs.writeFileSync(`${path}/config.json`, newData);
     updateScreen();
 }
@@ -78,12 +75,10 @@ function updateScreen(){
 function setLang(){
     document.getElementById('about').innerHTML = currentlang.topbar.about;
     document.getElementById('title').innerHTML = currentlang.info.title;
-
     document.getElementById('tdname').innerHTML = currentlang.info.table.tdname;
     document.getElementById('tdlanguage').innerHTML = currentlang.info.table.tdlanguage;
     document.getElementById('name').placeholder = currentlang.info.table.name;
     document.getElementById('language').value = userinfo.language;
-
     document.getElementById('changepasswd').innerHTML = currentlang.info.changepasswd;
     document.getElementById('save').innerHTML = currentlang.info.save;
     document.getElementById('backup').innerHTML = currentlang.info.backup;

@@ -24,7 +24,6 @@ const { ipcRenderer } = require('electron');
 window.addEventListener('DOMContentLoaded', () =>{
     const bienvenue = document.getElementById('bienvenue');
     const login = document.getElementById('login');
-
     document.documentElement.style.alignItems = 'center'; //Moves the Bienvenid@ to the center
     document.body.style.alignItems = 'center';
     bienvenue.classList.remove('hidden'); //Shows bienvenue
@@ -70,7 +69,6 @@ document.getElementById('submit').addEventListener('click', () =>{ //Comenzar bu
 
     const login = document.getElementById('login');
     login.style.animation = 'fadeout 0.5s forwards';
-
     const config = {
         name: name,
         language: "en"
@@ -79,17 +77,13 @@ document.getElementById('submit').addEventListener('click', () =>{ //Comenzar bu
 
     if (!fs.existsSync(`${path}`)) fs.mkdirSync(`${path}`);
     fs.writeFileSync(`${path}/config.json`, JSON.stringify(config));
-
     const realData = interfaces.encodeJSON(JSON.stringify(data));
-
     const reader = chp.spawn(interfaces.getReader(), ["-c", `${path}/data.rld`]);
     reader.stdin.setDefaultEncoding("utf-8");
     reader.stdin.write(`${realData}\n`);
     reader.stdin.write(`${password}\n`);
     reader.stdin.write(`${password}\n`);
     reader.stdin.end();
-    ipcRenderer.send('update-userinfo');
-
     setTimeout(() => window.location.href = 'verified.html', 1000);
 });
 

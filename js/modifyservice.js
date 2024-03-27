@@ -19,7 +19,6 @@ const interfaces = require("./js/interfaces.js");
 const chp = require('child_process');
 const path = interfaces.getPath();
 const langs = require("./js/lang/languages.json");
-
 let userinfo = require(`${path}/config.json`);
 let currentlang;
 
@@ -37,7 +36,6 @@ let gPassword;
 window.addEventListener('DOMContentLoaded', () =>{
     currentlang = langs.modifyservice[userinfo.language];
     setLang();
-
 	verify.classList.remove('hidden');
 	verify.style.display = 'flex';
     verify.style.animation = 'fadein 0.5s';
@@ -47,9 +45,7 @@ window.addEventListener('DOMContentLoaded', () =>{
 document.getElementById('vsubmit').addEventListener('click', () =>{
 	let pass = document.getElementById('vpass').value;
 	let errorv = document.getElementById('errorv');
-
     let datastr = "";
-
 	const reader = chp.spawn(interfaces.getReader(), ["-d", `${path}/data.rld`]);
     reader.stdin.setDefaultEncoding("utf-8");
     reader.stdin.write(`${pass}\n`);
@@ -83,7 +79,6 @@ document.getElementById('vsubmit').addEventListener('click', () =>{
         });
         services.value = decodeURIComponent(parameters.get('id'));
         showAll();
-
         verify.style.animation = "fadeout 0.5s forwards";
         setTimeout(() =>{
             verify.style.display = 'none';
@@ -136,7 +131,6 @@ document.getElementById('cancela').addEventListener('click', () => //Cancel butt
     window.location.href = `modifyservice.html?id=${encodeURIComponent(services.value)}&pass=false`
 );
 
-
 function showAll(){
     let selected = services.value;
     if (selected === 'none'){
@@ -156,7 +150,6 @@ function showData(key){
         cell1User.innerHTML = currentlang.container.datas.table.user;
         let cell2User = rowUser.insertCell();
         cell2User.innerHTML = `<div class="data" id="${i}" tabindex="1">${json[key].user[i]}</div>`;
-
         let rowPass = table.insertRow();
         let cell1Pass = rowPass.insertCell();
         cell1Pass.innerHTML = currentlang.container.datas.table.password;
@@ -205,7 +198,6 @@ function modifyData(key, index){
     let service = document.getElementById('service');
     let user = document.getElementById('user');
     let password = document.getElementById('password');
-    
     services.style.animation = 'fadeout 0.5s forwards';
     services.style.display = 'none'; //Removes services combobox
     datas.style.animation = 'fadeout 0.5s forwards';
@@ -226,7 +218,6 @@ function save(){ //Save button
     let tmpuser = document.getElementById('user').value; 
     let tmppassword = document.getElementById('password').value;
     let err = document.getElementById('error');
-
     if(tmpservice.toLowerCase() !== key.toLowerCase() || tmpuser !== json[key].user[index] || tmppassword !== json[key].password[index]){
         change = true;
     }
@@ -284,10 +275,8 @@ function deleteData(){
     let user = document.getElementById('user').value; //Gets current user value
     let key = services.value; //Gets current key
     let index = json[key].user.indexOf(user); //Gets current index
-
     json[key].user.splice(index, 1); //Remove the index
     json[key].password.splice(index, 1);
-
     if (json[key].user.length === 0){ //If there's no accounts remove the service
         delete json[key];
     }
@@ -346,7 +335,6 @@ function saveAll(jsondata){
     reader.stdin.write(`${gPassword}\n`);
     reader.stdin.write(`${gPassword}\n`);
     reader.stdin.end();
-
     reader.stderr.on('data', (error) =>{
         window.location.href = `error.html?err=${encodeURIComponent(error.toString())}`;
     });
@@ -355,19 +343,16 @@ function saveAll(jsondata){
 function setLang(){
     document.getElementById('title').innerHTML = currentlang.container.title;
     document.getElementById('services').options[0].innerHTML = currentlang.container.select.none;
-
     document.getElementById('user').placeholder = currentlang.container.modify.user;
     document.getElementById('password').placeholder = currentlang.container.modify.password;
     document.getElementById('success').innerHTML = currentlang.container.modify.success;
     document.getElementById('save').innerHTML = currentlang.container.modify.buttons.save;
     document.getElementById('cancel').innerHTML = currentlang.container.modify.buttons.cancel;
     document.getElementById('delete').innerHTML = currentlang.container.modify.delete;
-
     document.getElementById('text').innerHTML = currentlang.confirm.text;
     document.getElementById('successb').innerHTML = currentlang.confirm.successb;
     document.getElementById('accept').innerHTML = currentlang.confirm.buttons.accept;
     document.getElementById('cancelb').innerHTML = currentlang.confirm.buttons.cancelb;
-
     document.getElementById('titleadd').innerHTML = currentlang.addd.titleadd;
     document.getElementById('usera').placeholder = currentlang.addd.usera;
     document.getElementById('passworda').placeholder = currentlang.addd.passworda;

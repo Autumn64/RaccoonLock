@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
-const { app, BrowserWindow, Notification, ipcMain, dialog} = require('electron');
+const { app, BrowserWindow, Notification, ipcMain, dialog } = require('electron');
 const fs = require('fs');
 const tar = require('tar');
 const interfaces = require("./js/interfaces.js");
@@ -34,7 +34,6 @@ if (fs.existsSync(`${path}/config.json`)){
 const currentVer = 500;
 
 function createWindow(){
-
     const win = new BrowserWindow({
         width: 800,
         height: 600,
@@ -53,13 +52,10 @@ function createWindow(){
             { name: 'RaccoonLock Backup File (.tar.gz)', extensions: ['tar.gz'] }
           ]
         };
-    
         const { filePath } = await dialog.showSaveDialog(win, options);
-
         if (!filePath){
             return;
         }
-
         createBackup(filePath);
     });
 
@@ -69,13 +65,10 @@ function createWindow(){
                 { name: 'RaccoonLock Backup File (.tar.gz)', extensions: ['tar.gz'] }
             ]
         };
-
         const { filePaths } = await dialog.showOpenDialog(win, options);
-
         if (filePaths.length < 1){
             return;
         }
-        
         restoreBackup(filePaths[0]);
     });
 
@@ -136,7 +129,6 @@ const newUpdate = (version) =>{
 
 function createBackup(filePath){
     filePath = filePath.includes(".tar.gz") ? filePath : `${filePath}.tar.gz`;
-
     tar.c({
         gzip: true,
         file: filePath,
@@ -152,12 +144,10 @@ function createBackup(filePath){
 
 async function restoreBackup(filePath){
     const filenames = [];
-
     await tar.t({
         file: filePath,
         onentry: entry => filenames.push(entry.path)
     }).then(() =>{});
-
     if (!filenames.includes("config.json") || !filenames.includes("data.rld")){
         dialog.showMessageBoxSync({
             type: 'info',
@@ -167,9 +157,7 @@ async function restoreBackup(filePath){
         });
         return;
     }
-
     if(!fs.existsSync(path)) fs.mkdirSync(path);
-
     tar.x({
         file: filePath,
         C: path
@@ -185,7 +173,6 @@ async function restoreBackup(filePath){
                 buttons: ['OK']
             });
         }
-
         app.relaunch();
         app.exit(0);
     });

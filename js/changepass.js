@@ -18,10 +18,8 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 const chp = require('child_process');
 const { ipcRenderer } = require('electron');
 const interfaces = require("./js/interfaces.js");
-
 const path = interfaces.getPath();
 const langs = require("./js/lang/languages.json");
-
 let userinfo = require(`${path}/config.json`);
 let currentlang;
 
@@ -80,7 +78,6 @@ function updatePass(data, newpass){
     reader.stdin.write(`${newpass}\n`);
     reader.stdin.write(`${newpass}\n`);
     reader.stdin.end();
-
     reader.stderr.on('data', (error) =>{
         window.location.href = `error.html?err=${encodeURIComponent(error.toString())}`;
     });

@@ -19,10 +19,8 @@ const interfaces = require("./js/interfaces.js");
 const chp = require('child_process');
 const path = interfaces.getPath();
 const langs = require("./js/lang/languages.json");
-
 let userinfo = require(`${path}/config.json`);
 let currentlang;
-
 let json;
 let container = document.getElementById('container');
 let neww = document.getElementById('neww');
@@ -46,7 +44,6 @@ document.getElementById('vsubmit').addEventListener('click', () =>{
     let pass = document.getElementById('vpass').value;
 	let errorv = document.getElementById('errorv');
     let datastr = "";
-
 	const reader = chp.spawn(interfaces.getReader(), ["-d", `${path}/data.rld`]);
     reader.stdin.setDefaultEncoding("utf-8");
     reader.stdin.write(`${pass}\n`);
@@ -68,7 +65,6 @@ document.getElementById('vsubmit').addEventListener('click', () =>{
         if (datastr.trim() === "") return;
         gPassword = pass;
         json = JSON.parse(interfaces.decodeJSON(datastr));
-
         verify.style.animation = "fadeout 0.5s forwards";
         setTimeout(() =>{
             verify.style.display = 'none';
@@ -133,13 +129,11 @@ function addData(){
     }
     document.getElementById("submit").style.animation = "fadeout 0.5s forwards";
     error.style.display = 'none'; //Hides error message
-    
     let new_JSON = {[service]: {user: [], password: []}, ...json} //Creates new key at the beginning
     new_JSON[service].user.push(user);
     new_JSON[service].password.push(password);
 	let data = interfaces.encodeJSON(JSON.stringify(new_JSON));
     document.getElementById('goback').style.display = 'none'; //Hide back button
-
     const reader = chp.spawn(interfaces.getReader(), ["-c", `${path}/data.rld`]);
     reader.stdin.setDefaultEncoding("utf-8");
     reader.stdin.write(`${data}\n`);
@@ -168,7 +162,6 @@ const cleanInput = () =>{
 function setLang(){
     document.getElementById('title').innerHTML = currentlang.container.title;
     document.getElementById('other').innerHTML = currentlang.container.otherbtn.other;
-
     document.getElementById('titlenew').innerHTML = currentlang.neww.titlenew;
     document.getElementById('service').placeholder = currentlang.neww.service;
     document.getElementById('user').placeholder = currentlang.neww.user;

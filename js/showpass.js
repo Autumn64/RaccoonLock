@@ -19,13 +19,10 @@ const interfaces = require("./js/interfaces.js");
 const chp = require('child_process');
 const path = interfaces.getPath();
 const langs = require("./js/lang/languages.json");
-
 let userinfo = require(`${path}/config.json`);
 let currentlang;
-
 let json;
 let keys = [];
-
 const verify = document.getElementById('verify');
 const container = document.getElementById('container');
 const copied = document.getElementById('copied');
@@ -43,7 +40,6 @@ document.getElementById('vsubmit').addEventListener('click', () =>{
 	let pass = document.getElementById('vpass').value;
 	let errorv = document.getElementById('errorv');
     let datastr = "";
-
 	const reader = chp.spawn(interfaces.getReader(), ["-d", `${path}/data.rld`]);
     reader.stdin.setDefaultEncoding("utf-8");
     reader.stdin.write(`${pass}\n`);
@@ -63,7 +59,6 @@ document.getElementById('vsubmit').addEventListener('click', () =>{
 
     reader.on('close', (code) =>{
         if (datastr.trim() === "") return;
-
         json = JSON.parse(interfaces.decodeJSON(datastr));
         for (let key in json){
             keys.push(key);
@@ -137,7 +132,6 @@ function showData(key){ //Iterates for each service
         cell1User.innerHTML = currentlang.container.table.user;
         let cell2User = rowUser.insertCell();
         cell2User.innerHTML = `<input type="email" value="${json[key].user[i]}" class="data" tabindex="1" readonly>`;
-
         let rowPass = table.insertRow();
         let cell1Pass = rowPass.insertCell();
         cell1Pass.innerHTML = currentlang.container.table.password;

@@ -19,7 +19,6 @@ const { ipcRenderer } = require('electron');
 const chp = require('child_process');
 const fs = require("fs");
 const interfaces = require("./js/interfaces.js");
-
 let path = interfaces.getPath();
 
 window.addEventListener("DOMContentLoaded", () =>{
@@ -33,11 +32,11 @@ document.getElementById("startbtn").addEventListener("click", () =>{
     document.getElementById("container").innerHTML += "<h3>Updating data...</h3>"
     createConfig();
     createData();
-    deleteOld();
     setTimeout(() => {
         ipcRenderer.send("message", "Data updated successfully! You can now use RaccoonLock v5.0.0.");
         ipcRenderer.send("message", "It is highly recommended to create a backup so you can restore your information anywhere at anytime.")
         ipcRenderer.send("message", "RaccoonLock will restart.");
+        deleteOld();
         ipcRenderer.send("restart");
     }, 2000);
 });
@@ -76,7 +75,6 @@ function createData(){
 function saveData(data, pass){
     //Save the new data.rld file with the same data and password.
     data = interfaces.encodeJSON(JSON.stringify(data));
-
     const reader = chp.spawn(interfaces.getReader(), ["-c", `${path}/data.rld`]);
     reader.stdin.setDefaultEncoding("utf-8");
     reader.stdin.write(`${data}\n`);

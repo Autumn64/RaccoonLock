@@ -16,10 +16,8 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 const interfaces = require("./js/interfaces.js");
-
 const path = interfaces.getPath();
 const langs = require("./js/lang/languages.json");
-
 let userinfo = require(`${path}/config.json`);
 let currentlang;
 
@@ -53,7 +51,6 @@ document.getElementById('editpass').addEventListener('click', () =>{
     let goback = document.getElementById('goback');
     let settings = document.getElementById('settings');
     let logout = document.getElementById('logout');
-
     buttons.style.animation = 'fadeout 0.5s forwards';
     settings.style.animation = 'fadeout 0.5s forwards';
     logout.style.animation = 'fadeout 0.5s forwards';
@@ -62,7 +59,6 @@ document.getElementById('editpass').addEventListener('click', () =>{
         modify.classList.remove('hidden'); //Modify div
         modify.style.display = 'flex';
         modify.style.animation = 'fadein 0.5s';
-
         goback.classList.remove('hidden'); //Go back button
         goback.style.display = '';
         goback.style.animation = 'fadein 0.5s';
@@ -82,7 +78,6 @@ document.getElementById('goback').addEventListener('click', () =>{
     let goback = document.getElementById('goback');
     let settings = document.getElementById('settings');
     let logout = document.getElementById('logout');
-
     modify.style.animation = 'fadeout 0.5s forwards'; //Hides modify div
     goback.style.animation = 'fadeout 0.5s forwards';
     setTimeout(() => {

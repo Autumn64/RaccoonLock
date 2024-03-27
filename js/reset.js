@@ -19,10 +19,8 @@ const fs = require('fs');
 const chp = require('child_process');
 const { ipcRenderer } = require('electron');
 const interfaces = require("./js/interfaces.js");
-
 const path = interfaces.getPath();
 const langs = require("./js/lang/languages.json");
-
 let userinfo = require(`${path}/config.json`);
 let currentlang;
 
@@ -52,9 +50,7 @@ document.getElementById('vsubmit').addEventListener('click', () =>{
 
     reader.stdout.on('data', (data) =>{
         let datastr = data.toString().replace(/^RaccoonReader v[\d.]+[\s\S]+?Enter your password:/, '');
-
         if (datastr.trim() === "") return;
-
         verify.style.animation = "fadeout 0.5s forwards";
 		setTimeout(() =>{
 			verify.style.display = 'none';

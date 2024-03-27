@@ -26,5 +26,5 @@ document.addEventListener('DOMContentLoaded', () =>{
 	let date = new Date();
 	document.getElementById('err').innerHTML = errorMsg;
 	dump = `System: ${process.platform}\nTime: ${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()} ${date.getUTCHours()}:${date.getUTCMinutes()} UTC\n${errorMsg}\n`;
-	fs.appendFileSync(`${path}/errors.rlr`, dump);
+	fs.appendFileSync(`${path}/errors.rllog`, dump);
 });

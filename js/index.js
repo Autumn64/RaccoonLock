@@ -22,7 +22,6 @@ const fs = require('fs');
 window.addEventListener('DOMContentLoaded', () => {
     let div = document.getElementById('starting');
     let container = document.getElementById('container');
-
     if (fs.existsSync(`${path}/data.rlc`)){
         setTimeout(() => container.style.animation = 'fadeout 1s forwards', 2000);
         setTimeout(() => window.location.href = 'newversion.html', 3000);
