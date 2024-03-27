@@ -1,3 +1,20 @@
+<!--
+Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
+
+RaccoonLock is free software: you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by 
+the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
+
+RaccoonLock is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License 
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -10,37 +27,16 @@
   </head>
   <body>
     <div id="topbar">
-        <button id="goback" class="hidden"><-</button>
-        <button id="about" class="hidden"></button>
+        <button id="goback"><-</button>
+        <button id="about"></button>
     </div><br><br>
     <div id="info">
         <h2 id="title"></h2><br><br>
-        <table>
+        <table id="settings">
             <tr>
               <td id="tdname"></td>
               <td><input id="name" type="text"></td>
             </tr>
-	    <tr>
-	      <td id="tdnameindex"></td>
-	      <td><select name="nameindex" id="nameindex"></select></td>
-	    </tr>
-            <tr>
-              <td id="tdmail"></td>
-              <td><input id="user" type="email"></td>
-            </tr>
-            <tr>
-              <td id="tdphone"></td>
-              <td><input id="phone" type="tel"></td>
-            </tr>
-            <tr>
-                <td id="tdbirthday"></td>
-                <td><input id="birthdate" type="date"></td>
-            </tr>
-            <tr>
-              <td id="tdpassword"></td>
-              <td><input id="password" type="password"></td>
-            </tr>
-            <tr>
               <td id="tdlanguage"></td>
               <td><select name="language" id="language">
                 <option value="en">English</option>
@@ -50,37 +46,15 @@
                 <option value="pt">Português</option>
                 <option value="nb">Norsk Bokmål</option>
                 <option value="kr">한국어</option>
-            </select></td>
+              </select></td>
             </tr>
-            <tr><td><br></td><td><br></td></tr>
-            <tr>
-              <td id="tdpasswordmode"></td>
-              <td>
-                <label class="switch">
-                  <input type="checkbox" id="switch">
-                    <span class="slider"></span>
-                </label>
-              </td>
-            </tr>
-	  </table>
-          <div id="error" class="hidden"></div>
-          <div id="successa" class="hidden"></div><br><br>
-          <button id="save"></button><br>
-          <button id="backup"></button><br>
-          <button id="restore"></button><br>
-          <button id="reset"></button>
-    </div>
-    <div id="verify" class="hidden">
-      <br><br><br><br>
-      <h2 id="nowenter"></h2>
-      <input id="code" type="text" required>
-      <div id="errorv" class="hidden">
-      </div>
-      <div id="success" class="hidden"></div><br><br>
-      <button id="submitv"></button><br>
-      <a id="gobackl" href="#"></a>
+	      </table>
+        <button id="save"></button><br>
+        <button id="changepasswd"></button><br>
+        <button id="backup"></button><br>
+        <button id="restore"></button><br>
+        <button id="reset"></button>
     </div>
   </body>
   <script src="js/settings.js"></script>
-  <script src="./js/lang/langsettings.js"></script>
 </html>

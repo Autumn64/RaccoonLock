@@ -1,62 +1,68 @@
-const sendMail = require('./js/sendmail.js');
+/*
+Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
 
-let twoFA = "";
-let passjson = "";
-let email;
-let passwordd = document.getElementById('passwordd');
+RaccoonLock is free software: you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by 
+the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
 
-function main(){
-	exec(raccoonreader, ['-d', '-y', `${path}/data.rlc`], (error, stdout, stderr) => {
-		if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
-        if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-        let jsonstring = paths.getCorrectJSON(stdout);
-        let data = JSON.parse(jsonstring);
-       	passjson = data.RaccoonLock;
-        passwordd.classList.remove('hidden');
-        passwordd.style.animation = 'fadein 0.5s';
-    });
-	email = userinfo.user;
-}
+RaccoonLock is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
 
-document.getElementById('submitv').addEventListener('click', () =>{
-    let code = document.getElementById('code').value;
-    let verify = document.getElementById('verify');
+You should have received a copy of the GNU General Public License 
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+const chp = require('child_process');
+const interfaces = require("./js/interfaces.js");
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+let userinfo = require(`${path}/config.json`);
+let currentlang;
 
-    if (code.trim() === twoFA){
-        verify.style.animation = 'fadeout 1s forwards';
-        setTimeout(() => window.location.href = 'mainmenu.html', 3000);
-    }else{
-        let err = document.getElementById('error');
-        err.classList.remove('hidden');
-        err.innerHTML = currentlang.verify.error;
-    }
+window.addEventListener('DOMContentLoaded', () =>{
+	currentlang = langs.login[userinfo.language];
+	setLang();
 });
+
+let passwordd = document.getElementById('passwordd');
 
 document.getElementById('submit').addEventListener('click', () =>{
     let password = document.getElementById('password').value;
-    if (password === passjson){
-        passwordd.style.animation = 'fadeout 1s forwards';
-        setTimeout(() => {
-            passwordd.style.display = 'none';
-            userinfo.passwordmode === false ? sendm() : window.location.href = 'mainmenu.html';
-        }, 3000);
-    }else{
+    const reader = chp.spawn(interfaces.getReader(), ["-d", `${path}/data.rld`]);
+    reader.stdin.setDefaultEncoding("utf-8");
+    reader.stdin.write(`${password}\n`);
+    reader.stdin.end();
+    reader.stderr.on('data', (error) =>{
+        let errorstr = error.toString();
+        if (!errorstr.includes("FATAL ERROR: Couldn't finish the decryption operation! Did you enter the correct password?")){
+            window.location.href = `error.html?err=${encodeURIComponent(errorstr)}`;
+        }
         let errora = document.getElementById('errora');
         errora.classList.remove('hidden');
         errora.innerHTML = currentlang.passwordd.errora;
-    }
+        cleanInput();
+
+    });
+
+    reader.stdout.on('data', (data) =>{
+        let datastr = data.toString().replace(/^RaccoonReader v[\d.]+[\s\S]+?Enter your password:/, '');
+        if (datastr.trim() === "") return;
+        passwordd.style.animation = 'fadeout 1s forwards';
+        setTimeout(() => {
+            passwordd.style.display = 'none';
+            window.location.href = 'mainmenu.html';
+        }, 2000);
+    });
 });
 
-function sendm(){
-    let verify = document.getElementById('verify');
-    verify.classList.remove('hidden');
-    verify.style.animation = 'fadein 0.5s';
-    if(userinfo.language === 'kr') {
-        document.getElementById('message').innerHTML = `${email}${currentlang.verify.message}.`;
-    }else{
-        document.getElementById('message').innerHTML = `${currentlang.verify.message} ${email}.`;
-    }
-    
-    const mail = new sendMail(email, currentlang.mailtext);
-    twoFA = mail.send();
+const cleanInput = () =>{
+    document.getElementById("password").value = "";
+}
+
+function setLang(){
+    document.getElementById('bienvenue').innerHTML = currentlang.passwordd.bienvenue;
+    document.getElementById('password').placeholder = currentlang.passwordd.password;
+    document.getElementById('submit').innerHTML = currentlang.passwordd.submit;
 }

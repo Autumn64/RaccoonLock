@@ -1,14 +1,33 @@
-function main(){
-    let time = checkTime();
-    let name;
-    if ("index" in userinfo){
-    	name = userinfo.name.trimStart().split(' ')[Number(userinfo.index)];
-    }else{
-    	name = userinfo.name.trimStart().split(' ')[0];
-    }
-    document.getElementById('logo').innerHTML += `<h2>${time}, ${name}.</h2>`;
-    console.log(global.miVariableGlobal);
-}
+/*
+Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
+
+RaccoonLock is free software: you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by 
+the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
+
+RaccoonLock is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License 
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
+const interfaces = require("./js/interfaces.js");
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+let userinfo = require(`${path}/config.json`);
+let currentlang;
+
+window.addEventListener('DOMContentLoaded', () =>{ 
+        currentlang = langs.mainmenu[userinfo.language];
+        setLang();
+        let time = checkTime();
+        let name = userinfo.name.split(" ")[0];
+        document.getElementById('logo').innerHTML += `<h2>${time}, ${name}.</h2>`;
+});
 
 document.getElementById('settings').addEventListener('click', () =>{
     window.location.href = 'settings.html';
@@ -32,7 +51,6 @@ document.getElementById('editpass').addEventListener('click', () =>{
     let goback = document.getElementById('goback');
     let settings = document.getElementById('settings');
     let logout = document.getElementById('logout');
-
     buttons.style.animation = 'fadeout 0.5s forwards';
     settings.style.animation = 'fadeout 0.5s forwards';
     logout.style.animation = 'fadeout 0.5s forwards';
@@ -41,7 +59,6 @@ document.getElementById('editpass').addEventListener('click', () =>{
         modify.classList.remove('hidden'); //Modify div
         modify.style.display = 'flex';
         modify.style.animation = 'fadein 0.5s';
-
         goback.classList.remove('hidden'); //Go back button
         goback.style.display = '';
         goback.style.animation = 'fadein 0.5s';
@@ -61,7 +78,6 @@ document.getElementById('goback').addEventListener('click', () =>{
     let goback = document.getElementById('goback');
     let settings = document.getElementById('settings');
     let logout = document.getElementById('logout');
-
     modify.style.animation = 'fadeout 0.5s forwards'; //Hides modify div
     goback.style.animation = 'fadeout 0.5s forwards';
     setTimeout(() => {
@@ -85,4 +101,13 @@ function checkTime(){
     }else{
         return currentlang.evening;
     }
+}
+
+function setLang(){
+    document.getElementById('logout').innerHTML = currentlang.topbar.logout;
+    document.getElementById('passgen').innerHTML = currentlang.buttons.passgen;
+    document.getElementById('showpass').innerHTML = currentlang.buttons.showpass;
+    document.getElementById('editpass').innerHTML = currentlang.buttons.editpass;
+    document.getElementById('addservice').innerHTML = currentlang.modify.addservice;
+    document.getElementById('modifyservice').innerHTML = currentlang.modify.modifyservice;
 }

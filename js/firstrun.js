@@ -1,17 +1,29 @@
-const interfaces = require("./js/lang/interfaces.js");
-const paths = new interfaces(process.platform);
-const path = paths.getPath();
-const exec = require('child_process').execFile;
-const sendMail = require('./js/sendmail.js')
-const fs = require('fs');
-const raccoonreader = paths.getReader();
+/*
+Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
 
-let twoFA = "";
+RaccoonLock is free software: you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by 
+the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
+
+RaccoonLock is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License 
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
+const interfaces = require("./js/interfaces.js");
+const path = interfaces.getPath();
+const chp = require('child_process');
+const fs = require('fs');
+const { ipcRenderer } = require('electron');
 
 window.addEventListener('DOMContentLoaded', () =>{
     const bienvenue = document.getElementById('bienvenue');
     const login = document.getElementById('login');
-
     document.documentElement.style.alignItems = 'center'; //Moves the Bienvenid@ to the center
     document.body.style.alignItems = 'center';
     bienvenue.classList.remove('hidden'); //Shows bienvenue
@@ -27,99 +39,60 @@ window.addEventListener('DOMContentLoaded', () =>{
 });
 
 document.getElementById('submit').addEventListener('click', () =>{ //Comenzar button
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-    if (name.trim() !== "" && email.trim() !== "" && password.trim() !== ""){ //There has to be something in all the inputs
-        const login = document.getElementById('login');
-        const verify = document.getElementById('verify');
-        login.style.animation = 'fadeout 0.5s';
-        login.style.display = 'none'; //Removes login
-        setTimeout(()=>{
-            verify.classList.remove('hidden'); //Shows verify
-            verify.style.animation = 'fadein 0.5s';
-            verify.style.display = 'flex';
-            document.getElementById('nowenter').innerHTML = `Now enter the code that was sent to <br>${email}.`;
-        }, 1000);
-        sendm(email);
-    }else{
+    let name = document.getElementById('name').value.trim();
+    let password = document.getElementById('password').value.trim();
+    let repassword = document.getElementById('repassword').value.trim();
+
+    if (name === "" || password === "" || repassword === ""){ //There has to be something in all the inputs
         let err = document.getElementById('error');
         err.classList.remove('hidden'); //Shows error
         err.innerHTML = "Enter the requested data.";
+        cleanInputs();
+        return;
     }
-});
 
-document.getElementById('submitv').addEventListener('click', () =>{ //Verificar button
-    let password = document.getElementById('password').value;
-    let code = document.getElementById('code').value;
-    let verify = document.getElementById('verify');
-    let userWrotePassword;
-    if (code.trim() === twoFA.trim() || code.trim() === password.trim()){
-        userWrotePassword = code === password ? true : false;
-        if (!fs.existsSync(`${path}/`)) fs.mkdirSync(`${path}/`);
-        let info = {
-            name: document.getElementById('name').value.trimStart(),
-	        index: "0",
-            user: document.getElementById('email').value.trimStart(),
-            phone: "",
-            birthdate: "",
-            passwordmode: false,
-            language: "en"
-        };
-        let data = {
-            RaccoonLock: document.getElementById('password').value.trimStart()
-        };
-        let jsoninfo = paths.makeCorrectJSON(JSON.stringify(info));
-        let jsondata = paths.makeCorrectJSON(JSON.stringify(data));
-        exec(raccoonreader, ["-c", "-y", `${path}/data.rlc`], (error, stdout, stderr) =>{
-            if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
-            if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-            exec(raccoonreader, ["-a", `${path}/data.rlc`, jsondata, jsoninfo], (error, stdout, stderr) =>{
-                if (error) window.location.href = `error.html?err=${encodeURIComponent(error)}`;
-                if (stderr) window.location.href = `error.html?err=${encodeURIComponent(stderr)}`;
-                return;
-            });
-            return;
-        });
-        
-    }else{
-        let err = document.getElementById('errorv');
+    if (password.length < 8){
+        let err = document.getElementById('error');
         err.classList.remove('hidden'); //Shows error
-        err.innerHTML = "Wrong code! Try again.";
+        err.innerHTML = "The password must include at least 8 characters!";
+        cleanInputs();
+        return;
     }
-    if (userWrotePassword === true){ //If user typed the password instead of the code
-        document.getElementById('success').classList.remove('hidden');
-        let err = document.getElementById('errorv');
-        err.style.display = 'none'; //Hides error
-        setTimeout(() => verify.style.animation = 'fadeout 1s forwards', 3000);
-        setTimeout(()=> {
-            verify.style.display = 'none';
-            window.location.href = 'verified.html';
-        }, 5000);
-    }else if (userWrotePassword === false){ //If user typed the code
-        verify.style.animation = 'fadeout 1s forwards';
-        setTimeout(()=> {
-            verify.style.display = 'none';
-            window.location.href = 'verified.html';
-        }, 2000);
-    }
-});
 
-document.getElementById('goback').addEventListener('click', () =>{ //Go back
+    if (password !== repassword){
+        let err = document.getElementById('error');
+        err.classList.remove('hidden'); //Shows error
+        err.innerHTML = "The password doesn't match!";
+        cleanInputs();
+        return;
+    }
+
     const login = document.getElementById('login');
-    const verify = document.getElementById('verify');
-    verify.style.animation = 'fadeout 0.5s';
-    verify.style.display = 'none'; //Removes login
-    twoFA = ""; //Sets 2FA code to nothing so it can be overwritten
-    document.getElementById('error').innerHTML = ""; //Removes error messages
-    document.getElementById('errorv').innerHTML = "";
-    setTimeout(()=>{
-        login.style.animation = 'fadein 0.5s';
-        login.style.display = 'flex'; //Shows login again
-    }, 1000);
+    login.style.animation = 'fadeout 0.5s forwards';
+    const config = {
+        name: name,
+        language: "en"
+    };
+    const data = {};
+
+    if (!fs.existsSync(`${path}`)) fs.mkdirSync(`${path}`);
+    fs.writeFileSync(`${path}/config.json`, JSON.stringify(config));
+    const realData = interfaces.encodeJSON(JSON.stringify(data));
+    const reader = chp.spawn(interfaces.getReader(), ["-c", `${path}/data.rld`]);
+    reader.stdin.setDefaultEncoding("utf-8");
+    reader.stdin.write(`${realData}\n`);
+    reader.stdin.write(`${password}\n`);
+    reader.stdin.write(`${password}\n`);
+    reader.stdin.end();
+    setTimeout(() => window.location.href = 'verified.html', 1000);
 });
 
-function sendm(email){
-    const mail = new sendMail(email, "Your code is:");
-    twoFA = mail.send();
+document.getElementById('restoreacc').addEventListener('click', () => {
+    ipcRenderer.send('message', "If you already have an account, please select your RaccoonLock backup file.");
+    ipcRenderer.send('backup-r');
+});
+
+const cleanInputs = () =>{
+    document.getElementById('password').value = "";
+    document.getElementById('repassword').value = "";
 }

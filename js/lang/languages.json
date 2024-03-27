@@ -6,14 +6,7 @@
                 "password": "Password",
                 "errora": "Wrong password! Try again.",
                 "submit": "Login"
-            },
-            "verify":{
-                "message": "Enter the code sent to<br>",
-                "code": "Code",
-                "error": "Wrong code! Try again.",
-                "submitv": "Verify"
-            },
-            "mailtext": "Your code is:"
+            }
         },
         "es":{
             "passwordd":{
@@ -21,14 +14,7 @@
                 "password": "Contraseña",
                 "errora": "¡Contraseña incorrecta! Intenta de nuevo.",
                 "submit": "Iniciar"
-            },
-            "verify":{
-                "message": "Introduce el código enviado a<br>",
-                "code": "Código",
-                "error": "¡Código incorrecto! Intenta de nuevo.",
-                "submitv": "Verificar"
-            },
-            "mailtext": "Tu código es:"
+            }
         },
         "fr":{
             "passwordd":{
@@ -36,14 +22,7 @@
                 "password": "Mot de passe",
                 "errora": "Mot de passe incorrect! Essayez à nouveau.",
                 "submit": "Login"
-            },
-            "verify":{
-                "message": "Entrez le code envoyé à<br>",
-                "code": "Code",
-                "error": "Code incorrect! Essayez à nouveau.",
-                "submitv": "Vérifier"
-            },
-            "mailtext": "Votre code est:"
+            }
         },
         "eo":{
             "passwordd":{
@@ -51,14 +30,7 @@
                 "password": "Pasvorto",
                 "errora": "Malĝusta pasvorto! Provu denove.",
                 "submit": "Ensalutu"
-            },
-            "verify":{
-                "message": "Enigu la kodon sendita al<br>",
-                "code": "Kodo",
-                "error": "Malĝusta kodo! Provu denove.",
-                "submitv": "Konfirmu"
-            },
-            "mailtext": "Via kodo estas:"
+            }
         },
         "pt":{
             "passwordd":{
@@ -66,14 +38,7 @@
                 "password": "Senha",
                 "errora": "Senha incorreta! Tente de novo.",
                 "submit": "Login"
-            },
-            "verify":{
-                "message": "Digite o código enviado para<br>",
-                "code": "Código",
-                "error": "Código incorreto! Tente de novo.",
-                "submitv": "Verificar"
-            },
-            "mailtext": "Seu código é:"
+            }
         },
         "nb":{
             "passwordd":{
@@ -81,14 +46,7 @@
                 "password": "Passord",
                 "errora": "Feil passord! Prøv på nytt.",
                 "submit": "Logg inn"
-            },
-            "verify":{
-                "message": "Skriv inn koden sendt til<br>",
-                "code": "Kode",
-                "error": "Feil kode! Prøv på nytt.",
-                "submitv": "Bekreft"
-            },
-            "mailtext": "Koden din er:"
+            }
         },
         "kr":{
             "passwordd":{
@@ -96,14 +54,7 @@
                 "password": "암호",
                 "errora": "잘못된 암호! 다시 시도해주세요.",
                 "submit": "로그인"
-            },
-            "verify":{
-                "message": "으로<br>보낸 코드를 입력하세요",
-                "code": "코드",
-                "error": "잘못된 코드! 다시 시도해주세요.",
-                "submitv": "확인"
-            },
-            "mailtext": "확인 코드:"
+            }
         }
     },
     "mainmenu":{
@@ -236,38 +187,19 @@
                 "title": "Settings",
                 "table":{
                     "tdname": "Name:",
-                    "tdmail": "E-mail:",
-                    "tdphone": "Phone:",
-                    "tdbirthday": "Birthday:",
-                    "tdpassword": "Password:",
                     "tdlanguage": "Language: ",
-		    "tdnameindex": "Preferred name:",
-                    "tdpasswordmode": "Password mode:",
-                    "name": "Name",
-                    "user": "E-mail",
-                    "phone": "Phone",
-                    "birthdate": "Birthday",
-                    "password": "Password"
+                    "name": "Name"
                 },
-                "error": "Enter at least a name, an e-mail address and a password.",
-                "sucessa": ["Password mode enabled.<br>Warning: Password mode is unsecure! Use it only if you can't receive 2FA codes.", "Password mode disabled."],
+                "error": "Enter at least a name.",
+                "sucessa": "Saved successfully!",
+                "changepasswd": "Change Password",
                 "save": "Save",
                 "backup": "Make backup",
                 "restore":"Restore backup",
                 "backup-success": "Backup made successfully!",
                 "backup-failure": "Backup failed!",
                 "reset": "Reset app"
-            },
-            "verify":{
-                "nowenter": "Enter the code that was sent to <br>",
-                "newenter": "Enter your password",
-                "code": ["Code", "Password"],
-                "errorv": ["Wrong code! Try again.", "Wrong password! Try again."],
-                "sucess": "Data modified successfully!",
-                "submitv": "Verify",
-                "gobackl": "Whoops! I got my data wrong."
-            },
-            "mailtext": "Your code is:"
+            }
         },
         "es":{
             "topbar":{
@@ -277,38 +209,19 @@
                 "title": "Configuración",
                 "table":{
                     "tdname": "Nombre:",
-                    "tdmail": "E-mail:",
-                    "tdphone": "Teléfono:",
-                    "tdbirthday": "Cumpleaños:",
-                    "tdpassword": "Contraseña:",
                     "tdlanguage": "Idioma: ",
-		    "tdnameindex": "Nombre preferido:",
-                    "tdpasswordmode": "Modo contraseña:",
-                    "name": "Nombre",
-                    "user": "E-mail",
-                    "phone": "Teléfono",
-                    "birthdate": "Cumpleaños",
-                    "password": "Contraseña"
+                    "name": "Nombre"
                 },
-                "error": "Introduce al menos un nombre, una dirección e-mail y una contraseña.",
-                "sucessa": ["Modo contraseña activado.<br>Alerta: ¡El modo contraseña es inseguro! Úsalo sólo si no puedes recibir códigos 2FA.", "Modo contraseña desactivado."],
+                "error": "Introduce al menos un nombre.",
+                "sucessa": "¡Datos guardados con éxito!",
+                "changepasswd": "Cambiar contraseña",
                 "save": "Guardar",
                 "backup": "Respaldar",
                 "restore":"Restablecer respaldo",
                 "backup-success": "¡Respaldo hecho satisfactoriamente!",
                 "backup-failure": "¡El respaldo falló!",
                 "reset": "Resetear app"
-            },
-            "verify":{
-                "nowenter": "Introduce el código enviado a <br>",
-                "newenter": "Introduce tu contraseña",
-                "code": ["Código", "Contraseña"],
-                "errorv": ["¡Código incorrecto! Intenta de nuevo.", "¡Contraseña incorrecta! Intenta de nuevo."],
-                "sucess": "¡Datos modificados satisfactoriamente!",
-                "submitv": "Verificar",
-                "gobackl": "¡Ups! Me equivoqué con mis datos."
-            },
-            "mailtext": "Tu código es:"
+            }
         },
         "fr":{
             "topbar":{
@@ -318,79 +231,41 @@
                 "title": "Paramètres",
                 "table":{
                     "tdname": "Nom:",
-                    "tdmail": "E-mail:",
-                    "tdphone": "Téléphone:",
-                    "tdbirthday": "Anniversaire:",
-                    "tdpassword": "Mot de passe:",
                     "tdlanguage": "Langue: ",
-		    "tdnameindex": "Nom préféré:",
-                    "tdpasswordmode": "Mode mot de passe:",
-                    "name": "Nom",
-                    "user": "E-mail",
-                    "phone": "Téléphone",
-                    "birthdate": "Anniversaire",
-                    "password": "Mot de passe"
+                    "name": "Nom"
                 },
-                "error": "Entrez au moins un nom, une adresse e-mail et un mot de passe.",
-                "sucessa": ["Mode mot de passe activé.<br>Attention: Le mode mot de passe est insécurisé! Utilisez-le seulement si vous ne pouvez pas recevoir de codes 2FA.", "Mode mot de passe désactivé."],
+                "error": "Entrez au moins un nom.",
+                "sucessa": "Données sauvegardées avec succès!",
+                "changepasswd": "Modifier mot de passe",
                 "save": "Sauvegarder",
                 "backup": "Faire un backup",
                 "restore":"Restaurer un backup",
                 "backup-success": "Backup fait avec succès!",
                 "backup-failure": "Le backup a échoué!",
                 "reset": "Réinitialiser l'app"
-            },
-            "verify":{
-                "nowenter": "Entrez le code envoyé à<br>",
-                "newenter": "Entrez votre mot de passe",
-                "code": ["Code", "Mot de passe"],
-                "errorv": ["Code incorrect! Essayez à nouveau.", "Mot de passe incorrect! Essayez à nouveau."],
-                "sucess": "Données modifiées avec succès!",
-                "submitv": "Vérifier",
-                "gobackl": "Oups! J'ai fait une erreur avec mes données."
-            },
-            "mailtext": "Votre code est:"
+            }
         },
         "eo":{
             "topbar":{
-                "about": "Pri ĉi tiu programo"
+                "about": "Prio"
             },
             "info":{
                 "title": "Agordoj",
                 "table":{
                     "tdname": "Nomo:",
-                    "tdmail": "Retpoŝto:",
-                    "tdphone": "Telefono:",
-                    "tdbirthday": "Naskiĝtago:",
-                    "tdpassword": "Pasvorto:",
                     "tdlanguage": "Lingvo: ",
-		    "tdnameindex": "Prefera nomo:",
-                    "tdpasswordmode": "Pasvortreĝimo:",
-                    "name": "Nomo",
-                    "user": "Retpoŝto",
-                    "phone": "Telefono",
-                    "birthdate": "Naskiĝtago",
-                    "password": "Pasvorto"
+                    "name": "Nomo"
                 },
-                "error": "Enigu almenaŭ nomon, retpoŝton kaj pasvorton.",
-                "sucessa": ["Pasvortreĝimo aktivigita.<br>Averto: Pasvortreĝimo estas malsekura! Uzu ĝin nur se vi ne povas ricevi 2FA kodojn.", "Pasvortreĝimo malaktivigita."],
+                "error": "Enigu almenaŭ nomon.",
+                "sucessa": "Datumoj konservitaj sukcese!",
+                "changepasswd": "Ŝanĝu pasvorton",
                 "save": "Konservu",
                 "backup": "Sekurkopiu",
                 "restore":"Restaŭru sekurkopion",
                 "backup-success": "Sekurkopio farita sukcese!",
                 "backup-failure": "La sekurkopio malsukcesis!",
-                "reset": "Restarigu programon"
-            },
-            "verify":{
-                "nowenter": "Enigu la kodon sendita al<br>",
-                "newenter": "Enigu vian pasvorton",
-                "code": ["Kodo", "Pasvorto"],
-                "errorv": ["Malĝusta kodo! Provu denove.", "Malĝusta pasvorto! Provu denove."],
-                "sucess": "Datumoj modifitaj sukcese!",
-                "submitv": "Konfirmi",
-                "gobackl": "Hups! Mi eraris kun miaj datumoj."
-            },
-            "mailtext": "Via kodo estas:"
+                "reset": "Restarigu programaron"
+            }
         },
         "pt":{
             "topbar":{
@@ -400,38 +275,19 @@
                 "title": "Configuração",
                 "table":{
                     "tdname": "Nome:",
-                    "tdmail": "E-mail:",
-                    "tdphone": "Telefone:",
-                    "tdbirthday": "Aniversário:",
-                    "tdpassword": "Senha:",
                     "tdlanguage": "Língua: ",
-		    "tdnameindex": "Nome preferido:",
-                    "tdpasswordmode": "Modo senha:",
-                    "name": "Nome",
-                    "user": "E-mail",
-                    "phone": "Telefone",
-                    "birthdate": "Aniversário",
-                    "password": "Senha"
+                    "name": "Nome"
                 },
-                "error": "Digite pelo menos um nome, um endereço de e-mail e uma senha.",
-                "sucessa": ["Modo senha ativado.<br>Atenção: O modo senha é inseguro! Use somente se você não conseguir recber códigos 2FA.", "Modo senha desativado."],
+                "error": "Digite pelo menos um nome.",
+                "sucessa": "Dados guardados com sucesso!",
+                "changepasswd": "Modificar senha",
                 "save": "Guardar",
                 "backup": "Fazer backup",
                 "restore":"Restaurar backup",
                 "backup-success": "Backup feito com sucesso!",
                 "backup-failure": "O backup falhou!",
                 "reset": "Redefinir app"
-            },
-            "verify":{
-                "nowenter": "Digite o código enviado para<br>",
-                "newenter": "Digite a sua senha",
-                "code": ["Código", "Senha"],
-                "errorv": ["Código incorreto! Tente de novo.", "Senha incorreta! Tente de novo."],
-                "sucess": "Dados modificados com sucesso!",
-                "submitv": "Verificar",
-                "gobackl": "Ups! Eu cometi um erro com meus dados."
-            },
-            "mailtext": "O seu código é:"
+            }
         },
         "nb":{
             "topbar":{
@@ -441,38 +297,19 @@
                 "title": "Innstillinger",
                 "table":{
                     "tdname": "Navn:",
-                    "tdmail": "E-post:",
-                    "tdphone": "Telefon:",
-                    "tdbirthday": "Fødselsdag:",
-                    "tdpassword": "Passord:",
                     "tdlanguage": "Språk: ",
-		    "tdnameindex": "Ønsket navn:",
-                    "tdpasswordmode": "Passordmodus:",
-                    "name": "Navn",
-                    "user": "E-post",
-                    "phone": "Telefon",
-                    "birthdate": "Fødselsdag",
-                    "password": "Passord"
+                    "name": "Navn"
                 },
-                "error": "Skriv inn minst et navn, en e-post og et passord.",
-                "sucessa": ["Passordmodus aktivert.<br>Advarsel: Passordmodusen er usikker! Bruk den bare hvis du ikke kan få 2FA-koder.", "Passordmodus deaktivert."],
+                "error": "Skriv inn minst et navn.",
+                "sucessa": "Dataene ble lagret med suksess!",
+                "changepasswd": "Endre passord",
                 "save": "Lagre",
                 "backup": "Lage backup",
                 "restore":"Gjenopprette backup",
                 "backup-success": "Backup laget med suksess!",
                 "backup-failure": "Backup mislyktes!",
                 "reset": "Nullstill appen"
-            },
-            "verify":{
-                "nowenter": "Skriv inn koden sendt til<br>",
-                "newenter": "Skriv inn passordet ditt",
-                "code": ["Kode", "Passord"],
-                "errorv": ["Feil kode! Prøv på nytt.", "Feil passord! Prøv på nytt."],
-                "sucess": "Dataene ble endret med suksess!",
-                "submitv": "Bekreft",
-                "gobackl": "Jøss! Jeg har feil i dataene mine."
-            },
-            "mailtext": "Koden din er:"
+            }
         },
         "kr":{
             "topbar":{
@@ -482,38 +319,19 @@
                 "title": "설정",
                 "table":{
                     "tdname": "이름:",
-                    "tdmail": "이메일:",
-                    "tdphone": "전화 번호:",
-                    "tdbirthday": "생일:",
-                    "tdpassword": "암호:",
                     "tdlanguage": "언어: ",
-		    "tdnameindex": "선호하는 이름:",
-                    "tdpasswordmode": "암호 모드:",
-                    "name": "이름",
-                    "user": "이메일",
-                    "phone": "전화 번호",
-                    "birthdate": "생일",
-                    "password": "암호"
+                    "name": "이름"
                 },
-                "error": "최소한 이름, 이메일 및 암호를 입력하세요.",
-                "sucessa": ["암호 모드를 활성화했습니다.<br>경고: 암호 모드는 안전하지 않습니다! 2FA 코드를 받을 수 없는 경우에만 사용해도 됩니다.", "암호 모드를 비활성화했습니다."],
+                "error": "최소한 이름을 입력하세요.",
+                "sucessa": "데이터가 성공적으로 저장되었습니다!",
+                "changepasswd": "암호 수정",
                 "save": "저장",
                 "backup": "백업 하기",
                 "restore":"백업 복원",
                 "backup-success": "백업이 성공적으로 완료되었습니다!",
                 "backup-failure": "백업 실패!",
                 "reset": "앱 재설정"
-            },
-            "verify":{
-                "nowenter": "으로<br>보낸 코드를 입력하세요",
-                "newenter": "암호를 입력하세요",
-                "code": ["코드", "암호"],
-                "errorv": ["잘못된 코드! 다시 시도해주세요.", "잘못된 암호! 다시 시도해주세요."],
-                "sucess": "데이터가 성공적으로 수정되었습니다!",
-                "submitv": "확인",
-                "gobackl": "오, 내 데이터가 잘못됐구나."
-            },
-            "mailtext": "확인 코드:"
+            }
         }
     },
     "logout": {
@@ -600,7 +418,7 @@
                 "nowenter": "Enigu vian pasvorton",
                 "vpass": "Pasvorto",
                 "errorv": "Malĝusta pasvorto! Provu denove.",
-                "vsubmit": "Konfirmi"
+                "vsubmit": "Konfirmu"
             }
         },
         "pt":{
@@ -809,7 +627,7 @@
                 "nowenter": "Enigu vian pasvorton",
                 "vpass": "Pasvorto",
                 "errorv": "Malĝusta pasvorto! Provu denove.",
-                "vsubmit": "Konfirmi"
+                "vsubmit": "Konfirmu"
             }
         },
         "pt": {
@@ -957,7 +775,7 @@
                 "nowenter": "Enigu vian pasvorton",
                 "vpass": "Pasvorto",
                 "errorv": "Malĝusta pasvorto! Provu denove.",
-                "vsubmit": "Konfirmi"
+                "vsubmit": "Konfirmu"
             }
         },
         "pt": {
@@ -1236,7 +1054,7 @@
                 "nowenter": "Enigu vian pasvorton",
                 "vpass": "Pasvorto",
                 "errorv": "Malĝusta pasvorto! Provu denove.",
-                "vsubmit": "Konfirmi"
+                "vsubmit": "Konfirmu"
             }
         },
         "pt": {
@@ -1401,50 +1219,180 @@
             "about": {
                 "madeby": "Made with love by:",
                 "author": "Mónica Nayely Flores Gómez (Autumn64)",
-                "license": "Licensed under the BSD 3-Clause license."
+                "license": "Licensed under the GNU GPL v3."
             }
         },
         "es": {
             "about": {
                 "madeby": "Hecho con amor por:",
                 "author": "Mónica Nayely Flores Gómez (Autumn64)",
-                "license": "Con licencia BSD de 3 Cláusulas."
+                "license": "Con licencia GNU GPL v3."
             }
         },
         "fr": {
             "about": {
                 "madeby": "Fait avec amour par:",
                 "author": "Mónica Nayely Flores Gómez (Autumn64)",
-                "license": "Avec licence BSD à 3 Clauses."
+                "license": "Avec licence GNU GPL v3."
             }
         },
         "eo": {
             "about": {
                 "madeby": "Kun amo farita de:",
                 "author": "Mónica Nayely Flores Gómez (Autumn64)",
-                "license": "Laŭ BSD 3-Clause permesilo."
+                "license": "Laŭ GNU GPL v3 permesilo."
             }
         },
         "pt": {
             "about": {
                 "madeby": "Feito com amor por:",
                 "author": "Mónica Nayely Flores Gómez (Autumn64)",
-                "license": "Com licença BSD de 3 Cláusulas."
+                "license": "Com licença GNU GPL v3."
             }
         },
         "nb": {
             "about": {
                 "madeby": "Laget med kjærlighet av:",
                 "author": "Mónica Nayely Flores Gómez (Autumn64)",
-                "license": "Lisensiert under den BSD 3-Klausul lisensen."
+                "license": "Lisensiert under den GNU GPL v3 lisensen."
             }
         },
         "kr": {
             "about": {
                 "madeby": "이 앱을 사랑으로 만든 사람:",
                 "author": "안은별 (Autumn64).",
-                "license": "이 앱은 BSD 3-Clause 라이센스로 라이센스 부여됩니다."
+                "license": "이 앱은 GNU GPL v3 라이센스로 라이센스 부여됩니다."
             }
+        }
+    },
+    "changepass": {
+        "en": {
+            "title": "Change password",
+            "oldpass": "Current password",
+            "newpass": "New password",
+            "renewpass": "Retype new password",
+            "save": "Save",
+            "success": "Password updated successfully!",
+            "errwp": "Wrong password! Try again.",
+            "errdp": "The new password doesn't match! Try again.",
+            "errsp": "The new password must have at least 8 characters!"
+        },
+        "es": {
+            "title": "Cambiar contraseña",
+            "oldpass": "Contraseña actual",
+            "newpass": "Nueva contraseña",
+            "renewpass": "Reescribe la nueva contraseña",
+            "save": "Guardar",
+            "success": "¡Contraseña actualizada satisfactoriamente!",
+            "errwp": "¡Contraseña incorrecta! Intenta de nuevo.",
+            "errdp": "¡La nueva contraseña no coincide! Intenta de nuevo.",
+            "errsp": "¡La nueva contraseña debe contener al menos 8 caracteres!"
+        },
+        "fr": {
+            "title": "Modifier mot de passe",
+            "oldpass": "Mot de passe actuel",
+            "newpass": "Mot de passe nouveau",
+            "renewpass": "Entrez à nouveau mot de passe",
+            "save": "Sauvegarder",
+            "success": "Mot de passe actualisé avec succès!",
+            "errwp": "Mot de passe incorrect! Essayez à nouveau.",
+            "errdp": "Le mot de passe ne correspond pas! Essayez à nouveau.",
+            "errsp": "Le nouveau mot de passe doit comporter au moins 8 caractères!"
+        },
+        "eo": {
+            "title": "Ŝanĝi pasvorton",
+            "oldpass": "Nuna pasvorto",
+            "newpass": "Nova pasvorto",
+            "renewpass": "Retajpu novan pasvorton",
+            "save": "Konservi",
+            "success": "Pasvorto ĝisdatigita sukcese!",
+            "errwp": "Malĝuste! Provu denove.",
+            "errdp": "La nova pasvorto ne kongruas! Provu denove.",
+            "errsp": "La nova pasvorto devas enhavi almenaŭ 8 signojn!"
+        },
+        "pt": {
+            "title": "Modificar senha",
+            "oldpass": "Senha atual",
+            "newpass": "Nova senha",
+            "renewpass": "Digite de novo a senha",
+            "save": "Guardar",
+            "success": "Senha atualizada com suceso!",
+            "errwp": "Senha incorreta! Tente de novo.",
+            "errdp": "A nova senha não corresponde! Tente de novo.",
+            "errsp": "A nova senha deve ter pelo menos 8 caracteres!"
+        },
+        "nb": {
+            "title": "Endre passord",
+            "oldpass": "Nåværende passord",
+            "newpass": "Nytt passord",
+            "renewpass": "Skriv passordet på nytt",
+            "save": "Lagre",
+            "success": "Passordet ble oppdatert med suksess!",
+            "errwp": "Feil passord! Prøv på nytt",
+            "errdp": "Det nye passordet stemmer ikke! Prøv på nytt.",
+            "errsp": "Det nye passordet må ha minst 8 tegn!"
+        },
+        "kr": {
+            "title": "암호 수정",
+            "oldpass": "현재 암호",
+            "newpass": "새로운 암호",
+            "renewpass": "새로운 암호 다시 입력",
+            "save": "저장",
+            "success": "암호가 성공적으로 저장되었습니다!",
+            "errwp": "잘못된 암호! 다시 시도해주세요.",
+            "errdp": "새로운 암호 일치가 없습니다! 다시 시도해주세요.",
+            "errsp": "새로운 암호가 최소 8자 있어야 됩니다!"
+        }
+    },
+    "misc": {
+        "en": {
+            "newver": ["RaccoonLock", "is now available."],
+            "bcsuccess": "Backup made successfully!",
+            "notrlfile": "That's not a RaccoonLock backup file!",
+            "brsuccess": "Backup restored successfully!",
+            "restart": "RaccoonLock will restart."
+        },
+        "es": {
+            "newver": ["RaccoonLock", "está ahora disponible."],
+            "bcsuccess": "¡Respaldo hecho exitosamente!",
+            "notrlfile": "¡Ese no es un archivo de respaldo de RaccoonLock!",
+            "brsuccess": "¡Respaldo reestablecido exitosamente!",
+            "restart": "RaccoonLock se reiniciará."
+        },
+        "fr": {
+            "newver": ["RaccoonLock", "est maintenant disponible."],
+            "bcsuccess": "Backup fait avec succès!",
+            "notrlfile": "Cela n'est pas un fichier de RaccoonLock!",
+            "brsuccess": "Backup restauré avec succès!",
+            "restart": "RaccoonLock redémarrera."
+        },
+        "eo": {
+            "newver": ["RaccoonLock", "nun haveblas."],
+            "bcsuccess": "Sekurkopio farita sukcese!",
+            "notrlfile": "Tio ne estas dosiero de RaccoonLock!",
+            "brsuccess": "Sekurkopio restarigita sukcese!",
+            "restart": "RaccoonLock restartiĝos."
+        },
+        "pt": {
+            "newver": ["RaccoonLock", "agora está disponível."],
+            "bcsuccess": "Backup feito com sucesso!",
+            "notrlfile": "Isso não é um arquivo de RaccoonLock!",
+            "brsuccess": "Backup restaurado com sucesso!",
+            "restart": "RaccoonLock va reiniciar."
+        },
+        "nb": {
+            "newver": ["RaccoonLock", "er nå tilgjengelig."],
+            "bcsuccess": "Backup laget med suksess!",
+            "notrlfile": "Det er ikke ei RaccoonLock fil!",
+            "brsuccess": "Backup restaurert med suksess!",
+            "restart": "RaccoonLock skal starte på nytt."
+        },
+        "kr": {
+            "newver": ["RaccoonLock", "가 지금 사용 가능합니다."],
+            "bcsuccess": "백업이 성공적으로 완료되었습니다!",
+            "notrlfile": "그 파일은 RaccoonLock 파일 아닙니다!",
+            "brsuccess": "백업이 성공적으로 복원되었습니다!",
+            "restart": "RaccoonLock는 다시 시작하겠습니다."
         }
     }
 }

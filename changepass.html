@@ -1,0 +1,41 @@
+<!--
+Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
+
+RaccoonLock is free software: you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by 
+the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
+
+RaccoonLock is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License 
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+        <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="css/changepass.css">
+        <title>RaccoonLock</title>
+    </head>
+    <body>
+        <div id="topbar">
+            <button id="goback"><-</button>
+        </div><br><br>
+        <div id="container">
+            <h2 id="title">Change password</h2>
+            <input id="oldpass" type="password" placeholder="Old password">
+            <input id="newpass" type="password" placeholder="New password">
+            <input id="renewpass" type="password" placeholder="Retype new password">
+            <button id="save">Save</button>
+        </div>
+    </body>
+    <script src="./js/changepass.js"></script>
+</html>

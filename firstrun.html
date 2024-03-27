@@ -1,3 +1,20 @@
+<!--
+Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
+
+RaccoonLock is free software: you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by 
+the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
+
+RaccoonLock is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License 
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+-->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -16,22 +33,12 @@
       <br><br><br><br>
       <h2>First, let's set up an account.</h2><br><br>
       <input id="name" type="text" placeholder="Name" required><br>
-      <input id="email" type="email" placeholder="E-mail address" required><br>
-      <input id="password" type="password" placeholder="Password" required>
+      <input id="password" type="password" placeholder="Password" required><br>
+      <input id="repassword" type="password" placeholder="Retype password" required>
       <div id="error" class="hidden">
       </div><br><br>
-      <button id="submit">Start</button>
-    </div>
-    <div id="verify" class="hidden">
-      <br><br><br><br>
-      <h2 id="nowenter"></h2>
-      <h4>(If you don't have an internet connection or you can't receive the code, <br>type your password instead).</h4><br><br>
-      <input id="code" type="password" placeholder="Code" required>
-      <div id="errorv" class="hidden">
-      </div>
-      <div id="success" class="hidden">If you're having issues receiving the code, please <br>activate Password Mode in Settings.</div><br><br>
-      <button id="submitv">Verify</button><br>
-      <a id="goback" href="#">Whoops! I got my data wrong.</a>
+      <button id="submit">Start</button><br><br><br>
+      <button id="restoreacc">I already have an account</button>
     </div>
   </body>
   <script src="js/firstrun.js"></script>

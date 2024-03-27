@@ -1,0 +1,30 @@
+Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
+
+RaccoonLock is free software: you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by 
+the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
+
+RaccoonLock is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License 
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
+CHANGELOG:
+
+v5.0.0:
+    - Re-licensed RaccoonLock and RaccoonReader to the GNU GPL v3.
+    - Fixed the critical security bug that made RaccoonReader able to decrypt information without
+    the password.
+    - Added more services.
+    - Added 'Change Password' section.
+    - Fixed some translations.
+    - Created new format `.rld`, previously used for error dumps, now more secure and reliable
+    for storing encrypted information with RaccoonReader.
+    - Separated encrypted from unencrypted information into two different files.
+    - Rebuilt backup algorithms so they now work with GNU tar.
+    - Fixed and refactored the major part of the mess the whole codebase used to be.
+    - Removed 2FA since nobody used it (and I accidentally leaked the API key for the Google e-mail account).

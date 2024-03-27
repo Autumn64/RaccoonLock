@@ -1,9 +1,39 @@
-const { app, BrowserWindow, Notification, ipcMain, dialog} = require('electron');
+/*
+Copyright (c) 2023-2024, Mónica Gómez (Autumn64)
 
-const currentVer = 450;
+RaccoonLock is free software: you can redistribute it and/or modify it 
+under the terms of the GNU General Public License as published by 
+the Free Software Foundation, either version 3 of the License, or 
+(at your option) any later version.
+
+RaccoonLock is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of 
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU 
+General Public License for more details.
+
+You should have received a copy of the GNU General Public License 
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+*/
+
+const { app, BrowserWindow, Notification, ipcMain, dialog } = require('electron');
+const fs = require('fs');
+const tar = require('tar');
+const interfaces = require("./js/interfaces.js");
+const path = interfaces.getPath();
+const langs = require("./js/lang/languages.json");
+let userinfo
+let currentlang
+
+if (fs.existsSync(`${path}/config.json`)){
+    userinfo = require(`${path}/config.json`);
+    currentlang = langs.misc[userinfo.language];
+}else{
+    currentlang = langs.misc["en"]
+}
+
+const currentVer = 500;
 
 function createWindow(){
-
     const win = new BrowserWindow({
         width: 800,
         height: 600,
@@ -16,54 +46,41 @@ function createWindow(){
         }
     });
 
-    ipcMain.on('save-dialog', async (event) => {
+    ipcMain.on('backup-c', async (event) => {
         const options = {
           filters: [
-            { name: 'RaccoonLock Container', extensions: ['rlc'] }
+            { name: 'RaccoonLock Backup File (.tar.gz)', extensions: ['tar.gz'] }
           ]
         };
-    
         const { filePath } = await dialog.showSaveDialog(win, options);
-
         if (!filePath){
-            event.sender.send('save-dialog-closed', null);
             return;
         }
-
-        event.sender.send('save-dialog-closed', filePath);
+        createBackup(filePath);
     });
 
-    ipcMain.on('open-dialog', async (event) => {
+    ipcMain.on('backup-r', async (event) => {
         const options ={
             filters: [
-                { name: 'RaccoonLock Container', extensions: ['rlc'] }
+                { name: 'RaccoonLock Backup File (.tar.gz)', extensions: ['tar.gz'] }
             ]
         };
-
         const { filePaths } = await dialog.showOpenDialog(win, options);
-
         if (filePaths.length < 1){
-            event.sender.send('open-dialog-closed', null);
             return;
         }
-        
-        event.sender.send('open-dialog-closed', filePaths[0]);
+        restoreBackup(filePaths[0]);
     });
 
-    ipcMain.on('backup-success', (event, message, path) =>{
+    ipcMain.on('change-lang', (event, newlang) =>{
+        currentlang = langs.misc[newlang];
+    });
+
+    ipcMain.on('message', (event, message) =>{
         dialog.showMessageBoxSync({
             type: 'info',
             title: 'RaccoonLock',
-            message: `${message} ${path}`,
-            buttons: ['OK']
-        });
-    });
-
-    ipcMain.on('backup-failure', (event, message, error) =>{
-        dialog.showMessageBox({
-            type: 'info',
-            title: 'RaccoonLock',
-            message: `${message} ${error}`,
+            message: `${message}`,
             buttons: ['OK']
         });
     });
@@ -73,7 +90,6 @@ function createWindow(){
         app.exit(0);
     });
 
-    //win.webContents.openDevTools();
     win.removeMenu();
     win.loadFile('index.html');
 }
@@ -107,6 +123,57 @@ function checkUpdates(){
 const newUpdate = (version) =>{
 	new Notification({
 		title: "RaccoonLock",
-		body: `RaccoonLock ${version} is now available.`,
+		body: `${currentlang.newver[0]} ${version} ${currentlang.newver[1]}`
 	}).show();
+}
+
+function createBackup(filePath){
+    filePath = filePath.includes(".tar.gz") ? filePath : `${filePath}.tar.gz`;
+    tar.c({
+        gzip: true,
+        file: filePath,
+        C: path
+    }, [`config.json`, `data.rld`])
+    .then(() => dialog.showMessageBoxSync({
+        type: 'info',
+        title: 'RaccoonLock',
+        message: currentlang.bcsuccess,
+        buttons: ['OK']
+    }));
+}
+
+async function restoreBackup(filePath){
+    const filenames = [];
+    await tar.t({
+        file: filePath,
+        onentry: entry => filenames.push(entry.path)
+    }).then(() =>{});
+    if (!filenames.includes("config.json") || !filenames.includes("data.rld")){
+        dialog.showMessageBoxSync({
+            type: 'info',
+            title: 'RaccoonLock',
+            message: currentlang.notrlfile,
+            buttons: ['OK']
+        });
+        return;
+    }
+    if(!fs.existsSync(path)) fs.mkdirSync(path);
+    tar.x({
+        file: filePath,
+        C: path
+    })
+    .then(() => {
+        const messages = [currentlang.brsuccess, currentlang.restart];
+
+        for (let i = 0; i < 2; i++){
+            dialog.showMessageBoxSync({
+                type: 'info',
+                title: 'RaccoonLock',
+                message: messages[i],
+                buttons: ['OK']
+            });
+        }
+        app.relaunch();
+        app.exit(0);
+    });
 }
