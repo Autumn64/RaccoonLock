@@ -24,14 +24,15 @@ const langs = require("./js/lang/languages.json");
 let userinfo
 let currentlang
 
+
 if (fs.existsSync(`${path}/config.json`)){
     userinfo = require(`${path}/config.json`);
     currentlang = langs.misc[userinfo.language];
 }else{
-    currentlang = langs.misc["en"]
+    currentlang = langs.misc["en"];
 }
 
-const currentVer = 500;
+const currentVer = 510;
 
 function createWindow(){
     const win = new BrowserWindow({
@@ -42,7 +43,7 @@ function createWindow(){
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
-            enableRemoteModule: false,
+            enableRemoteModule: false
         }
     });
 
@@ -91,7 +92,7 @@ function createWindow(){
     });
 
     win.removeMenu();
-    win.loadFile('index.html');
+    win.loadFile('index.html', { query: { arguments: JSON.stringify(process.argv) } });
 }
 
 app.whenReady().then(() =>{

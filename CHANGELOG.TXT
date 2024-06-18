@@ -15,6 +15,10 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 CHANGELOG:
 
+v5.1.0:
+    - Ask for password change when updating data file if old password had a length of 
+    less than 8 characters.
+
 v5.0.0:
     - Re-licensed RaccoonLock and RaccoonReader to the GNU GPL v3.
     - Fixed the critical security bug that made RaccoonReader able to decrypt information without
