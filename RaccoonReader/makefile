@@ -20,6 +20,8 @@ EXFLAGS = -lssl -lcrypto
 CC = gcc
 VPATH = src:build
 
+all : oldreader raccoonreader
+
 raccoonreader : raccoonreader.o smartstr.c
 	$(CC) $(CFLAGS) $^ -o $@ $(EXFLAGS)
 
@@ -27,6 +29,15 @@ build/raccoonreader.o : raccoonreader.c
 	mkdir -p build
 	$(CC) $(CFLAGS) -c $? -o $@
 
+oldreader : oldreader.o
+	$(CC) $(CFLAGS) $^ -o $@ $(EXFLAGS)
+
+build/oldreader.o : oldreader/raccoonreader.c
+	mkdir -p build
+	$(CC) $(CFLAGS) -c $? -o $@
+
 .PHONY = clean
 clean :
 	rm -rfv build
+	rm -f raccoonreader
+	rm -f oldreader

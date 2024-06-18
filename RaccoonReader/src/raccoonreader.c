@@ -31,6 +31,7 @@ All errors are written to STDERR.
 */
 
 #include <stdio.h>
+#include <stdbool.h>
 #include <openssl/err.h>
 #include <openssl/evp.h>
 #include <openssl/rand.h>
@@ -42,7 +43,7 @@ All errors are written to STDERR.
 #define ITERATIONS 10000
 
 void splash(char *message){
-	printf("RaccoonReader v5.0.0\n");
+	printf("RaccoonReader v5.1.0\n");
 	printf("Copyright (c) 2023-2024, Mónica Gómez (Autumn64)\n");
 	printf("This program is free software: you can redistribute it and/or modify it\n");
 	printf("under the terms of the GNU General Public License as published by\n");
@@ -61,6 +62,7 @@ void splash(char *message){
 void help(){
 	printf("Usage:\n");
 	printf("  Encrypt a file: raccoonreader -c <FILENAME>, raccoonreader --symmetric <FILENAME>\n");
+	printf("  Encrypt a file forcing an invalid password (eg. a password with less than 8 characters): raccoonreader -cf <FILENAME>, raccoonreader --symmetric_force <FILENAME>\n");
 	printf("  Decrypt a file: raccoonreader -d <FILENAME>, raccoonreader --decrypt <FILENAME>\n");
 	printf("  Display this screen: raccoonreader -h, raccoonreader --help\n");
 	return;
@@ -71,7 +73,7 @@ void error(char *message){
 	exit(1);
 }
 
-void encrypt(char *filename){
+void encrypt(char *filename, bool force_password){
 	String info = str_new();
 	String password1 = str_new();
 	String password2 = str_new();
@@ -82,7 +84,7 @@ void encrypt(char *filename){
 		str_free(&info);
 		error("Couldn't allocate memory for the password!");
 	}
-	if (password1.length < 9){ //9 because it counts the null character.
+	if (password1.length < 9 && force_password == false){ //9 because it counts the null character.
 		str_free(&info); str_free(&password1);
 		error("Password must have a length of at least 8 characters!");
 	}
@@ -282,7 +284,13 @@ int main(int argc, char *argv[]){
 	if (argc == 3 && (strcmp(argv[1], "-c") == 0
 	   || strcmp(argv[1], "--symmetric") == 0)){
 		splash("\nPreparing to encrypt 1 file.\nWARNING: This operation will overwrite any data if the specified file already exists!\n\n");
-		encrypt(argv[2]);
+		encrypt(argv[2], false);
+		return 0;
+	}
+	if (argc == 3 && (strcmp(argv[1], "-cf") == 0
+	   || strcmp(argv[1], "--symmetric_force") == 0)){
+		splash("\nPreparing to encrypt 1 file.\nWARNING: This operation will overwrite any data if the specified file already exists!\n\n");
+		encrypt(argv[2], true);
 		return 0;
 	}
 	if (argc == 3 && (strcmp(argv[1], "-d") == 0
@@ -293,7 +301,8 @@ int main(int argc, char *argv[]){
 	}
 	//Send an error message if user specifies the right parameter but doesn't specify the file.
 	if (argc == 2 && (strcmp(argv[1], "-c") == 0
-	   || strcmp(argv[1], "--symmetric") == 0)){
+	   || strcmp(argv[1], "--symmetric") == 0 || strcmp(argv[1], "-cf") == 0
+	   || strcmp(argv[1], "--symmetric_force") == 0)){
 		splash("");
 		error("A file must be specified!");
 		return 1;
