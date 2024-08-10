@@ -15,6 +15,11 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 CHANGELOG:
 
+v5.1.1:
+    - Fix the error that caused RaccoonLock not to run on Ubuntu 24.04.
+    - Fix the error that made it impossible for RaccoonLock to find RaccoonReader when
+    running outside the app's working directory.
+
 v5.1.0:
     - Ask for password change when updating data file if old password had a length of 
     less than 8 characters.
