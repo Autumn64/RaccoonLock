@@ -36,12 +36,12 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     if(fs.existsSync(`${path}/data.rld`) && !fs.existsSync(`${path}/config.json`)){
-        setTimeout(() => window.location.href = `error.html?err=${encodeURIComponent("Config file not found!")}`, 2000);
+        setTimeout(() => window.location.href = `error.html?err=${encodeURIComponent("Config file not found! `config.json` ENOENT")}`, 2000);
         return;
     }
 
     if(!fs.existsSync(`${path}/data.rld`) && fs.existsSync(`${path}/config.json`)){
-        setTimeout(() => window.location.href = `error.html?err=${encodeURIComponent("FATAL ERROR: Data file not found!")}`, 2000);
+        setTimeout(() => window.location.href = `error.html?err=${encodeURIComponent("FATAL ERROR: Data file not found! `data.rld` ENOENT")}`, 2000);
         return;
     }
     

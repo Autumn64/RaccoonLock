@@ -14,3 +14,5 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 Current TODOs:
+- #3 Add Support to Import Passwords from Password Database Files: https://codeberg.org/Autumn64/RaccoonLock/issues/3
+- #4 Improving Features of Password Generator: https://codeberg.org/Autumn64/RaccoonLock/issues/4
